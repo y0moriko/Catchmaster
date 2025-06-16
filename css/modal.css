@@ -1,0 +1,28 @@
+/* Custom backdrop with blur and translucency for visible background */
+.modal-backdrop.show {
+  background-color: rgba(0, 0, 0, 0.5) !important; /* darker black for more contrast */
+  backdrop-filter: blur(10px); /* Increased blur */
+  -webkit-backdrop-filter: blur(10px); /* Increased blur */
+}
+
+/* Modal content with glass morphism style */
+.modal-content {
+  background: rgba(255, 255, 255, 0.7); /* More transparent for better blur effect */
+  backdrop-filter: saturate(180%) blur(15px);
+  -webkit-backdrop-filter: saturate(180%) blur(15px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+/* Ensure labels and inputs have good contrast on this background */
+label {
+  font-weight: 600;
+  color: #222;
+}
+
+.modal-header .close {
+  color: #444;
+  opacity: 1;
+  font-size: 1.5rem;
+}
