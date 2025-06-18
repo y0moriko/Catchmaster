@@ -289,7 +289,7 @@ section {
 }
 .page-container {
     background: #e5e5e5;
-    padding-left: 300px;
+    padding-left: 200px;
 }
 
 @media (max-width: 991px) {
@@ -442,6 +442,19 @@ section {
 .main-content--pb30 {
     padding-bottom: 30px;
 }
+.has-sub {
+    position: relative;
+}
+
+/* Parent container for dropdown */
+.has-sub {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+
 
 /*-----------------------------------------------------*/
 /*                   COMPONENTS                        */
@@ -1191,7 +1204,7 @@ section {
     position: fixed;
     top: 0;
     right: 0;
-    left: 300px;
+    left: 200px;
     height: 75px;
     z-index: 3;
 }
@@ -1580,7 +1593,7 @@ section {
 }
 
 .menu-sidebar {
-    width: 300px;
+    width: 200px;
     position: fixed;
     left: 0;
     top: 0;
@@ -4602,12 +4615,12 @@ section {
     }
 
     .table-data__tool .table-data__tool-right {
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .table-data__tool .table-data__tool-right > button {
         margin-right: 0;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 }
 
@@ -6135,7 +6148,7 @@ section {
 }
 
 .p-t-20 {
-    padding-top: 20px;
+    padding-top: 90px;
 }
 
 .p-r-20 {

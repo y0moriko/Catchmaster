@@ -9,15 +9,12 @@
     /* Custom backdrop with blur and translucency for visible background */
     .modal-backdrop.show {
       background-color: rgba(0, 0, 0, 0.3) !important; /* lighter black */
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
 
     /* Modal content with glass morphism style */
     .modal-content {
       background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: saturate(180%) blur(15px);
-      -webkit-backdrop-filter: saturate(180%) blur(15px);
+      backdrop-filter: none; /* No blur on modal content */
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
@@ -39,22 +36,34 @@
     .capitalize {
       text-transform: capitalize;
     }
+
+    /* Blur effect for background when modal is open */
+    .blur-background {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+    }
   </style>
 </head>
 <body style="background-color: lightgray; min-height: 100vh;">
 
+  <!-- Background content (e.g., a table) -->
+  <div id="backgroundContent">
+    <h1>Fisherman Table</h1>
+    <p>This is the background content that will be blurred when the modal is open.</p>
+    <!-- Add more content here -->
+  </div>
+
   <!-- Modal -->
-  <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
+  <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true" style="display: block">
     <div class="modal-dialog" role="document">
       <form class="modal-content" action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
         <div class="modal-header">
           <h5 class="modal-title" id="fisherModalLabel">Add Fisherman</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal" onclick="redirectToTable()">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal" onclick="closeModal()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-
           <!-- Name Fields -->
           <div class="form-group">
             <label for="firstName">First Name<span class="text-danger">*</span></label>
@@ -142,12 +151,16 @@
 
         // Show modal automatically on page load
         $('#fisherModal').modal('show');
+        // Blur the background content
+        document.getElementById('backgroundContent').classList.add('blur-background');
       }, false);
     })();
 
-    function redirectToTable() {
-      // Redirect to the table file (replace 'table.html' with your actual file name)
-      window.location.href = 'table.html';
+    function closeModal() {
+      // Hide the modal
+      $('#fisherModal').modal('hide');
+      // Remove blur from background content
+      document.getElementById('backgroundContent').classList.remove('blur-background');
     }
   </script>
 </body>
