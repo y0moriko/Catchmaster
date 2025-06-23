@@ -32,6 +32,7 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+
     <style>
     body {
         position: relative;
@@ -52,13 +53,12 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        filter: blur(5px); /* Adjust blur intensity */
-        z-index: -1; /* Place it behind the content */
+        filter: blur(5px); 
+        z-index: -1; 
     }
 </style>
 
 </head>
-
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
@@ -73,7 +73,7 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="#">
+                                <a href="index3.html">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -84,9 +84,14 @@
                             <li>
                                 <a href="#">
                                     <i class="fas fa-shopping-basket"></i>
-                                    <span class="bot-line"></span>eCommerce</a>
+                                    <span class="bot-line"></span>Fish Directory</a>
                             </li>
-                                <li class="has-sub">
+                             <li>
+                                <a href="fish_catch.html">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span class="bot-line"></span>Fish Catch</a>
+                            </li>
+                            <li class="has-sub">
                                     <a class="js-arrow" href="#">
                                         <i class="fas fa-copy"></i>
                                         <span class="bot-line"></span>User Management</a>
@@ -99,63 +104,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                            <li class="has-sub">
-                                <a href="#">
-                                    <i class="fas fa-copy"></i>
-                                    <span class="bot-line"></span>Pages</a>
-                                <ul class="header3-sub-list list-unstyled">
-                                    <li>
-                                        <a href="login.html">Login</a>
-                                    </li>
-                                    <li>
-                                        <a href="register.html">Register</a>
-                                    </li>
-                                    <li>
-                                        <a href="forget-pass.html">Forget Password</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-sub">
-                                <a href="#">
-                                    <i class="fas fa-desktop"></i>
-                                    <span class="bot-line"></span>UI Elements</a>
-                                <ul class="header3-sub-list list-unstyled">
-                                    <li>
-                                        <a href="button.html">Button</a>
-                                    </li>
-                                    <li>
-                                        <a href="badge.html">Badges</a>
-                                    </li>
-                                    <li>
-                                        <a href="tab.html">Tabs</a>
-                                    </li>
-                                    <li>
-                                        <a href="card.html">Cards</a>
-                                    </li>
-                                    <li>
-                                        <a href="alert.html">Alerts</a>
-                                    </li>
-                                    <li>
-                                        <a href="progress-bar.html">Progress Bars</a>
-                                    </li>
-                                    <li>
-                                        <a href="modal.html">Modals</a>
-                                    </li>
-                                    <li>
-                                        <a href="switch.html">Switchs</a>
-                                    </li>
-                                    <li>
-                                        <a href="grid.html">Grids</a>
-                                    </li>
-                                    <li>
-                                        <a href="fontawesome.html">FontAwesome</a>
-                                    </li>
-                                    <li>
-                                        <a href="typo.html">Typography</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+
+                            <li>  
                     </div>
                     <div class="header__tool">
                         <div class="header-button-item has-noti js-item-menu">
@@ -305,18 +255,9 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <!-- <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li> -->
                                 <li>
                                     <a href="index3.html">Dashboard 3</a>
                                 </li>
-                                <!-- <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li> -->
                             </ul>
                         </li>
                         <li>
@@ -350,7 +291,7 @@
                                     <a href="register.html">Register</a>
                                 </li>
                                 <li>
-                                    <a href="forget-pass.html">Forget Password</a>
+                                    <a href="forget-pass.html"></a>
                                 </li>
                             </ul>
                         </li>
@@ -518,262 +459,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- END HEADER MOBILE -->
-
-        <!-- PAGE CONTENT-->
-        <div class="page-content--bgf7">
-            <!-- BREADCRUMB-->
-            <section class="au-breadcrumb2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="au-breadcrumb-content">
-                                <div class="au-breadcrumb-left">
-                                    <span class="au-breadcrumb-span">You are here:</span>
-                                    <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                        <li class="list-inline-item active">
-                                            <a href="#">Home</a>
-                                        </li>
-                                        <li class="list-inline-item seprate">
-                                            <span>/</span>
-                                        </li>
-                                        <li class="list-inline-item">Dashboard</li>
-                                    </ul>
-                                </div>
-                                <form class="au-form-icon--sm" action="" method="post">
-                                    <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
-                                    <button class="au-btn--submit2" type="submit">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END BREADCRUMB-->
-
-            <!-- WELCOME-->
-            <section class="welcome p-t-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="title-4">Welcome back!
-                            </h1>
-                            <hr class="line-seprate">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END WELCOME-->
-
-            <!-- STATISTIC-->
-            <section class="statistic statistic2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--green">
-                                <h2 class="number">0</h2>
-                                <span class="desc">head fishermen</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-account-o"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--orange">
-                                <h2 class="number">0</h2>
-                                <span class="desc">fish catch</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-shopping-cart"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--blue">
-                                <h2 class="number">0</h2>
-                                <span class="desc">this week</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-calendar-note"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="statistic__item statistic__item--red">
-                                <h2 class="number">0</h2>
-                                <span class="desc">total earnings</span>
-                                <div class="icon">
-                                    <i class="zmdi zmdi-money"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END STATISTIC-->
-
-            <!-- STATISTIC CHART-->
-            <section class="statistic-chart">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">statistics</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4">
-                            <!-- CHART-->
-                            <div class="statistic-chart-1">
-                                <h3 class="title-3 m-b-30">chart</h3>
-                                <div class="chart-wrap">
-                                    <canvas id="widgetChart5"></canvas>
-                                </div>
-                                <div class="statistic-chart-1-note">
-                                    <span class="big">10,368</span>
-                                    <span>/ 16220 items sold</span>
-                                </div>
-                            </div>
-                            <!-- END CHART-->
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <!-- TOP CAMPAIGN-->
-                            <div class="top-campaign">
-                                <h3 class="title-3 m-b-30">top campaigns</h3>
-                                <div class="table-responsive">
-                                    <table class="table table-top-campaign">
-                                        <tbody>
-                                            <tr>
-                                                <td>1. Australia</td>
-                                                <td>$70,261.65</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2. United Kingdom</td>
-                                                <td>$46,399.22</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3. Turkey</td>
-                                                <td>$35,364.90</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4. Germany</td>
-                                                <td>$20,366.96</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5. France</td>
-                                                <td>$10,366.96</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- END TOP CAMPAIGN-->
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <!-- CHART PERCENT-->
-                            <div class="chart-percent-2">
-                                <h3 class="title-3 m-b-30">chart by %</h3>
-                                <div class="chart-wrap">
-                                    <canvas id="percent-chart2"></canvas>
-                                    <div id="chartjs-tooltip">
-                                        <table></table>
-                                    </div>
-                                </div>
-                                <div class="chart-info">
-                                    <div class="chart-note">
-                                        <span class="dot dot--blue"></span>
-                                        <span>products</span>
-                                    </div>
-                                    <div class="chart-note">
-                                        <span class="dot dot--red"></span>
-                                        <span>Services</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END CHART PERCENT-->
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END STATISTIC CHART-->
-
-            <script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('modal-content');
-            Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-
-            // Removed automatic modal display
-        }, false);
-    })();
-
-    // Function to show the modal
-    function showModal() {
-        $('#fisherModal').modal('show');
-    }
-
-    function redirectToTable() {
-        // Redirect to the table file (replace 'table.html' with your actual file name)
-        window.location.href = 'table.html';
-    }
-</script>
-
-
-                            <style>
-                                /* Custom backdrop with blur and translucency for visible background */
-                                .modal-backdrop.show {
-                                background-color: rgba(0, 0, 0, 0.3) !important; /* lighter black */
-                                backdrop-filter: blur(8px);
-                                -webkit-backdrop-filter: blur(8px);
-                                }
-
-                                /* Modal content with glass morphism style */
-                                .modal-content {
-                                background: rgba(255, 255, 255, 0.85);
-                                backdrop-filter: saturate(180%) blur(15px);
-                                -webkit-backdrop-filter: saturate(180%) blur(15px);
-                                border-radius: 12px;
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-                                }
-
-                                /* Ensure labels and inputs have good contrast on this background */
-                                label {
-                                font-weight: 600;
-                                color: #222;
-                                }
-
-                                .modal-header .close {
-                                color: #444;
-                                opacity: 1;
-                                font-size: 1.5rem;
-                                }
-
-                                /* Capitalize the first letter of each word in name fields */
-                                .capitalize {
-                                text-transform: capitalize;
-                                }
-                            </style>
-                            </head>
-                            <body style="background-color: lightgray; min-height: 100vh;">
-
-                                    <!-- Modal -->
-                        
-                        <!-- Modal -->
+        </div>    
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fisherModalLabel">Add item</h5>
+                                        <h5 class="modal-title" id="fisherModalLabel">Add Fish Species</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -782,59 +473,24 @@
 
                                 <!-- Name Fields -->
                                 <div class="form-group">
-                                    <label for="firstName">First Name<span class="text-danger">*</span></label>
+                                    <label for="firstName">Fish Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required />
                                     <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="middleName">Middle Name</label>
+                                    <label for="middleName">Scientific Name</label>
                                     <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                                    <label for="lastName">Description<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required />
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
-
-                                <!-- Birthday -->
-                                <div class="form-group">
-                                    <label for="birthday">Birthday<span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="birthday" name="birthday" required />
-                                    <div class="invalid-feedback">Birthday is required.</div>
-                                </div>
-
-                                <!-- Contact -->
-                                <div class="form-group">
-                                    <label for="contact">Contact Number<span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
-                                    <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
-                                    <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" />
-                                    <div class="invalid-feedback">Please enter a valid email address.</div>
-                                </div>
-
-                                <!-- Address -->
-                                <div class="form-group">
-                                    <label for="address">Address<span class="text-danger">*</span></label>
-                                    <select class="form-control" id="address" name="address" required>
-                                    <option value="" disabled selected>Select an address</option>
-                                    <option value="Barangay 1">Barangay 1</option>
-                                    <option value="Barangay 2">Barangay 2</option>
-                                    <option value="Barangay 3">Barangay 3</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select an address.</div>
-                                </div>
-
                                 <!-- Image Upload -->
                                 <div class="form-group">
                                     <label for="image">Profile Image</label>
                                     <input type="file" class="form-control-file" id="image" name="image" accept="image/*" />
-                                    <small class="form-text text-muted">Upload a profile image (optional).</small>
+                                    <small class="form-text text-muted">Upload an image.</small>
                                 </div>
 
                                 </div>
@@ -845,16 +501,13 @@
                             </form>
                             </div>
                         </div>
-
-     
-
-                        
+                            
             <!-- DATA TABLE-->
             <section class="p-t-20">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
+                            <h3 class="title-5 m-b-35">Fish Species Table</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     <div class="rs-select2--light rs-select2--md">
@@ -878,7 +531,7 @@
                                 </div>
                                 <div class="table-data__tool-right">
                                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
-                                        <i class="zmdi zmdi-plus"></i>Add Item
+                                        <i class="zmdi zmdi-plus"></i>Add Fish Species
                                     </button>
                                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                         <select class="js-select2" name="type">
@@ -900,16 +553,13 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th>
-                                            <th>First Name</th>
-                                            <th>Middle Name</th>
-                                            <th>Last Name</th>
-                                            <th>Birthday</th>
-                                            <th>Contact No.</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
+                                            <th>Fish Name</th>
+                                            <th>Scientific Name</th>
+                                            <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr class="spacer"></tr>
                                         <tr class="tr-shadow">
                                             <td>
                                                 <label class="au-checkbox">
@@ -917,15 +567,9 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Ruby</td>
-                                            <td>Lorica</td>
-                                            <td>Chan</td>
-                                            <td>08/30/2002</td>
-                                            <td>09091238321</td>
-                                            <td>
-                                                <span class="block-email">lori@example.com</span>
-                                            </td>
-                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -954,12 +598,6 @@
                                             <td>Robert</td>
                                             <td>Pogi</td>
                                             <td>Macalam</td>
-                                            <td>06/03/2004</td>
-                                            <td>09091238343</td>
-                                            <td>
-                                                <span class="block-email">robert@example.com</span>
-                                            </td>
-                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -985,15 +623,9 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Jericho</td>
+                                            <td>Robert</td>
                                             <td>Pogi</td>
-                                            <td>Clet</td>
-                                            <td>11/01/2002</td>
-                                            <td>09091238356</td>
-                                            <td>
-                                                <span class="block-email">echo@example.com</span>
-                                            </td>
-                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
+                                            <td>Macalam</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -1019,15 +651,9 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Carlo</td>
-                                            <td>Cute</td>
-                                            <td>Macapagal</td>
-                                            <td>04/19/2003</td>
-                                            <td>09091238098</td>
-                                            <td>
-                                                <span class="block-email">carlo@example.com</span>
-                                            </td>
-                                            <td class="desc">Sitio Dapdap 2 Brgy. SUmag Este</td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -1052,26 +678,29 @@
                     </div>
                 </div>
             </section>
-            <!-- END DATA TABLE-->
+                     
+                                <!-- END DATA TABLE -->
 
-            <!-- COPYRIGHT-->
-            <section class="p-t-60 p-b-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- END COPYRIGHT-->
+            </div>
         </div>
 
     </div>
-
-    <!-- Jquery JS-->
+    <script>
+                        function showModal() {
+                            $('#fisherModal').modal('show'); 
+                        }
+                        </script> 
+    
+  <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>

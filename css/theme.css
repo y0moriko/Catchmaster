@@ -196,7 +196,7 @@ strong {
     text-transform: capitalize;
     font-size: 22px;
     font-weight: 500;
-    color: #393939;
+    color: #000;
 }
 
 .title-6 {
@@ -286,10 +286,10 @@ section {
     padding-bottom: 12vh;
 } */
 /* } */
-.page-container {
+/* .page-container {
     background: #e5e5e5;
     padding-left: 200px;
-}
+} */
 
 @media (max-width: 991px) {
     .page-container {
@@ -557,7 +557,7 @@ section {
 
 .au-btn-filter {
     font-size: 14px;
-    color: #808080;
+    color: #000;
     background: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1036,7 +1036,7 @@ section {
 }
 
 .rs-select2--light .select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #808080;
+    color: #000;
     font-size: 14px;
 }
 
@@ -1411,6 +1411,16 @@ section {
     border-radius: 100%;
     font-size: 12px;
 }
+.account-dropdown {
+    max-width: 200px; /* Set a max-width */
+    font-size: 14px; /* Adjust font size */
+    padding: 10px; /* Consistent padding */
+}
+.account-dropdown-content {
+    overflow: auto; /* Prevents overflow issues */
+    display: none; /* Ensure it's hidden by default */
+}
+
 
 .account-wrap {
     position: relative;
@@ -4505,7 +4515,7 @@ section {
 
 .table-data2.table thead th {
     font-size: 12px;
-    color: #555;
+    color: #000;
     text-transform: uppercase;
     border: none;
     font-weight: 600;
@@ -4558,7 +4568,7 @@ section {
 
 .table-data2.table tbody td {
     font-size: 14px;
-    color: #808080;
+    color: #000;
     vertical-align: middle;
     padding: 25px 40px;
     padding-right: 10px;
@@ -4667,7 +4677,7 @@ section {
 
 .block-email {
     font-size: 14px;
-    color: #808080;
+    color: #000;
     display: inline-block;
     background: #f2f2f2;
     -webkit-border-radius: 2px;
