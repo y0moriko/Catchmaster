@@ -32,6 +32,31 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+    <style>
+    body {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        z-index: 0;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url('images/icon/01.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(8px); /* Adjust blur intensity */
+        z-index: -1; /* Place it behind the content */
+    }
+</style>
+
 
 </head>
 
