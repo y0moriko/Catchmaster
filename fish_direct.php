@@ -53,37 +53,15 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        filter: blur(5px); 
-        z-index: -1; 
+        filter: blur(5px);
+        z-index: -1;
     }
-</style>
-<script>
-  function sendEmail(name) {
-    alert('Sending email to ' + name);
-  }
-
-  function editRow(name) {
-    alert('Editing profile for ' + name);
-    // Open modal or redirect to edit page here
-  }
-
-  function deleteRow(btn) {
-    const row = btn.closest('tr.tr-shadow');
-    const name = row.querySelectorAll('td')[1].textContent;
-    if (confirm('Delete record for ' + name + '?')) {
-      row.nextElementSibling.remove(); // remove spacer
-      row.remove(); // remove row
-    }
-  }
-
-  function moreInfo(name) {
-    alert('More info about ' + name);
-  }
-</script>
+    </style>
 
 </head>
 <body class="animsition">
     <div class="page-wrapper">
+        <?php include 'notifications/messages.php'; ?>
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">
             <div class="section__content section__content--p35">
@@ -96,7 +74,7 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="index3.html">
+                                <a href="index.html">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -105,12 +83,12 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="fish_direct.html">
+                                <a href="fish_direct.php">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Fish Directory</a>
                             </li>
-                            <li>
-                                <a href="fish_catch.html">
+                             <li>
+                                <a href="fish_catch.php">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Fish Catch</a>
                             </li>
@@ -120,15 +98,15 @@
                                         <span class="bot-line"></span>User Management</a>
                                     <ul class="header3-sub-list list-unstyled">
                                         <li>
-                                         <a href="table-fishermen.html">Fishermen</a>
+                                         <a href="fishermen_list.php">Fishermen</a>
                                         </li>
                                         <li>
-                                            <a href="admin.html">Admin</a>
+                                            <a href="admin_list.php">Admin</a>
                                         </li>
                                     </ul>
                                 </li>
 
-                            <li>
+                            <li>  
                     </div>
                     <div class="header__tool">
                         <div class="header-button-item has-noti js-item-menu">
@@ -174,7 +152,7 @@
                             <div class="setting-dropdown js-dropdown">
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="profile.html">
+                                        <a href="#">
                                             <i class="zmdi zmdi-account"></i>Account</a>
                                     </div>
                                     <div class="account-dropdown__item">
@@ -218,7 +196,7 @@
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/01.webp" alt="John Doe" />
+                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                             </a>
                                         </div>
                                         <div class="content">
@@ -230,7 +208,7 @@
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="profile.html">
+                                            <a href="#">
                                                 <i class="zmdi zmdi-account"></i>Account</a>
                                         </div>
                                         <div class="account-dropdown__item">
@@ -298,6 +276,64 @@
                         <li>
                             <a href="calendar.html">
                                 <i class="fas fa-calendar-alt"></i>Calendar</a>
+                        </li>
+                        <li>
+                            <a href="map.html">
+                                <i class="fas fa-map-marker-alt"></i>Maps</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-copy"></i>Pages</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="login.html">Login</a>
+                                </li>
+                                <li>
+                                    <a href="register.html">Register</a>
+                                </li>
+                                <li>
+                                    <a href="forget-pass.html"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-desktop"></i>UI Elements</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="button.html">Button</a>
+                                </li>
+                                <li>
+                                    <a href="badge.html">Badges</a>
+                                </li>
+                                <li>
+                                    <a href="tab.html">Tabs</a>
+                                </li>
+                                <li>
+                                    <a href="card.html">Cards</a>
+                                </li>
+                                <li>
+                                    <a href="alert.html">Alerts</a>
+                                </li>
+                                <li>
+                                    <a href="progress-bar.html">Progress Bars</a>
+                                </li>
+                                <li>
+                                    <a href="modal.html">Modals</a>
+                                </li>
+                                <li>
+                                    <a href="switch.html">Switchs</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grids</a>
+                                </li>
+                                <li>
+                                    <a href="fontawesome.html">Fontawesome Icon</a>
+                                </li>
+                                <li>
+                                    <a href="typo.html">Typography</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -427,89 +463,52 @@
         </div>    
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
+                                        <h5 class="modal-title" id="fisherModalLabel">Add Fish Species</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="speciesName">Species Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control capitalize" id="speciesName" name="species_name" required>
-                                        <div class="invalid-feedback">Species name is required.</div>
-                                     </div>
+                                <div class="modal-body">
 
-                                <!-- Scientific Name -->
-                                    <div class="form-group">
-                                        <label for="scientificName">Scientific Name</label>
-                                        <input type="text" class="form-control" id="scientificName" name="scientific_name">
-                                    </div>
-
-                                    <!-- Habitat -->
-                                    <div class="form-group">
-                                        <label for="habitat">Habitat<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="habitat" name="habitat" required>
-                                        <div class="invalid-feedback">Habitat is required.</div>
-                                    </div>
-
-                                    <!-- Description -->
-                                    <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <div class="form-group">
-                                    <label for="fishImage">Fish Image</label>
-                                    <input type="file" class="form-control-file" id="fishImage" name="image" accept="image/*">
-                                    <small class="form-text text-muted">Upload an image (optional).</small>
-                                    </div>
+                                <!-- Name Fields -->
+                                <div class="form-group">
+                                    <label for="fish_name">Fish Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control upper-input capitalize" id="fishName" name="fish_name" required />
+                                    <div class="invalid-feedback">First name is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="scientific_name">Scientific Name</label>
+                                    <input type="text" class="form-control upper-input capitalize" id="scientificName" name="scientific_name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="fish_description">Description<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control upper-input capitalize" id="Description" name="fish_description" required />
+                                    <div class="invalid-feedback">Last name is required.</div>
+                                </div>
+                                <!-- Image Upload -->
+                                <div class="form-group">
+                                    <label for="image">Profile Image</label>
+                                    <input type="file" class="form-control-file" id="image" name="image" accept="image/*" />
+                                    <small class="form-text text-muted">Upload an image.</small>
+                                </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="reset" class="btn btn-secondary">Clear</button>
-                                    <button type="button" class="btn btn-primary" id="previewBtn">Save</button>
+                                <button type="reset" class="btn btn-secondary">Clear</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                                </form>
-                            </div>
-                            </div>
-
-                        <!-- Preview Modal -->
-                        <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirm Fish Species</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close preview">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p><strong>Species Name:</strong> <span id="previewSpeciesName"></span></p>
-                                <p><strong>Scientific Name:</strong> <span id="previewScientificName"></span></p>
-                                <p><strong>Habitat:</strong> <span id="previewHabitat"></span></p>
-                                <p><strong>Description:</strong> <span id="previewDescription"></span></p>
-                                <p><strong>Image:</strong><br><img id="previewImage" src="#" alt="No image uploaded" class="img-fluid" style="max-height: 200px; display: none;"></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                                <button type="submit" class="btn btn-success" form="fishForm">Confirm & Submit</button>
-                            </div>
+                            </form>
                             </div>
                         </div>
-                        </div>
-
-
-
                             
             <!-- DATA TABLE-->
-              <section class="p-t-20">
+            <section class="p-t-20">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
+                            <h3 class="title-5 m-b-35">Fish Species Table</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     <div class="rs-select2--light rs-select2--md">
@@ -533,7 +532,7 @@
                                 </div>
                                 <div class="table-data__tool-right">
                                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
-                                        <i class="zmdi zmdi-plus"></i>Add Item
+                                        <i class="zmdi zmdi-plus"></i>Add Fish Species
                                     </button>
                                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                         <select class="js-select2" name="type">
@@ -555,111 +554,141 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th>
-                                            <th>First Name</th>
-                                            <th>Middle Name</th>
-                                            <th>Last Name</th>
-                                            <th>Birthday</th>
-                                            <th>Contact No.</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
+                                            <th>Fish Name</th>
+                                            <th>Scientific Name</th>
+                                            <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr class="spacer"></tr>
                                         <tr class="tr-shadow">
-                                            <tbody>
-    <tr class="tr-shadow">
-        <td>
-            <label class="au-checkbox">
-                <input type="checkbox">
-                <span class="au-checkmark"></span>
-            </label>
-        </td>
-        <td>Ruby</td>
-        <td>Lorica</td>
-        <td>Chan</td>
-        <td>08/30/2002</td>
-        <td>09091238321</td>
-        <td><span class="block-email">lori@example.com</span></td>
-        <td class="desc">Sitio Pulo 2 Brgy. Sumag Este</td>
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Ruby')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Ruby')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Ruby')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr class="spacer"></tr>
-
-    <!-- More rows below (example) -->
-    <tr class="tr-shadow">
-        <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>Luna</td>
-        <td>Marie</td>
-        <td>Santos</td>
-        <td>05/14/2001</td>
-        <td>09123456789</td>
-        <td><span class="block-email">luna@example.com</span></td>
-        <td class="desc">Barangay Tagumpay</td>
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Luna')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Luna')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Luna')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr class="spacer"></tr>
-
-    <tr class="tr-shadow">
-        <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>Enzo</td>
-        <td>Rivera</td>
-        <td>Cruz</td>
-        <td>03/22/2000</td>
-        <td>09988776655</td>
-        <td><span class="block-email">enzo@example.com</span></td>
-        <td class="desc">Barangay Maligaya</td>
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Enzo')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Enzo')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Enzo')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-</tbody>
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                        <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                        <i class="zmdi zmdi-more"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="spacer"></tr>
+                                        <tr class="tr-shadow">
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                        <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                        <i class="zmdi zmdi-more"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="spacer"></tr>
+                                        <tr class="tr-shadow">
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                        <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                        <i class="zmdi zmdi-more"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="spacer"></tr>
+                                        <tr class="tr-shadow">
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td>Robert</td>
+                                            <td>Pogi</td>
+                                            <td>Macalam</td>
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                        <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                        <i class="zmdi zmdi-more"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
                      
                                 <!-- END DATA TABLE -->
 
-                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -667,31 +696,10 @@
 
     </div>
     <script>
-                        function showModal() {
-                            $('#fisherModal').modal('show'); 
-                        }
-                        </script> 
-<script>
-function fillDateTime() {
-    const now = new Date();
-
-    // Format date: YYYY-MM-DD
-    const date = now.toISOString().split('T')[0];
-
-    // Format time: HH:MM AM/PM
-    const time = now.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
-
-    document.getElementById('currentDate').value = date;
-    document.getElementById('currentTime').value = time;
-}
-</script>
-
-
-
+        function showModal() {
+            $('#fisherModal').modal('show');
+        }
+    </script>
     
     
   <!-- Jquery JS-->
@@ -717,6 +725,7 @@ function fillDateTime() {
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+    
 
 </body>
 

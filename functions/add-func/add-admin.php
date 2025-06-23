@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'D:\xamp\htdocs\Capstone\functions\conn.php';
 
 $first_name = $middle_name = $last_name = $phone_number = $email = $department_role = $username = $password = "";
@@ -17,19 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $email; // Default username to email
     $password = $_POST['password'] ?? '';
 
-    // Debugging output
-    echo "First Name: $first_name<br>";
-    echo "Middle Name: $middle_name<br>";
-    echo "Last Name: $last_name<br>";
-    echo "Phone Number: $phone_number<br>";
-    echo "Email: $email<br>";
-    echo "Department Role: $department_role<br>";
-    echo "Username: $username<br>";
-    echo "Password: $password<br>";
-
-    // Validate required fields (simple example)
+    // Validate required fields
     if (!$first_name || !$last_name || !$email || !$department_role || !$password) {
-        die("Missing required fields.");
+        $_SESSION['error'] = "Missing required fields.";
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
 
     // Handle image upload if provided
@@ -37,23 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $img_tmp = $_FILES['image']['tmp_name'];
         $img_name = basename($_FILES['image']['name']);
-
-        // Optionally sanitize file name (remove unsafe characters)
         $img_name = preg_replace("/[^a-zA-Z0-9.\-_]/", "", $img_name);
-
-        // Define target directory - adjust path as per your project structure
         $upload_dir = "uploads/admin_images/";
         if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0755, true); // Create directory if not exists
+            mkdir($upload_dir, 0755, true);
         }
-
-        // Generate unique file name to avoid overwriting
         $target_file = $upload_dir . uniqid() . "_" . $img_name;
 
         if (move_uploaded_file($img_tmp, $target_file)) {
-            $image_path = $target_file; // store relative path
+            $image_path = $target_file;
         } else {
-            die("Failed to upload image.");
+            $_SESSION['error'] = "Failed to upload image.";
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
     }
 
@@ -64,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_begin_transaction($conn);
 
     try {
-        // Insert into Admin table including image_path
+        // Insert into Admin table
         $sql_admin = "INSERT INTO Admin (fname, mname, lname, phone_number, gmail, department_role, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt_admin = mysqli_prepare($conn, $sql_admin);
         if (!$stmt_admin) {
@@ -110,12 +99,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_commit($conn);
 
         $_SESSION['message'] = "Admin account created successfully.";
-        header("Location: ../../index3.php");
+        header("Location: ../../index.php");
         exit();
 
     } catch (Exception $e) {
         mysqli_rollback($conn);
-        echo "Failed to create admin account: " . $e->getMessage();
+        $_SESSION['error'] = "Failed to create admin account: " . $e->getMessage();
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
 
     mysqli_close($conn);

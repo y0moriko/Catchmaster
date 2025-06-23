@@ -29,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Basic validation
     if (!$fname || !$lname || !$phone || !$barangay || !$birthday) {
-        die('Please fill in all required fields.');
+        $_SESSION['error'] = "Please fill in all required fields.";
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
 
     // Optional: Handle image upload
@@ -44,7 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($img_tmp, $target_file)) {
             $image_path = $target_file;
         } else {
-            die("Failed to upload image.");
+            $_SESSION['error'] = "Failed to upload image.";
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
     }
 
@@ -53,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     if (!$stmt) {
-        die("Prepare failed: " . mysqli_error($conn));
+        $_SESSION['error'] = "Prepare failed: " . mysqli_error($conn);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
     mysqli_stmt_bind_param($stmt, "sssssssssis", $fname, $mname, $lname, $phone, $email, $barangay, $municipality, $province, $birthday, $admin_id, $image_path);
     
@@ -67,15 +73,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql_role = "SELECT role_id FROM Role WHERE role_name = ?";
         $stmt_role = mysqli_prepare($conn, $sql_role);
         if (!$stmt_role) {
-            throw new Exception("Prepare Role failed: " . mysqli_error($conn));
+            $_SESSION['error'] = "Prepare Role failed: " . mysqli_error($conn);
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
         mysqli_stmt_bind_param($stmt_role, "s", $role_name);
         if (!mysqli_stmt_execute($stmt_role)) {
-            throw new Exception("Execute Role failed: " . mysqli_error($conn));
+            $_SESSION['error'] = "Execute Role failed: " . mysqli_error($conn);
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
         mysqli_stmt_bind_result($stmt_role, $role_id);
         if (!mysqli_stmt_fetch($stmt_role)) {
-            throw new Exception("Role 'user' not found in Role table.");
+            $_SESSION['error'] = "Role 'user' not found in Role table.";
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
         mysqli_stmt_close($stmt_role);
 
@@ -83,18 +95,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql_account = "INSERT INTO Account (username, password, account_type, role_id) VALUES (?, ?, ?, ?)";
         $stmt_account = mysqli_prepare($conn, $sql_account);
         if (!$stmt_account) {
-            throw new Exception("Prepare Account failed: " . mysqli_error($conn));
+            $_SESSION['error'] = "Prepare Account failed: " . mysqli_error($conn);
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
         $account_type = 'user'; // Set account type to user
         mysqli_stmt_bind_param($stmt_account, "sssi", $username, $hashed_password, $account_type, $role_id);
         if (!mysqli_stmt_execute($stmt_account)) {
-            throw new Exception("Execute Account failed: " . mysqli_error($conn));
+            $_SESSION['error'] = "Execute Account failed: " . mysqli_error($conn);
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
         mysqli_stmt_close($stmt_account);
 
-        echo "Fisherman and account added successfully.";
+        $_SESSION['message'] = "Fisherman and account added successfully.";
+        header("Location: ../../index3.php");
+        exit();
     } else {
-        echo "Failed to add fisherman: " . mysqli_error($conn);
+        $_SESSION['error'] = "Failed to add fisherman: " . mysqli_error($conn);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
     
     mysqli_stmt_close($stmt);

@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_close($stmt_log);
 
             // Redirect to admin dashboard or home page
-            header("Location: ..\..\index3.html");
+            header("Location: ..\..\index.html");
             exit();
         } else {
             // Invalid password

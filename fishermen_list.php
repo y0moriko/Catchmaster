@@ -61,6 +61,7 @@
 </head>
 <body class="animsition">
     <div class="page-wrapper">
+        <?php include 'notifications/messages.php' ?>
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">
             <div class="section__content section__content--p35">
@@ -82,14 +83,14 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="fish_direct.html">
+                                <a href="fish_direct.php">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Fish Directory</a>
                             </li>
-                             <li>
-                                <a href="fish_catch.html">
+                            <li>
+                                <a href="fish_catch.php">
                                     <i class="fas fa-shopping-basket"></i>
-                                    <span class="bot-line"></span>Fish Catch</a>
+                                    <span class="bot-line"></span>Fish Access</a>
                             </li>
                             <li class="has-sub">
                                     <a class="js-arrow" href="#">
@@ -97,15 +98,17 @@
                                         <span class="bot-line"></span>User Management</a>
                                     <ul class="header3-sub-list list-unstyled">
                                         <li>
-                                         <a href="table-fishermen.html">Fishermen</a>
+                                         <a href="fishermen_list.php">Fishermen</a>
                                         </li>
                                         <li>
-                                            <a href="admin.html">Admin</a>
+                                            <a href="admin_list.php">Admin</a>
                                         </li>
                                     </ul>
                                 </li>
 
-                            <li>  
+                            <li>
+                                
+                            
                     </div>
                     <div class="header__tool">
                         <div class="header-button-item has-noti js-item-menu">
@@ -462,9 +465,9 @@
         </div>    
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fisherModalLabel">Add Fish Species</h5>
+                                        <h5 class="modal-title" id="fisherModalLabel">Add Fishemen</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -473,19 +476,54 @@
 
                                 <!-- Name Fields -->
                                 <div class="form-group">
-                                    <label for="firstName">Fish Name<span class="text-danger">*</span></label>
+                                    <label for="firstName">First Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required />
                                     <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="middleName">Scientific Name</label>
+                                    <label for="middleName">Middle Name</label>
                                     <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName">Description<span class="text-danger">*</span></label>
+                                    <label for="lastName">Last Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required />
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
+
+                                <!-- Birthday -->
+                                <div class="form-group">
+                                    <label for="birthday">Birthday<span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday" required />
+                                    <div class="invalid-feedback">Birthday is required.</div>
+                                </div>
+
+                                <!-- Contact -->
+                                <div class="form-group">
+                                    <label for="contact">Contact Number<span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
+                                    <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
+                                    <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" />
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group">
+                                    <label for="address">Address<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="address" name="address" required>
+                                    <option value="" disabled selected>Select an address</option>
+                                    <option value="Barangay 1">Barangay 1</option>
+                                    <option value="Barangay 2">Barangay 2</option>
+                                    <option value="Barangay 3">Barangay 3</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select an address.</div>
+                                </div>
+
                                 <!-- Image Upload -->
                                 <div class="form-group">
                                     <label for="image">Profile Image</label>
@@ -507,7 +545,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">Fish Species Table</h3>
+                            <h3 class="title-5 m-b-35">Fishermen Table</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     <div class="rs-select2--light rs-select2--md">
@@ -531,7 +569,7 @@
                                 </div>
                                 <div class="table-data__tool-right">
                                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
-                                        <i class="zmdi zmdi-plus"></i>Add Fish Species
+                                        <i class="zmdi zmdi-plus"></i>Add Fishermen
                                     </button>
                                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                         <select class="js-select2" name="type">
@@ -553,13 +591,16 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th>
-                                            <th>Fish Name</th>
-                                            <th>Scientific Name</th>
-                                            <th>Description</th>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthday</th>
+                                            <th>Contact No.</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="spacer"></tr>
                                         <tr class="tr-shadow">
                                             <td>
                                                 <label class="au-checkbox">
@@ -567,9 +608,15 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Robert</td>
-                                            <td>Pogi</td>
-                                            <td>Macalam</td>
+                                            <td>Ruby</td>
+                                            <td>Lorica</td>
+                                            <td>Chan</td>
+                                            <td>08/30/2002</td>
+                                            <td>09091238321</td>
+                                            <td>
+                                                <span class="block-email">lori@example.com</span>
+                                            </td>
+                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -598,6 +645,12 @@
                                             <td>Robert</td>
                                             <td>Pogi</td>
                                             <td>Macalam</td>
+                                            <td>06/03/2004</td>
+                                            <td>09091238343</td>
+                                            <td>
+                                                <span class="block-email">robert@example.com</span>
+                                            </td>
+                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -623,9 +676,15 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Robert</td>
+                                            <td>Jericho</td>
                                             <td>Pogi</td>
-                                            <td>Macalam</td>
+                                            <td>Clet</td>
+                                            <td>11/01/2002</td>
+                                            <td>09091238356</td>
+                                            <td>
+                                                <span class="block-email">echo@example.com</span>
+                                            </td>
+                                            <td class="desc">Sitio Pulo 2 Brgy. SUmag Este</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
@@ -651,9 +710,15 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>Robert</td>
-                                            <td>Pogi</td>
-                                            <td>Macalam</td>
+                                            <td>Carlo</td>
+                                            <td>Cute</td>
+                                            <td>Macapagal</td>
+                                            <td>04/19/2003</td>
+                                            <td>09091238098</td>
+                                            <td>
+                                                <span class="block-email">carlo@example.com</span>
+                                            </td>
+                                            <td class="desc">Sitio Dapdap 2 Brgy. SUmag Este</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
