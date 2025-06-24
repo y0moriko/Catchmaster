@@ -436,27 +436,27 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="speciesName">Species Name<span class="text-danger">*</span></label>
+                                            <label for="speciesName">Select Fish<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control capitalize" id="speciesName" name="species_name" required>
                                         <div class="invalid-feedback">Species name is required.</div>
                                      </div>
 
                                 <!-- Scientific Name -->
                                     <div class="form-group">
-                                        <label for="scientificName">Scientific Name</label>
+                                        <label for="scientificName">Quantity in Kilogram</label>
                                         <input type="text" class="form-control" id="scientificName" name="scientific_name">
                                     </div>
 
                                     <!-- Habitat -->
                                     <div class="form-group">
-                                        <label for="habitat">Habitat<span class="text-danger">*</span></label>
+                                        <label for="habitat">Location<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="habitat" name="habitat" required>
                                         <div class="invalid-feedback">Habitat is required.</div>
                                     </div>
 
                                     <!-- Description -->
                                     <div class="form-group">
-                                    <label for="description">Description</label>
+                                    <label for="description">Date and Time</label>
                                     <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                                     </div>
 
@@ -487,10 +487,10 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p><strong>Species Name:</strong> <span id="previewSpeciesName"></span></p>
-                                <p><strong>Scientific Name:</strong> <span id="previewScientificName"></span></p>
-                                <p><strong>Habitat:</strong> <span id="previewHabitat"></span></p>
-                                <p><strong>Description:</strong> <span id="previewDescription"></span></p>
+                                <p><strong>Select Fish:</strong> <span id="previewSpeciesName"></span></p>
+                                <p><strong>Quantity in Kilogram:</strong> <span id="previewScientificName"></span></p>
+                                <p><strong>Location:</strong> <span id="previewHabitat"></span></p>
+                                <p><strong>Date and Time:</strong> <span id="previewDescription"></span></p>
                                 <p><strong>Image:</strong><br><img id="previewImage" src="#" alt="No image uploaded" class="img-fluid" style="max-height: 200px; display: none;"></p>
                             </div>
                             <div class="modal-footer">
@@ -555,13 +555,10 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th>
-                                            <th>First Name</th>
-                                            <th>Middle Name</th>
-                                            <th>Last Name</th>
-                                            <th>Birthday</th>
-                                            <th>Contact No.</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
+                                            <th>Select Fish</th>
+                                            <th>Quantity in Kilogram</th>
+                                            <th>Location</th>
+                                            <th>Date and Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -574,13 +571,11 @@
                 <span class="au-checkmark"></span>
             </label>
         </td>
-        <td>Ruby</td>
-        <td>Lorica</td>
-        <td>Chan</td>
-        <td>08/30/2002</td>
-        <td>09091238321</td>
-        <td><span class="block-email">lori@example.com</span></td>
-        <td class="desc">Sitio Pulo 2 Brgy. Sumag Este</td>
+        <td>tulingan</td>
+        <td>1</td>
+        <td>agdangan</td>
+        <td>2025/06/28-3:00pm</td>
+        
         <td>
             <div class="table-data-feature">
                 <button class="item" title="Send" onclick="sendEmail('Ruby')">
@@ -603,13 +598,11 @@
     <!-- More rows below (example) -->
     <tr class="tr-shadow">
         <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>Luna</td>
-        <td>Marie</td>
-        <td>Santos</td>
-        <td>05/14/2001</td>
-        <td>09123456789</td>
-        <td><span class="block-email">luna@example.com</span></td>
-        <td class="desc">Barangay Tagumpay</td>
+        <td>tulingan</td>
+        <td>1</td>
+        <td>agdangan</td>
+        <td>2025/06/28-3:00pm</td>
+        
         <td>
             <div class="table-data-feature">
                 <button class="item" title="Send" onclick="sendEmail('Luna')">
@@ -631,13 +624,10 @@
 
     <tr class="tr-shadow">
         <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>Enzo</td>
-        <td>Rivera</td>
-        <td>Cruz</td>
-        <td>03/22/2000</td>
-        <td>09988776655</td>
-        <td><span class="block-email">enzo@example.com</span></td>
-        <td class="desc">Barangay Maligaya</td>
+        <td>tulingan</td>
+        <td>1</td>
+        <td>agdangan</td>
+        <td>2025/06/28-3:00pm</td>
         <td>
             <div class="table-data-feature">
                 <button class="item" title="Send" onclick="sendEmail('Enzo')">
