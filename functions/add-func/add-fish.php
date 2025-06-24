@@ -5,7 +5,7 @@ include 'D:\xamp\htdocs\Capstone\functions\conn.php';
 // Check for admin login
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = 'Unauthorized access. Please login as admin.';
-    header("Location: ../../index.php");
+    header("Location: ../../index.html");
     exit();
 }
 

@@ -84,13 +84,13 @@
                             </li>
                             <li>
                                 <a href="fish_direct.php">
-                                    <i class="fas fa-shopping-basket"></i>
+                                    <i class="fa fa-anchor" aria-hidden="true"></i>
                                     <span class="bot-line"></span>Fish Directory</a>
                             </li>
                             <li>
                                 <a href="fish_catch.php">
                                     <i class="fas fa-shopping-basket"></i>
-                                    <span class="bot-line"></span>Fish Access</a>
+                                    <span class="bot-line"></span>Fish Catch</a>
                             </li>
                             <li class="has-sub">
                                     <a class="js-arrow" href="#">
