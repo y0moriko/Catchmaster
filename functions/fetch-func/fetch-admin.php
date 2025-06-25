@@ -2,7 +2,7 @@
 include 'D:\xamp\htdocs\Capstone\functions\conn.php';
 
 // Fetch admin data
-$sql = "SELECT fname, mname, lname, birthday, phone_number, gmail, address FROM Admin ORDER BY lname ASC";
+$sql = "SELECT fname, mname, lname, phone_number, gmail, department_role FROM Admin ORDER BY lname ASC";
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -17,10 +17,9 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>' . htmlspecialchars($admin['fname']) . '</td>
             <td>' . htmlspecialchars($admin['mname']) . '</td>
             <td>' . htmlspecialchars($admin['lname']) . '</td>
-            <td>' . htmlspecialchars($admin['birthday']) . '</td>
             <td>' . htmlspecialchars($admin['phone_number']) . '</td>
+            <td>' . htmlspecialchars($admin['department_role']) . '</td>
             <td><span class="block-email">' . htmlspecialchars($admin['gmail']) . '</span></td>
-            <td class="desc">' . htmlspecialchars($admin['address']) . '</td>
             <td>
                 <div class="table-data-feature">
                     <button class="item" data-toggle="tooltip" title="Send">
