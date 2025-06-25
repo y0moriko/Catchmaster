@@ -111,14 +111,14 @@
         </div>
         <div class="header__navbar">
           <ul class="list-unstyled">
-            <li><a href="index.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-            <li><a href="fish_direct.html"><i class="fa fa-anchor" aria-hidden="true"></i></i>Fish Directory</a></li>
-            <li><a href="fish_catch.html"><i class="fas fa-shopping-basket"></i>Fish Catch</a></li>
+            <li><a href="index.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+            <li><a href="fish_direct.php"><i class="fa fa-anchor" aria-hidden="true"></i></i>Fish Directory</a></li>
+            <li><a href="fish_catch.php"><i class="fas fa-shopping-basket"></i>Fish Catch</a></li>
             <li class="has-sub">
               <a class="js-arrow" href="#"><i class="fas fa-copy"></i>User Management</a>
               <ul class="header3-sub-list list-unstyled">
-                <li><a href="table-fishermen.html">Fishermen</a></li>
-                <li><a href="admin.html">Admin</a></li>
+                <li><a href="table-fishermen.php">Fishermen</a></li>
+                <li><a href="admin.php">Admin</a></li>
               </ul>
             </li>
           </ul>
@@ -159,7 +159,7 @@
                   <div class="account-dropdown__item"><a href="profile.html"><i class="zmdi zmdi-account"></i>Account Setting</a></div>
                 </div>
                 <div class="account-dropdown__footer">
-                  <a href="login.html"><i class="zmdi zmdi-power"></i>Logout</a>
+                  <a href="login.php"><i class="zmdi zmdi-power"></i>Logout</a>
                 </div>
               </div>
             </div>

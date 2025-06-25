@@ -106,12 +106,12 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="fish_direct.html">
+                                <a href="fish_direct.php">
                                     <i class="fa fa-anchor" aria-hidden="true"></i>
                                     <span class="bot-line"></span>Fish Directory</a>
                             </li>
                               <li>
-                                <a href="fish_catch.html">
+                                <a href="fish_catch.php">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Fish Catch</a>
                             </li>
@@ -121,7 +121,7 @@
                                         <span class="bot-line"></span>User Management</a>
                                     <ul class="header3-sub-list list-unstyled">
                                         <li>
-                                         <a href="table-fishermen.html">Fishermen</a>
+                                         <a href="table-fishermen.php">Fishermen</a>
                                         </li>
                                         <li>
                                             <a href="admin_list.php">Admin</a>
