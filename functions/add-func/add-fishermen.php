@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_close($stmt_account);
 
         $_SESSION['message'] = "Fisherman and account added successfully.";
-        header("Location: ../../index3.php");
+        header("Location: ../../index.php");
         exit();
     } else {
         $_SESSION['error'] = "Failed to add fisherman: " . mysqli_error($conn);
