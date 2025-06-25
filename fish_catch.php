@@ -500,10 +500,7 @@
                             </div>
                         </div>
                         </div>
-
-
-
-                            
+                                           
             <!-- DATA TABLE-->
               <section class="p-t-20">
                 <div class="container">

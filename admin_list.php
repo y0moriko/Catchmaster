@@ -468,7 +468,7 @@
                          
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/add-admin.php" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="fisherModalLabel">Add Admin</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
