@@ -463,7 +463,7 @@
                 </div>
             </div>
         </div>    
-                        <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="fisherModal" tabindex="-1" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
@@ -477,16 +477,16 @@
                                 <!-- Name Fields -->
                                 <div class="form-group">
                                     <label for="firstName">First Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="middleName">Middle Name</label>
-                                    <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" />
+                                    <label for="middleName">Middle Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" required oninput="capitalizeInput(this)"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="lastName">Last Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
 
@@ -500,22 +500,22 @@
                                 <!-- Contact -->
                                 <div class="form-group">
                                     <label for="contact">Contact Number<span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
+                                    <input type="number" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
                                     <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
                                     <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" />
+                                    <label for="email">Email<span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email" name="email" required/>
                                     <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
 
                                 <!-- Address -->
                                 <div class="form-group">
                                     <label for="address">Address<span class="text-danger">*</span></label>
-                                    <select class="form-control" id="address" name="address" required>
+                                    <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
                                     <option value="" disabled selected>Select an address</option>
                                     <option value="Barangay 1">Barangay 1</option>
                                     <option value="Barangay 2">Barangay 2</option>
@@ -788,6 +788,16 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+    <script>
+  function capitalizeInput(input) {
+    const words = input.value.split(' ');
+    input.value = words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+</script>
+
+
 
 </body>
 

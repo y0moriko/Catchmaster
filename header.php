@@ -55,6 +55,17 @@
         background-repeat: no-repeat;
         filter: blur(5px); 
         z-index: -1; 
+
+    .header-button-item a i {
+    color: inherit; /* Uses the color from the parent or theme */
+    font-size: inherit; /* Keeps original size */
+    }
+
+
+    .header-button-item a i {
+    color: #333; /* Example: original dark gray */
+    }
+
     }
 </style>
 
@@ -149,43 +160,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="header-button-item js-item-menu">
+                        <!-- Settings Button (icon only) -->
+                        <div class="header-button-item">
+                        <a href="settings.html" title="Settings">   </a>
                             <i class="zmdi zmdi-settings"></i>
-                            <div class="setting-dropdown js-dropdown">
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-globe"></i>Language</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-pin"></i>Location</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-email"></i>Email</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-notifications"></i>Notifications</a>
-                                    </div>
-                                </div>
-                            </div>
+                     
                         </div>
+
+
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">

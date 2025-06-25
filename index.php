@@ -47,7 +47,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-image: url('images/icon/01.webp');
+        background-image: url('images/icon/00.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -676,16 +676,16 @@
                                 <!-- Name Fields -->
                                 <div class="form-group">
                                     <label for="firstName">First Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="middleName">Middle Name</label>
-                                    <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" />
+                                    <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" oninput="capitalizeInput(this)"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="lastName">Last Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
 
@@ -699,7 +699,7 @@
                                 <!-- Contact -->
                                 <div class="form-group">
                                     <label for="contact">Contact Number<span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
+                                    <input type="number" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
                                     <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
                                     <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
                                 </div>

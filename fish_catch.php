@@ -428,36 +428,56 @@
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="speciesName">Select Fish<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control capitalize" id="speciesName" name="species_name" required>
-                                        <div class="invalid-feedback">Species name is required.</div>
-                                     </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-                                <!-- Scientific Name -->
+                                <div class="modal-body">
+                                    <!-- Select Fish -->
                                     <div class="form-group">
-                                        <label for="scientificName">Quantity in Kilogram</label>
-                                        <input type="text" class="form-control" id="scientificName" name="scientific_name">
-                                    </div>
-
-                                    <!-- Habitat -->
-                                    <div class="form-group">
-                                        <label for="habitat">Location<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="habitat" name="habitat" required>
-                                        <div class="invalid-feedback">Habitat is required.</div>
+                                    <label for="speciesName">Select Fish <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="speciesName" name="species_name" required>
+                                        <option value="" disabled selected>Select species</option>
+                                        <option value="Tilapia">Tilapia</option>
+                                        <option value="Bangus">Bangus</option>
+                                        <option value="Tuna">Tuna</option>
+                                        <option value="Salmon">Salmon</option>
+                                        <option value="Sardines">Sardines</option>
+                                    </select>
+                                    <div class="invalid-feedback">Species name is required.</div>
                                     </div>
 
-                                    <!-- Description -->
+                                    <!-- Quantity -->
                                     <div class="form-group">
-                                    <label for="description">Date and Time</label>
-                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                    <label for="number">Quantity in Kilogram <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="number" name="number" step="any" required>
+                                    </div>
+
+                                    <!-- Location -->
+                                    <div class="form-group">
+                                    <label for="address">Location<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
+                                    <option value="" disabled selected>Select an address</option>
+                                    <option value="Barangay 1">Barangay 1</option>
+                                    <option value="Barangay 2">Barangay 2</option>
+                                    <option value="Barangay 3">Barangay 3</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select an address.</div>
+                                </div>
+
+                                    <!-- Date and Time -->
+                                    <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="auto_date">Date</label>
+                                        <input type="text" id="auto_date" name="date" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="auto_time">Time</label>
+                                        <input type="text" id="auto_time" name="time" class="form-control" readonly>
+                                    </div>
                                     </div>
 
                                     <!-- Image -->
@@ -466,11 +486,11 @@
                                     <input type="file" class="form-control-file" id="fishImage" name="image" accept="image/*">
                                     <small class="form-text text-muted">Upload an image (optional).</small>
                                     </div>
-
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-secondary">Clear</button>
-                                    <button type="button" class="btn btn-primary" id="previewBtn">Save</button>
+                                    <button type="submit" class="btn btn-primary" id="previewBtn">Save</button>
                                 </div>
                                 </form>
                             </div>
@@ -530,7 +550,7 @@
                                 </div>
                                 <div class="table-data__tool-right">
                                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
-                                        <i class="zmdi zmdi-plus"></i>Add Item
+                                        <i class="zmdi zmdi-plus"></i>Add FIsh Catch
                                     </button>
                                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                         <select class="js-select2" name="type">
@@ -704,6 +724,29 @@ function fillDateTime() {
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+    <script>
+  let timestampFilled = false;
+
+  function setDateTimeOnce() {
+    if (timestampFilled) return;
+    const now = new Date();
+
+    // Format date as YYYY-MM-DD
+    const date = now.toISOString().split('T')[0];
+    // Format time as HH:MM:SS
+    const time = now.toTimeString().split(' ')[0];
+
+    document.getElementById('auto_date').value = date;
+    document.getElementById('auto_time').value = time;
+
+    timestampFilled = true;
+  }
+
+  // Listen for any input in the form
+  const form = document.querySelector('form');
+  form.addEventListener('input', setDateTimeOnce);
+</script>
+
 
 </body>
 

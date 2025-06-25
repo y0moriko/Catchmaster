@@ -74,7 +74,7 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="index.html">
+                                <a href="index.php">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -475,16 +475,16 @@
                                 <!-- Name Fields -->
                                 <div class="form-group">
                                     <label for="fish_name">Fish Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="fishName" name="fish_name" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="fishName" name="fish_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="scientific_name">Scientific Name</label>
-                                    <input type="text" class="form-control upper-input capitalize" id="scientificName" name="scientific_name" />
+                                    <input type="text" class="form-control upper-input capitalize" id="scientificName" name="scientific_name" oninput="capitalizeInput(this)"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="fish_description">Description<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="Description" name="fish_description" required />
+                                    <input type="text" class="form-control upper-input capitalize" id="Description" name="fish_description" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
                                 <!-- Image Upload -->
@@ -703,7 +703,15 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-    
+    <script src="js/main.js"></script>
+    <script>
+  function capitalizeInput(input) {
+    const words = input.value.split(' ');
+    input.value = words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+</script>
 
 </body>
 
