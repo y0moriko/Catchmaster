@@ -109,7 +109,7 @@
     </div>
     <button class="btn btn-success w-100 py-2 fw-semibold" type="submit">Sign In</button>
     <div class="mt-4 text-white">
-      Don't have an account? <a href="register.php" class="text-white text-decoration-underline">Sign Up</a>
+      Don't have an account? <a href="admin_register.php" class="text-white text-decoration-underline">Sign Up</a>
     </div>
   </form>
 </div>

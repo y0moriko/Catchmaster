@@ -15,7 +15,9 @@
   <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
 
   <style>
+    
     html, body {
+
       height: 100%;
       margin: 0;
       padding: 0;
@@ -110,6 +112,7 @@
       position: absolute;
       top: 0;
       left: 0;
+
     }
   </style>
 </head>

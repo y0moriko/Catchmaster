@@ -34,6 +34,13 @@
     <link href="css/theme.css" rel="stylesheet" media="all">
 
     <style>
+    .header-desktop3 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999; /* stays on top of other content */
+    }
     body {
         position: relative;
         margin: 0;
@@ -55,6 +62,7 @@
         background-repeat: no-repeat;
         filter: blur(5px); 
         z-index: -1; 
+    
     }
 </style>
 
@@ -74,7 +82,7 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="index.html">
+                                <a href="index.php">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -465,6 +473,43 @@
                 </div>
             </div>
         </div>
+        <style>
+                                /* Custom backdrop with blur and translucency for visible background */
+                                .modal-backdrop.show {
+                                background-color: rgba(0, 0, 0, 0.3) !important; /* lighter black */
+                                backdrop-filter: blur(8px);
+                                -webkit-backdrop-filter: blur(8px);
+                                }
+
+                                /* Modal content with glass morphism style */
+                                .modal-content {
+                                background: rgba(255, 255, 255, 0.85);
+                                backdrop-filter: saturate(180%) blur(15px);
+                                -webkit-backdrop-filter: saturate(180%) blur(15px);
+                                border-radius: 12px;
+                                border: 1px solid rgba(255, 255, 255, 0.3);
+                                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+                                }
+
+                                /* Ensure labels and inputs have good contrast on this background */
+                                label {
+                                font-weight: 600;
+                                color: #222;
+                                }
+
+                                .modal-header .close {
+                                color: #444;
+                                opacity: 1;
+                                font-size: 1.5rem;
+                                }
+
+                                /* Capitalize the first letter of each word in name fields */
+                                .capitalize {
+                                text-transform: capitalize;
+                                }
+                            </style>
+                            </head>
+                            <body style="background-color: lightgray; min-height: 100vh;"></body>
                          
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

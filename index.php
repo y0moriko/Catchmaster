@@ -54,6 +54,18 @@
         filter: blur(5px); 
         z-index: -1; 
     }
+    .header-desktop3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999; /* stays on top of other content */
+}
+.content-wrapper {
+  margin-top: 100px; /* Adjust based on your header height */
+}
+
+
 </style>
 
 </head>
@@ -171,43 +183,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="header-button-item js-item-menu">
-                            <i class="zmdi zmdi-settings"></i>
-                            <div class="setting-dropdown js-dropdown">
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="profile.html">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-globe"></i>Language</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-pin"></i>Location</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-email"></i>Email</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-notifications"></i>Notifications</a>
-                                    </div>
-                                </div>
+                       <div class="header-button-item">
+                            <a href="settings.html" title="Settings" style="color: inherit; text-decoration: none;">
+                                <i class="zmdi zmdi-settings"></i>
+                            </a>
                             </div>
-                        </div>
+
+
+
+
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
@@ -232,20 +216,12 @@
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="profile.html">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            <a href="profile.php">
+                                                <i class="zmdi zmdi-account"></i>Account Setting</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="login.html">
+                                        <a href="login.php">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
@@ -434,12 +410,16 @@
                                         <li class="list-inline-item">Dashboard</li>
                                     </ul>
                                 </div>
-                                <form class="au-form-icon--sm" action="" method="post">
-                                    <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
-                                    <button class="au-btn--submit2" type="submit">
+                                <div class="content-wrapper">
+                                    <form class="au-form-icon--sm" action="" method="post">
+                                        <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas & reports...">
+                                        <button class="au-btn--submit2" type="submit">
                                         <i class="zmdi zmdi-search"></i>
-                                    </button>
-                                </form>
+                                        </button>
+                                    </form>
+                                    <!-- Other content here -->
+                                    </div>
+
                             </div>
                         </div>
                     </div>
