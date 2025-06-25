@@ -339,8 +339,6 @@
                                     <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">Last name is required.</div>
                                 </div>
-
-                                <!-- Birthday -->
                                 <div class="form-group">
                                     <label for="birthday">Department Role<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)"/>
@@ -361,6 +359,16 @@
                                     <input type="email" class="form-control" id="email" name="email" required/>
                                     <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input id="password" class="au-input" type="password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm_password">Confirm Password</label>
+                                        <input id="confirm_password" class="au-input" type="password" name="confirm_password" required>
+                                        </div>
+                                    </div>
 
                                 <!-- Image Upload -->
                                 <div class="form-group">
