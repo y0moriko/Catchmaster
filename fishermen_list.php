@@ -509,7 +509,7 @@
                             <body style="background-color: lightgray; min-height: 100vh;"></div>
                         <div class="modal fade" id="fisherModal" tabindex="-1" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="fisherModalLabel">Add Fishemen</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
@@ -789,14 +789,6 @@
             </section>
                      
                                 <!-- END DATA TABLE -->
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -133,7 +133,7 @@
                                         <span class="bot-line"></span>User Management</a>
                                     <ul class="header3-sub-list list-unstyled">
                                         <li>
-                                         <a href="table-fishermen.php">Fishermen</a>
+                                         <a href="fishermen_list.php">Fishermen</a>
                                         </li>
                                         <li>
                                             <a href="admin_list.php">Admin</a>
@@ -447,7 +447,9 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--green">
-                                <h2 class="number">0</h2>
+                                <h2 class="number">
+                                    <?php include 'functions/forensics/count-fishermen.php'; echo htmlspecialchars($count); ?>
+                                </h2>
                                 <span class="desc">head fishermen</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-account-o"></i>
@@ -882,20 +884,6 @@
                 </div>
             </section>
             <!-- END DATA TABLE-->
-
-            <!-- COPYRIGHT-->
-            <section class="p-t-60 p-b-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END COPYRIGHT-->
         </div>
 
     </div>

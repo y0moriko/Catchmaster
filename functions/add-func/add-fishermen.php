@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_close($stmt_role);
 
         // Insert into Account table
-        $sql_account = "INSERT INTO Account (username, password, account_type, role_id) VALUES (?, ?, ?, ?)";
+        $sql_account = "INSERT INTO Account (username, password, account_type, role_id, admin_id) VALUES (?, ?, ?, ?, ?)";
         $stmt_account = mysqli_prepare($conn, $sql_account);
         if (!$stmt_account) {
             $_SESSION['error'] = "Prepare Account failed: " . mysqli_error($conn);
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
         $account_type = 'user'; // Set account type to user
-        mysqli_stmt_bind_param($stmt_account, "sssi", $username, $hashed_password, $account_type, $role_id);
+        mysqli_stmt_bind_param($stmt_account, "sssi", $username, $hashed_password, $account_type, $role_id, $admin_id);
         if (!mysqli_stmt_execute($stmt_account)) {
             $_SESSION['error'] = "Execute Account failed: " . mysqli_error($conn);
             header("Location: {$_SERVER['HTTP_REFERER']}");
