@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_commit($conn);
 
         $_SESSION['message'] = "Admin account created successfully.";
-        header("Location: ../../index.php");
+        header("Location: ../../login.php");
         exit();
 
     } catch (Exception $e) {

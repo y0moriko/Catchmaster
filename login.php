@@ -55,7 +55,7 @@
   </style>
 </head>
 <body>
-
+  <?php include 'notifications/messages.php'?>
   <!-- Background Carousel -->
   <div id="carouselBackground" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
