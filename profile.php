@@ -153,7 +153,7 @@
             <li class="has-sub">
               <a class="js-arrow" href="#"><i class="fas fa-copy"></i>User Management</a>
               <ul class="header3-sub-list list-unstyled">
-                <li><a href="table-fishermen.php">Fishermen</a></li>
+                <li><a href="fishermen_list.php">Fishermen</a></li>
                 <li><a href="admin.php">Admin</a></li>
               </ul>
             </li>

@@ -458,7 +458,9 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--orange">
-                                <h2 class="number">0</h2>
+                                <h2 class="number">
+                                    <?php include 'functions/forensics/count-catch.php'; ?>
+                                </h2>
                                 <span class="desc">fish catch</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-shopping-cart"></i>

@@ -103,7 +103,7 @@
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li class="has-sub">
-                                <a href="index3.php">
+                                <a href="index.php">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="bot-line"></span>
                                 </a>
@@ -464,7 +464,7 @@
                             <body style="background-color: lightgray; min-height: 100vh;"></body>
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/add-catch.html" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/add-catch.php" method="post" enctype="multipart/form-data" novalidate>
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
@@ -516,13 +516,6 @@
                                         <label for="auto_time">Time</label>
                                         <input type="text" id="auto_time" name="time" class="form-control" readonly>
                                     </div>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <div class="form-group">
-                                    <label for="fishImage">Fish Image</label>
-                                    <input type="file" class="form-control-file" id="fishImage" name="image" accept="image/*">
-                                    <small class="form-text text-muted">Upload an image (optional).</small>
                                     </div>
                                 </div>
 
@@ -617,90 +610,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr-shadow">
-                                            <tbody>
-    <tr class="tr-shadow">
-        <td>
-            <label class="au-checkbox">
-                <input type="checkbox">
-                <span class="au-checkmark"></span>
-            </label>
-        </td>
-        <td>tulingan</td>
-        <td>1</td>
-        <td>agdangan</td>
-        <td>2025/06/28-3:00pm</td>
-        
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Ruby')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Ruby')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Ruby')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr class="spacer"></tr>
-
-    <!-- More rows below (example) -->
-    <tr class="tr-shadow">
-        <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>tulingan</td>
-        <td>1</td>
-        <td>agdangan</td>
-        <td>2025/06/28-3:00pm</td>
-        
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Luna')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Luna')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Luna')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr class="spacer"></tr>
-
-    <tr class="tr-shadow">
-        <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
-        <td>tulingan</td>
-        <td>1</td>
-        <td>agdangan</td>
-        <td>2025/06/28-3:00pm</td>
-        <td>
-            <div class="table-data-feature">
-                <button class="item" title="Send" onclick="sendEmail('Enzo')">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" title="Edit" onclick="editRow('Enzo')">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
-                <button class="item" title="Delete" onclick="deleteRow(this)">
-                    <i class="zmdi zmdi-delete"></i>
-                </button>
-                <button class="item" title="More" onclick="moreInfo('Enzo')">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-</tbody>
+                                        <?php include 'functions/fetch-func/fetch-catch.php'?>
+                                </tbody>
                      
                                 <!-- END DATA TABLE -->
 
