@@ -217,20 +217,12 @@
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            <a href="profile.php">
+                                                <i class="zmdi zmdi-account"></i>Account Setting</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="#">
+                                        <a href="login.php">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
@@ -426,48 +418,40 @@
                     </div>
                 </div>
                 <div class="account-wrap">
-                    <div class="account-item account-item--style2 clearfix js-item-menu">
-                        <div class="image">
-                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                        </div>
-                        <div class="content">
-                            <a class="js-acc-btn" href="#">john doe</a>
-                        </div>
-                        <div class="account-dropdown js-dropdown">
-                            <div class="info clearfix">
+                            <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
-                                    <a href="#">
-                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                    </a>
+                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                 </div>
                                 <div class="content">
-                                    <h5 class="name">
-                                        <a href="#">john doe</a>
-                                    </h5>
-                                    <span class="email">johndoe@example.com</span>
+                                    <a class="js-acc-btn" href="#">john doe</a>
                                 </div>
-                            </div>
-                            <div class="account-dropdown__body">
-                                <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="info clearfix">
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="name">
+                                                <a href="#">john doe</a>
+                                            </h5>
+                                            <span class="email">johndoe@example.com</span>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="profile.php">
+                                                <i class="zmdi zmdi-account"></i>Account Setting</a>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__footer">
+                                        <a href="login.php">
+                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                    </div>
                                 </div>
-                                <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                </div>
-                                <div class="account-dropdown__item">
-                                    <a href="#">
-                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                </div>
-                            </div>
-                            <div class="account-dropdown__footer">
-                                <a href="#">
-                                    <i class="zmdi zmdi-power"></i>Logout</a>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         </div>    
         <style>
@@ -507,13 +491,13 @@
                             </style>
                             </head>
                             <body style="background-color: lightgray; min-height: 100vh;"></div>
-                        <div class="modal fade" id="fisherModal" tabindex="-1" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" aria-labelledby="fisherModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="fisherModal" tabindex="-1" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="fisherModalLabel">Add Fishemen</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
-                                            <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                 <div class="modal-body">
@@ -561,9 +545,11 @@
                                     <label for="address">Address<span class="text-danger">*</span></label>
                                     <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
                                     <option value="" disabled selected>Select an address</option>
-                                    <option value="Barangay 1">Barangay 1</option>
-                                    <option value="Barangay 2">Barangay 2</option>
-                                    <option value="Barangay 3">Barangay 3</option>
+                                    <option value="Binagbag">Binagbag</option>
+                                    <option value="Kanlurang Calutan">Kanlurang Calutan</option>
+                                    <option value="Silangang Calutan">Silangang Calutan</option>
+                                    <option value="Salvacion">Salvacion</option>
+                                    <option value="Sildora">Sildora</option>
                                     </select>
                                     <div class="invalid-feedback">Please select an address.</div>
                                 </div>
@@ -638,10 +624,10 @@
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
-                                            <th>Birthday</th>
-                                            <th>Contact No.</th>
+                                            <th>Phone Number</th>
                                             <th>Email</th>
                                             <th>Address</th>
+                                            <th>Birthday</th>
                                         </tr>
                                     </thead>
                                     <tbody>

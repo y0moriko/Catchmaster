@@ -225,7 +225,7 @@
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/01.webp" alt="John Doe" />
+                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                             </a>
                                         </div>
                                         <div class="content">
@@ -237,20 +237,12 @@
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="profile.html">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            <a href="profile.php">
+                                                <i class="zmdi zmdi-account"></i>Account Setting</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="#">
+                                        <a href="login.php">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
@@ -472,7 +464,7 @@
                             <body style="background-color: lightgray; min-height: 100vh;"></body>
                         <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/table.html" method="post" enctype="multipart/form-data" novalidate>
+                                <form class="modal-content" action="functions/add-func/add-catch.html" method="post" enctype="multipart/form-data" novalidate>
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
@@ -481,16 +473,15 @@
                                 </div>
 
                                 <div class="modal-body">
+                                    <?php include 'functions/get-func/get-fish.php'?>
                                     <!-- Select Fish -->
                                     <div class="form-group">
                                     <label for="speciesName">Select Fish <span class="text-danger">*</span></label>
                                     <select class="form-control" id="speciesName" name="species_name" required>
                                         <option value="" disabled selected>Select species</option>
-                                        <option value="Tilapia">Tilapia</option>
-                                        <option value="Bangus">Bangus</option>
-                                        <option value="Tuna">Tuna</option>
-                                        <option value="Salmon">Salmon</option>
-                                        <option value="Sardines">Sardines</option>
+                                        <?php foreach ($fishSpecies as $species): ?>
+                                            <option value="<?php echo htmlspecialchars($species); ?>"><?php echo htmlspecialchars($species); ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <div class="invalid-feedback">Species name is required.</div>
                                     </div>

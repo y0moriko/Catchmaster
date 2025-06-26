@@ -3,10 +3,10 @@ session_start();
 include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // adjust path if needed
 
 // Check for admin login and get admin_id from session
-if (!isset($_SESSION['user_id'])) {
-    die('Unauthorized. Please login as admin.');
-}
-$admin_id = $_SESSION['user_id']; // Assumes this stores the admin's user_id
+// if (!isset($_SESSION['user_id'])) {
+//     die('Unauthorized. Please login as admin.');
+// }
+// $admin_id = $_SESSION['user_id']; // Assumes this stores the admin's user_id
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
         $account_type = 'user'; // Set account type to user
-        mysqli_stmt_bind_param($stmt_account, "sssi", $username, $hashed_password, $account_type, $role_id, $admin_id);
+        mysqli_stmt_bind_param($stmt_account, "sssii", $username, $hashed_password, $account_type, $role_id, $admin_id);
         if (!mysqli_stmt_execute($stmt_account)) {
             $_SESSION['error'] = "Execute Account failed: " . mysqli_error($conn);
             header("Location: {$_SERVER['HTTP_REFERER']}");
