@@ -506,9 +506,11 @@
                                     <label for="address">Location<span class="text-danger">*</span></label>
                                     <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
                                     <option value="" disabled selected>Select an address</option>
-                                    <option value="Barangay 1">Barangay 1</option>
-                                    <option value="Barangay 2">Barangay 2</option>
-                                    <option value="Barangay 3">Barangay 3</option>
+                                    <option value="Barangay 1">Salvacion</option>
+                                    <option value="Barangay 2">Binagbag</option>
+                                    <option value="Barangay 3">Silangang Calutan</option>
+                                    <option value="Barangay 4">Kanlurang Calutan</option>
+                                    <option value="Barangay 5">Sildora</option>
                                     </select>
                                     <div class="invalid-feedback">Please select an address.</div>
                                 </div>

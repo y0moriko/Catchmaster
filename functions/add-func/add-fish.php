@@ -2,13 +2,6 @@
 session_start();
 include 'D:\xamp\htdocs\Capstone\functions\conn.php';
 
-// Check for admin login
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['error'] = 'Unauthorized access. Please login as admin.';
-    header("Location: ../../index.php");
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
     function cleanInput($conn, $input) {
