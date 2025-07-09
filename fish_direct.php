@@ -56,7 +56,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-image: url('images/icon/01.webp');
+        background-image: url('images/icon/00.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -518,7 +518,7 @@
                                     <label for="scientific_name">Scientific Name</label>
                                     <input type="text" class="form-control upper-input capitalize" id="scientificName" name="scientific_name" oninput="capitalizeInput(this)"/>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="width:100%;">
                                     <label for="fish_description">Description<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control upper-input capitalize" id="Description" name="fish_description" required oninput="capitalizeInput(this)"/>
                                     <div class="invalid-feedback">Last name is required.</div>

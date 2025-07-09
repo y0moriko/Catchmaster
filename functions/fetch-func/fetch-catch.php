@@ -7,15 +7,16 @@ if (!$conn) {
 
 // Fetch fish catch data
 $sql = "
-    SELECT 
-        fc.fish_id, 
-        f.fish_name, 
-        fc.quantity_kg, 
-        fc.location, 
-        fc.catch_date 
-    FROM 
-        fishcatch fc 
-    JOIN 
+    SELECT
+        fc.catch_id,
+        fc.fish_id,
+        f.fish_name,
+        fc.quantity_kg,
+        fc.location,
+        fc.catch_date
+    FROM
+        fishcatch fc
+    JOIN
         fish f ON fc.fish_id = f.fish_id 
     ORDER BY 
         fc.catch_date DESC";
@@ -41,7 +42,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <button class="item" data-toggle="tooltip" title="Edit">
                         <i class="zmdi zmdi-edit"></i>
                     </button>
-                    <a href="functions/delete-func/delete-fishcatch.php?id=' . $catch['fish_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this catch?\');">
+                    <a href="functions/delete-func/delete-catch.php?id=' . $catch['catch_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this catch?\');">
                         <i class="zmdi zmdi-delete"></i>
                     </a>
                 </div>

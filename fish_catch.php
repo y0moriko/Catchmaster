@@ -56,7 +56,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-image: url('images/icon/01.webp');
+        background-image: url('images/icon/00.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -90,6 +90,7 @@
 
 </head>
 <body class="animsition">
+    <?php include 'notifications/messages.php' ?>
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">
