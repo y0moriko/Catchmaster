@@ -4855,7 +4855,7 @@ section {
 
 .au-breadcrumb-span {
     font-size: 14px;
-    color: #000;
+    color: #fff;
     display: inline-block;
 }
 
@@ -4887,7 +4887,7 @@ section {
 }
 
 .au-breadcrumb2 .au-breadcrumb-span {
-    color: #FFFFFF;
+    color: #fff;
 }
 
 .au-breadcrumb2 .au-breadcrumb__list .active a {

@@ -32,7 +32,7 @@
                                         <i class="zmdi zmdi-search"></i>
                                         </button>
                                     </form>
-                              
+                                    <!-- Other content here -->
                                     </div>
 
                             </div>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="statistic-chart-1-note">
                                     <span class="big">10,368</span>
-                                    <span>/ 16220 fish catched</span>
+                                    <span>/ 16220 items sold</span>
                                 </div>
                             </div>
                             <!-- END CHART-->
@@ -131,29 +131,29 @@
                         <div class="col-md-6 col-lg-4">
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
-                                <h3 class="title-3 m-b-30">top places</h3>
+                                <h3 class="title-3 m-b-30">top campaigns</h3>
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
                                         <tbody>
                                             <tr>
-                                                <td>1. Binagbag</td>
-                                                <td>0</td>
+                                                <td>1. Australia</td>
+                                                <td>$70,261.65</td>
                                             </tr>
                                             <tr>
-                                                <td>2. Salvacion</td>
-                                                <td>0</td>
+                                                <td>2. United Kingdom</td>
+                                                <td>$46,399.22</td>
                                             </tr>
                                             <tr>
-                                                <td>3. Kanlurang Calutan</td>
-                                                <td>0</td>
+                                                <td>3. Turkey</td>
+                                                <td>$35,364.90</td>
                                             </tr>
                                             <tr>
-                                                <td>4. Silangang Calutan</td>
-                                                <td>0</td>
+                                                <td>4. Germany</td>
+                                                <td>$20,366.96</td>
                                             </tr>
                                             <tr>
-                                                <td>5. Sildora</td>
-                                                <td>0</td>
+                                                <td>5. France</td>
+                                                <td>$10,366.96</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -204,22 +204,18 @@
                 }, false);
             });
 
-         
+            // Removed automatic modal display
         }, false);
     })();
 
-     function showModal() {
-        $('#fisherModal').modal({
-            backdrop: 'static', // Disable click outside
-            keyboard: false     // Disable Esc key
-        });
+    // Function to show the modal
+    function showModal() {
+        $('#fisherModal').modal('show');
     }
 
-    function capitalizeInput(input) {
-        const words = input.value.split(' ');
-        input.value = words
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
+    function redirectToTable() {
+        // Redirect to the table file (replace 'table.html' with your actual file name)
+        window.location.href = 'table.html';
     }
 </script>
 
@@ -346,7 +342,164 @@
 
                         
             <!-- DATA TABLE-->
-                             
+                                <section class="p-t-20">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3 class="title-5 m-b-35">data table</h3>
+                                                <div class="table-data__tool">
+                                                    <div class="table-data__tool-left">
+                                                        <div class="rs-select2--light rs-select2--md">
+                                                            <select class="js-select2" name="property">
+                                                                <option selected="selected">All Properties</option>
+                                                                <option value="">Option 1</option>
+                                                                <option value="">Option 2</option>
+                                                            </select>
+                                                            <div class="dropDownSelect2"></div>
+                                                        </div>
+                                                        <div class="rs-select2--light rs-select2--sm">
+                                                            <select class="js-select2" name="time">
+                                                                <option selected="selected">Today</option>
+                                                                <option value="">3 Days</option>
+                                                                <option value="">1 Week</option>
+                                                            </select>
+                                                            <div class="dropDownSelect2"></div>
+                                                        </div>
+                                                        <button class="au-btn-filter">
+                                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                                    </div>
+                                                    <div class="table-data__tool-right">
+                                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
+                                                            <i class="zmdi zmdi-plus"></i>Add Item
+                                                        </button>
+                                                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
+                                                            <select class="js-select2" name="type">
+                                                                <option selected="selected">Export</option>
+                                                                <option value="">Option 1</option>
+                                                                <option value="">Option 2</option>
+                                                            </select>
+                                                            <div class="dropDownSelect2"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive table-responsive-data2">
+                                                    <table class="table table-data2">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <label class="au-checkbox">
+                                                                        <input type="checkbox">
+                                                                        <span class="au-checkmark"></span>
+                                                                    </label>
+                                                                </th>
+                                                                <th>First Name</th>
+                                                                <th>Middle Name</th>
+                                                                <th>Last Name</th>
+                                                                <th>Birthday</th>
+                                                                <th>Contact No.</th>
+                                                                <th>Email</th>
+                                                                <th>Address</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="tr-shadow">
+                                                                <tbody>
+                        <tr class="tr-shadow">
+                            <td>
+                                <label class="au-checkbox">
+                                    <input type="checkbox">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </td>
+                            <td>Ruby</td>
+                            <td>Lorica</td>
+                            <td>Chan</td>
+                            <td>08/30/2002</td>
+                            <td>09091238321</td>
+                            <td><span class="block-email">lori@example.com</span></td>
+                            <td class="desc">Sitio Pulo 2 Brgy. Sumag Este</td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <button class="item" title="Send" onclick="sendEmail('Ruby')">
+                                        <i class="zmdi zmdi-mail-send"></i>
+                                    </button>
+                                    <button class="item" title="Edit" onclick="editRow('Ruby')">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </button>
+                                    <button class="item" title="Delete" onclick="deleteRow(this)">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                    <button class="item" title="More" onclick="moreInfo('Ruby')">
+                                        <i class="zmdi zmdi-more"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="spacer"></tr>
+
+                        <!-- More rows below (example) -->
+                        <tr class="tr-shadow">
+                            <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
+                            <td>Luna</td>
+                            <td>Marie</td>
+                            <td>Santos</td>
+                            <td>05/14/2001</td>
+                            <td>09123456789</td>
+                            <td><span class="block-email">luna@example.com</span></td>
+                            <td class="desc">Barangay Tagumpay</td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <button class="item" title="Send" onclick="sendEmail('Luna')">
+                                        <i class="zmdi zmdi-mail-send"></i>
+                                    </button>
+                                    <button class="item" title="Edit" onclick="editRow('Luna')">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </button>
+                                    <button class="item" title="Delete" onclick="deleteRow(this)">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                    <button class="item" title="More" onclick="moreInfo('Luna')">
+                                        <i class="zmdi zmdi-more"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="spacer"></tr>
+
+                        <tr class="tr-shadow">
+                            <td><label class="au-checkbox"><input type="checkbox"><span class="au-checkmark"></span></label></td>
+                            <td>Enzo</td>
+                            <td>Rivera</td>
+                            <td>Cruz</td>
+                            <td>03/22/2000</td>
+                            <td>09988776655</td>
+                            <td><span class="block-email">enzo@example.com</span></td>
+                            <td class="desc">Barangay Maligaya</td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <button class="item" title="Send" onclick="sendEmail('Enzo')">
+                                        <i class="zmdi zmdi-mail-send"></i>
+                                    </button>
+                                    <button class="item" title="Edit" onclick="editRow('Enzo')">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </button>
+                                    <button class="item" title="Delete" onclick="deleteRow(this)">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                    <button class="item" title="More" onclick="moreInfo('Enzo')">
+                                        <i class="zmdi zmdi-more"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- END DATA TABLE-->
         </div>
 

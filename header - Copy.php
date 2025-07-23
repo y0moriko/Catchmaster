@@ -22,7 +22,7 @@
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
     <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
     <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
@@ -31,13 +31,13 @@
 
     <link href="css/theme.css" rel="stylesheet" media="all">
     <style>
-        body {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            z-index: 0;
-        }
+    body {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        z-index: 0;
+    }
 
     body:before {
         content: "";
@@ -54,110 +54,43 @@
         z-index: -1; 
     }
     .header-desktop3 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 999; 
-        }
-        .content-wrapper {
-        margin-top: 100px; 
-        }
-        .account-dropdown {
-            z-index: 1000;
-            position: absolute;
-        }
-        .settings-dropdown__item {
-            padding: 8px 12px;
-        }
-        .settings-dropdown__item a {
-            color: #333;
-            text-decoration: none;
-            display: block;
-        }
-        .settings-dropdown__item a:hover {
-            background-color: #f1f1f1;
-            border-radius: 4px;
-        }
-        .header-button-item.has-noti {
-            margin-right: 10px;
-        }
-        /* Move notification icon only */
-.header-button-item.has-noti i.zmdi-notifications {
-    margin-right: 8px;      /* Optional: add spacing between icon and dropdown */
-    transform: translateX(-10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999; /* stays on top of other content */
 }
-
-/* Move settings icon only */
-.header-button-item.js-settings-menu i.zmdi-settings {
-    margin-right: 8px;      /* Optional */
-    transform: translateX(-10px);
+.content-wrapper {
+  margin-top: 100px; /* Adjust based on your header height */
 }
-
-       
-        .notifi-dropdown {
-            width: 300px;
-            max-width: 90vw;
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-height: 400px;
-            overflow-y: auto;
-            box-sizing: border-box;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .js-item-menu:hover .notifi-dropdown,
-        .js-item-menu.active .notifi-dropdown {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Fix overflow on small screens */
-        @media (max-width: 768px) {
-            .notifi-dropdown {
-                width: 85vw;
-                left: 50%;
-                transform: translateX(-50%);
-                right: auto;
-            }
-        }
 
 
 </style>
 
-
-
 </head>
-        <script>
-        function sendEmail(name) {
-            alert('Sending email to ' + name);
-        }
+<script>
+  function sendEmail(name) {
+    alert('Sending email to ' + name);
+  }
 
-        function editRow(name) {
-            alert('Editing profile for ' + name);
-            // Open modal or redirect to edit page here
-        }
+  function editRow(name) {
+    alert('Editing profile for ' + name);
+    // Open modal or redirect to edit page here
+  }
 
-        function deleteRow(btn) {
-            const row = btn.closest('tr.tr-shadow');
-            const name = row.querySelectorAll('td')[1].textContent;
-            if (confirm('Delete record for ' + name + '?')) {
-            row.nextElementSibling.remove(); // remove spacer
-            row.remove(); // remove row
-            }
-        }
+  function deleteRow(btn) {
+    const row = btn.closest('tr.tr-shadow');
+    const name = row.querySelectorAll('td')[1].textContent;
+    if (confirm('Delete record for ' + name + '?')) {
+      row.nextElementSibling.remove(); // remove spacer
+      row.remove(); // remove row
+    }
+  }
 
-        function moreInfo(name) {
-            alert('More info about ' + name);
-        }
-        </script>
+  function moreInfo(name) {
+    alert('More info about ' + name);
+  }
+</script>
 
 <body>
     <div class="page-wrapper">
@@ -192,14 +125,14 @@
                                     <span class="bot-line"></span>Fish Catch</a>
                             </li>
                               <li>
-                                <a href="fishermen_list.php">
-                                    <i class="fas fa-users"></i>
+                                <a href="fish_catch.php">
+                                    <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>User Management</a>
                             </li> 
                         </ul>
                     </div>
                     <div class="header__tool">
-                       <div class="header-button-item has-noti js-item-menu" style="position: relative;">
+                        <div class="header-button-item has-noti js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
                             <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
                                 <div class="notifi__title">
@@ -237,52 +170,50 @@
                                 </div>
                             </div>
                         </div>
-                       <!-- Settings Icon -->
-<div class="header-button-item js-settings-menu" style="position: relative;">
-    <a href="#" title="Settings" class="js-settings-btn" style="color: inherit; text-decoration: none;">
-        <i class="zmdi zmdi-settings"></i>
-    </a>
-    <div class="settings-dropdown js-settings-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: #fff; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-radius: 8px; padding: 10px; min-width: 200px; font-size: 14px;">
-        <div class="settings-dropdown__item">
-            <a href="settings.php"><i class="zmdi zmdi-settings"></i> Settings</a>
-        </div>
-    </div>
-</div>
-
-<!-- Profile Icon -->
-<div class="header-button-item js-profile-menu" style="position: relative;">
-    <a href="#" title="Profile" class="js-profile-btn" style="color: inherit; text-decoration: none;">
-        <i class="zmdi zmdi-account-circle"></i>
-    </a>
-    <div class="profile-dropdown js-profile-dropdown"
-        style="
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background: #fff;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: black;
-            white-space: nowrap;
-        ">
-        <div class="profile-dropdown__item" style="padding: 8px 0;">
-            <a href="profile.php" style="text-decoration: none; color: black;">
-                <i class="zmdi zmdi-account"></i> Account Setting
-            </a>
-        </div>
-        <div class="profile-dropdown__item" style="padding: 6px 0;">
-            <a href="login.php" style="text-decoration: none; color: black;">
-                <i class="zmdi zmdi-power"></i> Logout
-            </a>
-        </div>
-    </div>
-</div>
+                       <div class="header-button-item">
+                            <a href="settings.html" title="Settings" style="color: inherit; text-decoration: none;">
+                                <i class="zmdi zmdi-settings"></i>
+                            </a>
+                            </div>
 
 
 
+
+                        <div class="account-wrap">
+                            <div class="account-item account-item--style2 clearfix js-item-menu">
+                                <div class="image">
+                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                </div>
+                                <div class="content">
+                                    <a class="js-acc-btn" href="#">john doe</a>
+                                </div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="info clearfix">
+                                        <div class="image">
+                                            <a href="profile.php">
+                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="name">
+                                                <a href="#">john doe</a>
+                                            </h5>
+                                            <span class="email">johndoe@example.com</span>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-account"></i>Account Setting</a>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__footer">
+                                        <a href="login.php">
+                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -307,16 +238,16 @@
         }, false);
     })();
 
-                // Function to show the modal
-                function showModal() {
-                    $('#fisherModal').modal('show');
-                }
+    // Function to show the modal
+    function showModal() {
+        $('#fisherModal').modal('show');
+    }
 
-                function redirectToTable() {
-                    // Redirect to the table file (replace 'table.html' with your actual file name)
-                    window.location.href = 'table.html';
-                }
-            </script>
+    function redirectToTable() {
+        // Redirect to the table file (replace 'table.html' with your actual file name)
+        window.location.href = 'table.html';
+    }
+</script>
 
 
                             <style>
@@ -380,94 +311,8 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const settingsBtn = document.querySelector(".js-settings-btn");
-    const dropdown = document.querySelector(".js-settings-dropdown");
-
-    settingsBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-    });
-
-    document.addEventListener("click", function (e) {
-        const settingsMenu = document.querySelector(".js-settings-menu");
-        if (!settingsMenu.contains(e.target)) {
-            dropdown.style.display = "none";
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const menuItem = document.querySelector(".js-item-menu");
-    const dropdown = document.querySelector(".notifi-dropdown");
-
-    menuItem.addEventListener("click", () => {
-        const rect = dropdown.getBoundingClientRect();
-
-        // If dropdown is going off screen
-        if (rect.right > window.innerWidth) {
-            dropdown.style.left = 'auto';
-            dropdown.style.right = '0';
-        }
-
-        if (rect.left < 0) {
-            dropdown.style.left = '0';
-            dropdown.style.right = 'auto';
-        }
-    });
-});
-</script>
-
-<script>
-    // Toggle settings dropdown
-    document.querySelector('.js-settings-btn')?.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector('.js-settings-dropdown').style.display ^= 'block';
-    });
-
-    // Toggle profile dropdown
-    document.querySelector('.js-profile-btn')?.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector('.js-profile-dropdown').style.display ^= 'block';
-    });
-
-    // Optional: click outside to close
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('.js-settings-menu')) {
-            document.querySelector('.js-settings-dropdown')?.style.display = 'none';
-        }
-        if (!e.target.closest('.js-profile-menu')) {
-            document.querySelector('.js-profile-dropdown')?.style.display = 'none';
-        }
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const profileBtn = document.querySelector('.js-profile-btn');
-        const profileDropdown = document.querySelector('.js-profile-dropdown');
-
-        // Toggle the dropdown on click
-        profileBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            profileDropdown.style.display = 
-                profileDropdown.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Close the dropdown if clicking outside
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.js-profile-menu')) {
-                profileDropdown.style.display = 'none';
-            }
-        });
-    });
-</script>
-
 
 </body>
 
 </html>
-
+<!-- end document-->

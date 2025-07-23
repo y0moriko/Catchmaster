@@ -1,5 +1,8 @@
-<?php include 'header.php'?>
-<?php include 'nav.php'?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include 'header.php'; ?>
         <style>
                                 /* Custom backdrop with blur and translucency for visible background */
                                 .modal-backdrop.show {
@@ -198,10 +201,21 @@
 
     </div>
     <script>
-                        function showModal() {
-                            $('#fisherModal').modal('show'); 
-                        }
-                        </script> 
+    function showModal() {
+        $('#fisherModal').modal({
+            backdrop: 'static', // Disable click outside
+            keyboard: false     // Disable Esc key
+        });
+    }
+
+    function capitalizeInput(input) {
+        const words = input.value.split(' ');
+        input.value = words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    }
+</script>
+
 <script>
 function fillDateTime() {
     const now = new Date();
