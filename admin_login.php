@@ -101,7 +101,7 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control bg-transparent text-white border-light" id="password" name="password" placeholder="Enter your password" required>
     </div>
-    <button class="btn btn-success w-100 py-2 fw-semibold" type="submit">Sign In</button>
+    <a href="index.php" class="btn btn-success w-100 py-2 fw-semibold" type="submit">Sign In</a>
   </form>
 </div>
 

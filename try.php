@@ -32,7 +32,7 @@
                                         <i class="zmdi zmdi-search"></i>
                                         </button>
                                     </form>
-                              
+                                    <!-- Other content here -->
                                     </div>
 
                             </div>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="statistic-chart-1-note">
                                     <span class="big">10,368</span>
-                                    <span>/ 16220 fish catched</span>
+                                    <span>/ 16220 items sold</span>
                                 </div>
                             </div>
                             <!-- END CHART-->
@@ -131,29 +131,29 @@
                         <div class="col-md-6 col-lg-4">
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
-                                <h3 class="title-3 m-b-30">top places</h3>
+                                <h3 class="title-3 m-b-30">top campaigns</h3>
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
                                         <tbody>
                                             <tr>
-                                                <td>1. Binagbag</td>
-                                                <td>0</td>
+                                                <td>1. Australia</td>
+                                                <td>$70,261.65</td>
                                             </tr>
                                             <tr>
-                                                <td>2. Salvacion</td>
-                                                <td>0</td>
+                                                <td>2. United Kingdom</td>
+                                                <td>$46,399.22</td>
                                             </tr>
                                             <tr>
-                                                <td>3. Kanlurang Calutan</td>
-                                                <td>0</td>
+                                                <td>3. Turkey</td>
+                                                <td>$35,364.90</td>
                                             </tr>
                                             <tr>
-                                                <td>4. Silangang Calutan</td>
-                                                <td>0</td>
+                                                <td>4. Germany</td>
+                                                <td>$20,366.96</td>
                                             </tr>
                                             <tr>
-                                                <td>5. Sildora</td>
-                                                <td>0</td>
+                                                <td>5. France</td>
+                                                <td>$10,366.96</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -204,22 +204,18 @@
                 }, false);
             });
 
-         
+            // Removed automatic modal display
         }, false);
     })();
 
-     function showModal() {
-        $('#fisherModal').modal({
-            backdrop: 'static', // Disable click outside
-            keyboard: false     // Disable Esc key
-        });
+    // Function to show the modal
+    function showModal() {
+        $('#fisherModal').modal('show');
     }
 
-    function capitalizeInput(input) {
-        const words = input.value.split(' ');
-        input.value = words
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
+    function redirectToTable() {
+        // Redirect to the table file (replace 'table.html' with your actual file name)
+        window.location.href = 'table.html';
     }
 </script>
 

@@ -82,32 +82,57 @@
         .header-button-item.has-noti {
             margin-right: 10px;
         }
+        /* Move notification icon only */
+.header-button-item.has-noti i.zmdi-notifications {
+    margin-right: 8px;      /* Optional: add spacing between icon and dropdown */
+    transform: translateX(-10px);
+}
+
+/* Move settings icon only */
+.header-button-item.js-settings-menu i.zmdi-settings {
+    margin-right: 8px;      /* Optional */
+    transform: translateX(-10px);
+}
+
        
         .notifi-dropdown {
             width: 300px;
             max-width: 90vw;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            white-space: normal;
-            box-sizing: border-box;
-            right: 0;
             position: absolute;
-            top: 100%;
-            z-index: 1000;
+            top: calc(100% + 10px);
+            right: 0;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 400px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-    
+        .js-item-menu:hover .notifi-dropdown,
+        .js-item-menu.active .notifi-dropdown {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Fix overflow on small screens */
         @media (max-width: 768px) {
             .notifi-dropdown {
                 width: 85vw;
-                left: auto;
-                right: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
             }
         }
+
+
 </style>
+
+
 
 </head>
         <script>
@@ -212,22 +237,51 @@
                                 </div>
                             </div>
                         </div>
-                       <div class="header-button-item js-settings-menu" style="position: relative;">
-                            <a href="#" title="Settings" class="js-settings-btn" style="color: inherit; text-decoration: none;">
-                                <i class="zmdi zmdi-settings"></i>
-                            </a>
-                            <div class="settings-dropdown js-settings-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: #fff; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-radius: 8px; padding: 10px; min-width: 200px; font-size: 14px;">
-                                <div class="settings-dropdown__item">
-                                    <a href="profile.php"><i class="zmdi zmdi-account"></i> Account Setting</a>
-                                </div>
-                                <div class="settings-dropdown__item">
-                                    <a href="settings.php"><i class="zmdi zmdi-settings"></i> Settings</a>
-                                </div>
-                                <div class="settings-dropdown__item">
-                                    <a href="login.php"><i class="zmdi zmdi-power"></i> Logout</a>
-                                </div>
-                            </div>
-                        </div>
+                       <!-- Settings Icon -->
+<div class="header-button-item js-settings-menu" style="position: relative;">
+    <a href="#" title="Settings" class="js-settings-btn" style="color: inherit; text-decoration: none;">
+        <i class="zmdi zmdi-settings"></i>
+    </a>
+    <div class="settings-dropdown js-settings-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: #fff; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-radius: 8px; padding: 10px; min-width: 200px; font-size: 14px;">
+        <div class="settings-dropdown__item">
+            <a href="settings.php"><i class="zmdi zmdi-settings"></i> Settings</a>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Icon -->
+<div class="header-button-item js-profile-menu" style="position: relative;">
+    <a href="#" title="Profile" class="js-profile-btn" style="color: inherit; text-decoration: none;">
+        <i class="zmdi zmdi-account-circle"></i>
+    </a>
+    <div class="profile-dropdown js-profile-dropdown"
+        style="
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: black;
+            white-space: nowrap;
+        ">
+        <div class="profile-dropdown__item" style="padding: 8px 0;">
+            <a href="profile.php" style="text-decoration: none; color: black;">
+                <i class="zmdi zmdi-account"></i> Account Setting
+            </a>
+        </div>
+        <div class="profile-dropdown__item" style="padding: 6px 0;">
+            <a href="login.php" style="text-decoration: none; color: black;">
+                <i class="zmdi zmdi-power"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>
+
+
 
                     </div>
                 </div>
@@ -344,6 +398,74 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuItem = document.querySelector(".js-item-menu");
+    const dropdown = document.querySelector(".notifi-dropdown");
+
+    menuItem.addEventListener("click", () => {
+        const rect = dropdown.getBoundingClientRect();
+
+        // If dropdown is going off screen
+        if (rect.right > window.innerWidth) {
+            dropdown.style.left = 'auto';
+            dropdown.style.right = '0';
+        }
+
+        if (rect.left < 0) {
+            dropdown.style.left = '0';
+            dropdown.style.right = 'auto';
+        }
+    });
+});
+</script>
+
+<script>
+    // Toggle settings dropdown
+    document.querySelector('.js-settings-btn')?.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector('.js-settings-dropdown').style.display ^= 'block';
+    });
+
+    // Toggle profile dropdown
+    document.querySelector('.js-profile-btn')?.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector('.js-profile-dropdown').style.display ^= 'block';
+    });
+
+    // Optional: click outside to close
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.js-settings-menu')) {
+            document.querySelector('.js-settings-dropdown')?.style.display = 'none';
+        }
+        if (!e.target.closest('.js-profile-menu')) {
+            document.querySelector('.js-profile-dropdown')?.style.display = 'none';
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const profileBtn = document.querySelector('.js-profile-btn');
+        const profileDropdown = document.querySelector('.js-profile-dropdown');
+
+        // Toggle the dropdown on click
+        profileBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            profileDropdown.style.display = 
+                profileDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Close the dropdown if clicking outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.js-profile-menu')) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 
 </body>
 

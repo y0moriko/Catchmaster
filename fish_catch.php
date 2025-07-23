@@ -201,10 +201,21 @@
 
     </div>
     <script>
-                        function showModal() {
-                            $('#fisherModal').modal('show'); 
-                        }
-                        </script> 
+    function showModal() {
+        $('#fisherModal').modal({
+            backdrop: 'static', // Disable click outside
+            keyboard: false     // Disable Esc key
+        });
+    }
+
+    function capitalizeInput(input) {
+        const words = input.value.split(' ');
+        input.value = words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    }
+</script>
+
 <script>
 function fillDateTime() {
     const now = new Date();

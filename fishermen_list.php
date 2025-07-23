@@ -330,11 +330,22 @@
         </div>
 
     </div>
-    <script>
-                        function showModal() {
-                            $('#fisherModal').modal('show'); 
-                        }
-                        </script> 
+  <script>
+    function showModal() {
+        $('#fisherModal').modal({
+            backdrop: 'static', // Disable click outside
+            keyboard: false     // Disable Esc key
+        });
+    }
+
+    function capitalizeInput(input) {
+        const words = input.value.split(' ');
+        input.value = words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    }
+</script>
+ 
     
   <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -359,16 +370,6 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-    <script>
-  function capitalizeInput(input) {
-    const words = input.value.split(' ');
-    input.value = words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  }
-</script>
-
-
 
 </body>
 
