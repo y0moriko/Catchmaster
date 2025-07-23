@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // adjust path if needed
+include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
 
 function deleteFisherman($fisherman_id) {
     global $conn;
@@ -52,10 +52,14 @@ function deleteFisherman($fisherman_id) {
 }
 
 // Example usage
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fisherman_id = $_POST['fisherman_id'] ?? '';
-    deleteFisherman($fisherman_id);
-    header("Location: {$_SERVER['HTTP_REFERER']}");
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['fisherman_id'])) { // Check if fisherman_id is set in the URL
+        $fisherman_id = intval($_GET['fisherman_id']); // Ensure the ID is an integer
+        deleteFisherman($fisherman_id);
+    } else {
+        $_SESSION['error'] = "Fisherman ID not provided.";
+    }
+    header("Location: ../../fishermen_list.php"); // Redirect to the fishermen list page
     exit();
 }
 ?>

@@ -2,7 +2,7 @@
 include 'D:\xamp\htdocs\Capstone\functions\conn.php';
 
 // Fetch admin data
-$sql = "SELECT fname, mname, lname, phone_number, gmail, department_role FROM Admin ORDER BY lname ASC";
+$sql = "SELECT admin_id, fname, mname, lname, phone_number, gmail, department_role FROM Admin ORDER BY lname ASC";
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -28,9 +28,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <button class="item" data-toggle="tooltip" title="Edit">
                         <i class="zmdi zmdi-edit"></i>
                     </button>
-                    <button class="item" data-toggle="tooltip" title="Delete">
+                    <a href="functions/delete-func/delete-admin.php?id=' . $admin['admin_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this admin?\');">
                         <i class="zmdi zmdi-delete"></i>
-                    </button>
+                    </a>
                     <button class="item" data-toggle="tooltip" title="More">
                         <i class="zmdi zmdi-more"></i>
                     </button>
