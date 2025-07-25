@@ -84,7 +84,9 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--blue">
-                                <h2 class="number">0</h2>
+                                <h2 class="number">
+                                    <?php include 'functions/forensics/weekly-fish-count.php'; ?>
+                                </h2>
                                 <span class="desc">this week</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-calendar-note"></i>

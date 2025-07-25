@@ -8,7 +8,7 @@ $result = mysqli_query($conn, $sql);
 if ($result && mysqli_num_rows($result) > 0) {
     while ($fish = mysqli_fetch_assoc($result)) {
         // Set image path, use default if not set
-        $imagePath = !empty($fish['image']) ? 'uploads/fish/' . htmlspecialchars($fish['image']) : 'assets/images/default-fish.png';
+        $imagePath = !empty($fish['image_path']) ? 'uploads/fish/' . htmlspecialchars($fish['image_path']) : 'assets/images/default-fish.png';
 
         echo '<tr class="tr-shadow">
             <td>
@@ -19,7 +19,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             </td>
 
             <!-- Fish Image Column -->
-            <
             <td>
                 <img src="' . $imagePath . '" alt="Fish Image" width="50" height="50" style="object-fit: cover; border-radius: 8px;">
             </td>
@@ -31,9 +30,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <button class="item" data-toggle="tooltip" title="Send">
                         <i class="zmdi zmdi-mail-send"></i>
                     </button>
-                    <button class="item" data-toggle="tooltip" title="Edit">
+                    <a href="forms/edit-fish-form.php?id=' . $fish['fish_id'] . '" class="item" data-toggle="tooltip" title="Edit">
                         <i class="zmdi zmdi-edit"></i>
-                    </button>
+                    </a>
                     <a href="functions/delete-func/delete-fish.php?id=' . $fish['fish_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this fish?\');">
                         <i class="zmdi zmdi-delete"></i>
                     </a>
