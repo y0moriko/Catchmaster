@@ -160,6 +160,7 @@
         </script>
 
 <body>
+    <?php include 'notifications/messages.php'?>
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">

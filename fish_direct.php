@@ -134,6 +134,7 @@
                                                         <span class="au-checkmark"></span>
                                                     </label>
                                                 </th>
+                                                <th>Image</th>
                                                 <th>Fish Name</th>
                                                 <th>Scientific Name</th>
                                                 <th>Description</th>
