@@ -150,14 +150,12 @@
                                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
                                         <i class="zmdi zmdi-plus"></i>Add Fishermen
                                     </button>
-                                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                        <select class="js-select2" name="type">
-                                            <option selected="selected">Export</option>
-                                            <option value="">Option 1</option>
-                                            <option value="">Option 2</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
+                                    <form method="post" enctype="multipart/form-data" action="functions/upload-fish.php" style="display: inline;">
+                                        <input type="file" name="excel_file" id="excel_file" accept=".xlsx" style="display: none;" onchange="this.form.submit()">
+                                        <button type="button" class="au-btn au-btn-icon au-btn--blue au-btn--small" onclick="document.getElementById('excel_file').click();">
+                                        <i class="zmdi zmdi-upload"></i> Upload Excel
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="table-responsive table-responsive-data2">
@@ -209,6 +207,7 @@
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(' ');
     }
+        
 </script>
  
     

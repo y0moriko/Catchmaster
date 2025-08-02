@@ -113,14 +113,12 @@
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
                                             <i class="zmdi zmdi-plus"></i>Add Fish Species
                                         </button>
-                                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                            <select class="js-select2" name="type">
-                                                <option selected="selected">Export</option>
-                                                <option value="">CSV</option>
-                                                <option value="">PDF</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
+                                        <form method="post" enctype="multipart/form-data" action="functions/upload-func/upload-fish.php" style="display: inline;">
+                                            <input type="file" name="excel_file" id="excel_file" accept=".xlsx" style="display: none;" onchange="this.form.submit()">
+                                            <button type="button" class="au-btn au-btn-icon au-btn--blue au-btn--small" onclick="document.getElementById('excel_file').click();">
+                                                <i class="zmdi zmdi-upload"></i> Upload Excel
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
 
@@ -168,9 +166,8 @@
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(' ');
     }
-</script>
-
-    
+    </script>
+ 
     
   <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -195,15 +192,7 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-  function capitalizeInput(input) {
-    const words = input.value.split(' ');
-    input.value = words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  }
-</script>
+
 
 </body>
 
