@@ -91,7 +91,7 @@
     <img src="images/icon/222.png" alt="Logo" class="img-fluid" style="max-height: 100px;">
   </div>
   <h4 class="mb-4 fw-bold">Welcome Back!</h4>
-  <form action="functions/sessions/admin-login.php" method="post">
+  <form action="sessions/admin-login.php" method="post">
     <div class="mb-3 text-start">
       <label for="email" class="form-label">Username</label>
       <input type="email" class="form-control bg-transparent text-white border-light" id="email" name="email" placeholder="Enter your username" required>
@@ -100,7 +100,7 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control bg-transparent text-white border-light" id="password" name="password" placeholder="Enter your password" required>
     </div>
-    <a href="index.php" class="btn btn-success w-100 py-2 fw-semibold" type="submit">Sign In</a>
+    <button class="btn btn-success w-100 py-2 fw-semibold" type="submit">Sign In</button>
   </form>
 </div>
 
