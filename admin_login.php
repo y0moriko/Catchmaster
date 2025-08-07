@@ -1,3 +1,4 @@
+<?php include 'notifications/messages.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +56,7 @@
   </style>
 </head>
 <body>
-  <?php include 'notifications/messages.php'?>
+  
   <!-- Background Carousel -->
   <div id="carouselBackground" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
@@ -91,10 +92,10 @@
     <img src="images/icon/222.png" alt="Logo" class="img-fluid" style="max-height: 100px;">
   </div>
   <h4 class="mb-4 fw-bold">Welcome Back!</h4>
-  <form action="sessions/admin-login.php" method="post">
+  <form action="functions/sessions/admin-login.php" method="post">
     <div class="mb-3 text-start">
-      <label for="email" class="form-label">Username</label>
-      <input type="email" class="form-control bg-transparent text-white border-light" id="email" name="email" placeholder="Enter your username" required>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control bg-transparent text-white border-light" id="email" name="email" placeholder="Enter your email" required>
     </div>
     <div class="mb-3 text-start">
       <label for="password" class="form-label">Password</label>

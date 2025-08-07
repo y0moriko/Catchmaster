@@ -1,14 +1,7 @@
-<?php
-session_start();
-if (!isset($_SESSION['admin_id'])) {
-    $_SESSION['error'] = "Please log in first.";
-    header("Location: login.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php include 'functions/fetch-func/fetch-admin.php'?>
   <?php include 'header.php'; ?>
   <meta charset="UTF-8">
   <title>Profile & Fisheries Section</title>
@@ -211,22 +204,39 @@ if (!isset($_SESSION['admin_id'])) {
 <body>
 
 <!-- Profile Card -->
-<div class="main-container">
-  <div class="account-container">
-    <img src="images/icon/jk.jpg" alt="Jeon Jungkook" class="profile-picture">
-    <div class="account-header">
-      <h3>Juan Dela Cruz</h3>
-  </div>
-    <div class="profile-info">
-      <h3>Profile Information</h3>
-      <div class="profile-row"><label>Full Name:</label><span>Juan Dela Cruz</span></div>
-      <div class="profile-row"><label>Email:</label><span>juan@gmail.com</span></div>
-      <div class="profile-row"><label>Username:</label><span>Juan</span></div>
-      <div class="profile-row"><label>Department:</label><span>Agriculture</span></div>
-      <div class="profile-row"><label>Role:</label><span>Department Head</span></div>
-      <button class="btn" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+<!-- Assuming you already have session_start() and fetched $admin array -->
+
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 500px;">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Admin Profile</h5>
+    </div>
+    <div class="card-body text-center">
+      <!-- Profile Image -->
+      <?php if (!empty($admin['image_path'])): ?>
+        <img src="<?php echo $admin['image_path']; ?>" alt="Admin Image" class="rounded-circle mb-3" width="120" height="120">
+      <?php else: ?>
+        <img src="assets/default-profile.png" alt="Default Image" class="rounded-circle mb-3" width="120" height="120">
+      <?php endif; ?>
+
+      <!-- Full Name -->
+      <h5 class="card-title">
+        <?php echo $admin['fname'] . ' ' . $admin['mname'] . ' ' . $admin['lname']; ?>
+      </h5>
+
+      <!-- Department Role -->
+      <p class="card-text"><strong>Department:</strong> <?php echo $admin['department_role']; ?></p>
+
+      <!-- Contact Info -->
+      <p class="card-text"><strong>Email:</strong> <?php echo $admin['gmail']; ?></p>
+      <p class="card-text"><strong>Phone:</strong> <?php echo $admin['phone_number']; ?></p>
+
+      <!-- Optional: Edit button -->
+      <a href="edit-profile.php" class="btn btn-outline-primary mt-3">Edit Profile</a>
     </div>
   </div>
+</div>
+
 
 <!-- EDIT PROFILE MODAL -->
 <div class="modal fade" id="editProfileModal"  role="dialog">
@@ -328,60 +338,40 @@ if (!isset($_SESSION['admin_id'])) {
 <!-- Add Personnel Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-md" role="document">
-    <form class="modal-content" action="functions/add-func/add-admin.php" method="post" enctype="multipart/form-data">
-  <div class="modal-header">
-    <h5 class="modal-title" id="addMemberModalLabel">Add Personnel</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
-  </div>
+    <form class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addMemberModalLabel">Add Personnel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
+      </div>
 
-  <div class="modal-body">
-    <div class="form-group text-center">
-      <label for="profilePic"><strong>Profile Picture</strong></label><br>
-      <input type="file" id="profilePic" class="form-control-file" name="image" accept="image/*">
-    </div>
+      <div class="modal-body">
+        <div class="form-group text-center">
+          <label for="profilePic"><strong>Profile Picture</strong></label><br>
+          <input type="file" id="profilePic" class="form-control-file" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" class="form-control capitalize-first-letter" id="fullName" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" class="form-control capitalize-first-letter" id="department" required>
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <input type="text" class="form-control capitalize-first-letter" id="role" required>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="first_name">First Name</label>
-      <input type="text" class="form-control capitalize-first-letter" id="first_name" name="first_name" required>
-    </div>
-
-    <div class="form-group">
-      <label for="middle_name">Middle Name</label>
-      <input type="text" class="form-control capitalize-first-letter" id="middle_name" name="middle_name" required>
-    </div>
-
-    <div class="form-group">
-      <label for="last_name">Last Name</label>
-      <input type="text" class="form-control capitalize-first-letter" id="last_name" name="last_name" required>
-    </div>
-
-    <div class="form-group">
-      <label for="phone_number">Phone Number</label>
-      <input type="number" class="form-control" id="phone_number" name="phone_number" required>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" class="form-control" id="email" name="email" required>
-    </div>
-
-    <div class="form-group">
-      <label for="department_role">Department Role</label>
-      <input type="text" class="form-control capitalize-first-letter" id="department_role" name="department_role" required>
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" name="password" required>
-    </div>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-    <button type="submit" class="btn btn-primary">Add Member</button>
-  </div>
-</form>
-
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Member</button>
+      </div>
+    </form>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php include 'notifications/messages.php'; ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome Admin</title>
@@ -83,8 +84,7 @@
   </style>
 </head>
 <body>
-
-  <?php include 'notifications/messages.php'; ?>
+  
 
   <!-- Background Carousel -->
   <div id="carouselBackground" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">

@@ -1,66 +1,76 @@
 <?php
-session_start(); // Start the session
+session_start();
+include 'D:/xamp/htdocs/Capstone/functions/conn.php';
 
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Include your database connection
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize inputs
-    $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
     if (empty($email) || empty($password)) {
-    $_SESSION['error'] = "Email and Password are required."; // Set error message in session
-    header("Location: ../../login.php"); // Redirect back to the login page
-    exit();
-}
-
-// Check credentials
-$sql = "SELECT * FROM Account WHERE username = ?";
-$stmt = mysqli_prepare($conn, $sql);
-if (!$stmt) {
-    die("Database query failed: " . mysqli_error($conn));
-}
-mysqli_stmt_bind_param($stmt, "s", $email);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
-if ($result && mysqli_num_rows($result) > 0) {
-    $user = mysqli_fetch_assoc($result);
-    // Verify password
-    if (password_verify($password, $user['password'])) {
-        // Successful login
-        $_SESSION['user_id'] = $user['admin_id']; // Store user ID in session
-        $_SESSION['username'] = $user['username']; // Store username in session
-
-        // Log the login attempt
-        $login_time = date('Y-m-d H:i:s');
-        $sql_log = "INSERT INTO LoginHistory (admin_id, login_time) VALUES (?, ?)";
-        $stmt_log = mysqli_prepare($conn, $sql_log);
-        if (!$stmt_log) {
-            die("Failed to prepare login history statement: " . mysqli_error($conn));
-        }
-        mysqli_stmt_bind_param($stmt_log, "is", $user['admin_id'], $login_time);
-        mysqli_stmt_execute($stmt_log);
-        mysqli_stmt_close($stmt_log);
-
-        // Redirect to admin dashboard or home page
-        header("Location: ..\..\index.php");
-        exit();
-    } else {
-        // Invalid password
-        $_SESSION['error'] = "Invalid email or password."; // Set error message in session
-        header("Location: ../../login.php"); // Redirect back to the login page
+        $_SESSION['error'] = "Please enter both email and password.";
+        header("Location: ../../admin-login.php");
         exit();
     }
-} else {
-    // No user found
-    $_SESSION['error'] = "Invalid email or password."; // Set error message in session
-    header("Location: ../../login.php"); // Redirect back to the login page
-    exit();
-}
 
+    // Step 1: Fetch from account table
+    $stmt = $conn->prepare("SELECT * FROM account WHERE username = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $acctResult = $stmt->get_result();
 
-    mysqli_stmt_close($stmt);
-    mysqli_close($conn);
+    if ($acctResult->num_rows === 1) {
+        $account = $acctResult->fetch_assoc();
+
+        // Step 2: Verify hashed password
+        if (password_verify($password, $account['password'])) {
+            $acct_id = $account['admin_id'];
+
+            // Step 3: Check if linked to admin
+            $adminStmt = $conn->prepare("SELECT * FROM admin WHERE admin_id = ?");
+            $adminStmt->bind_param("i", $acct_id);
+            $adminStmt->execute();
+            $adminResult = $adminStmt->get_result();
+
+            if ($adminResult->num_rows === 1) {
+                $admin = $adminResult->fetch_assoc();
+
+                // Step 4: Set session data
+                $_SESSION['user_id'] = $acct_id;
+                $_SESSION['admin_id'] = $admin['admin_id'];
+
+                // Step 5: Record login history
+                $login_time = date('Y-m-d H:i:s');
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+                $logStmt = $conn->prepare("INSERT INTO LoginHistory (admin_id, login_time, ip_address, user_agent) VALUES (?, ?, ?, ?)");
+                $logStmt->bind_param("isss", $admin['admin_id'], $login_time, $ip_address, $user_agent);
+                $logStmt->execute();
+
+                // Store login_id for logout
+                $_SESSION['login_id'] = $conn->insert_id;
+
+                $_SESSION['success'] = "Login successful.";
+                header("Location: ../../index.php");
+                exit();
+            } else {
+                $_SESSION['error'] = "This account is not linked to an admin profile.";
+                header("Location: ../../admin-login.php");
+                exit();
+            }
+        } else {
+            $_SESSION['error'] = "Incorrect password.";
+            header("Location: ../../admin-login.php");
+            exit();
+        }
+    } else {
+        $_SESSION['error'] = "Account not found.";
+        header("Location: ../../admin-login.php");
+        exit();
+    }
+
+    // Close everything
+    $stmt->close();
+    $conn->close();
 }
 ?>
