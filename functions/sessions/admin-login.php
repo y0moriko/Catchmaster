@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($email) || empty($password)) {
         $_SESSION['error'] = "Please enter both email and password.";
-        header("Location: ../../admin-login.php");
+        header("Location: ../../admin_login.php");
         exit();
     }
 
@@ -50,22 +50,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 // Store login_id for logout
                 $_SESSION['login_id'] = $conn->insert_id;
 
+                unset($_SESSION['error']);
                 $_SESSION['success'] = "Login successful.";
                 header("Location: ../../index.php");
                 exit();
             } else {
                 $_SESSION['error'] = "This account is not linked to an admin profile.";
-                header("Location: ../../admin-login.php");
+                header("Location: ../../admin_login.php");
                 exit();
             }
         } else {
             $_SESSION['error'] = "Incorrect password.";
-            header("Location: ../../admin-login.php");
+            header("Location: ../../admin_login.php");
             exit();
         }
     } else {
         $_SESSION['error'] = "Account not found.";
-        header("Location: ../../admin-login.php");
+        header("Location: ../../admin_login.php");
         exit();
     }
 

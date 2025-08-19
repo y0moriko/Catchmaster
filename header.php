@@ -270,20 +270,17 @@
             white-space: nowrap;
         ">
         <div class="profile-dropdown__item" style="padding: 8px 0;">
-            <a href="profile.php" style="text-decoration: none; color: black;">
+            <a href="profile-test.php" style="text-decoration: none; color: black;">
                 <i class="zmdi zmdi-account"></i> Account Setting
             </a>
         </div>
         <div class="profile-dropdown__item" style="padding: 6px 0;">
-            <a href="login.php" style="text-decoration: none; color: black;">
+            <a href="functions/sessions/admin-logout.php" style="text-decoration: none; color: black;">
                 <i class="zmdi zmdi-power"></i> Logout
             </a>
         </div>
     </div>
 </div>
-
-
-
                     </div>
                 </div>
             </div>

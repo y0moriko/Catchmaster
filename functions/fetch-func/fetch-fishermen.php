@@ -40,7 +40,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <tr class="spacer"></tr>';
     }
 } else {
-    echo '<tr><td colspan="9">No admin records found.</td></tr>';
+    echo '<tr><td colspan="9">No fishermen records found.</td></tr>';
 }
 
 mysqli_close($conn);
