@@ -8,11 +8,12 @@ if (!isset($_SESSION['admin_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <?php include 'header.php'; ?>
-
-
+<?php
+include 'functions/fetch-func/fetch-top-barangay.php';
+$topBarangays = getTopBarangays(5);
+?>
         <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
             <!-- BREADCRUMB-->
@@ -34,15 +35,14 @@ if (!isset($_SESSION['admin_id'])) {
                                     </ul>
                                 </div>
                                 <div class="content-wrapper">
-                                    <form class="au-form-icon--sm" action="" method="post">
-                                        <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas & reports...">
-                                        <button class="au-btn--submit2" type="submit">
+                                <form class="au-form-icon--sm" onsubmit="return false;">
+                                    <input id="globalSearch" class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas & reports...">
+                                    <button class="au-btn--submit2" type="button">
                                         <i class="zmdi zmdi-search"></i>
-                                        </button>
-                                    </form>
-                              
-                                    </div>
-
+                                    </button>
+                                </form>
+                                <div id="searchResults" class="mt-2"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="title-4">Welcome back!
+                            <h1 class="title-4" style="color: blue;">Welcome back!
                             </h1>
                             <hr class="line-seprate">
                         </div>
@@ -141,30 +141,22 @@ if (!isset($_SESSION['admin_id'])) {
                         <div class="col-md-6 col-lg-4">
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
-                                <h3 class="title-3 m-b-30">top places</h3>
+                                <h3 class="title-3 m-b-30">Top Places</h3>
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
                                         <tbody>
-                                            <tr>
-                                                <td>1. Binagbag</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2. Salvacion</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3. Kanlurang Calutan</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4. Silangang Calutan</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5. Sildora</td>
-                                                <td>0</td>
-                                            </tr>
+                                            <?php
+                                            $rank = 1;
+                                            foreach ($topBarangays as $row):
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $rank . ". " . htmlspecialchars($row['location']); ?></td>
+                                                    <td><?php echo number_format($row['total_catch'], 0) . " kg"?></td>
+                                                </tr>
+                                            <?php
+                                                $rank++;
+                                            endforeach;
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -232,8 +224,6 @@ if (!isset($_SESSION['admin_id'])) {
             .join(' ');
     }
 </script>
-
-
                             <style>
                                 /* Custom backdrop with blur and translucency for visible background */
                                 .modal-backdrop.show {
@@ -268,7 +258,85 @@ if (!isset($_SESSION['admin_id'])) {
                                 .capitalize {
                                 text-transform: capitalize;
                                 }
+/* ===== Background with Floating Shapes ===== */
+body {
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body::before, body::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 12s infinite ease-in-out alternate;
+}
+
+body::before {
+  top: 10%;
+  left: -100px;
+}
+body::after {
+  bottom: 15%;
+  right: -120px;
+}
+
+@keyframes float {
+  from { transform: translateY(0px) scale(1); }
+  to { transform: translateY(30px) scale(1.05); }
+}
+
+/* ===== Glassmorphism Cards ===== */
+.statistic__item {
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statistic__item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* Statistic Numbers Animated */
+.number {
+  font-size: 2rem;
+  font-weight: bold;
+  animation: countup 2s ease-in-out;
+}
+
+@keyframes countup {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0px); }
+}
+
+/* Table Styling (Top Barangays) */
+.table-top-campaign {
+  background: rgba(255,255,255,0.8);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.table-top-campaign tr td {
+  padding: 12px 15px;
+  font-weight: 500;
+}
+
+/* Breadcrumb */
+.au-breadcrumb2 {
+  background: rgba(255,255,255,0.6);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  margin-bottom: 20px;
+}
                             </style>
+                            
                             </head>
                             <body style="background-color: lightgray; min-height: 100vh;">
 
@@ -385,6 +453,40 @@ if (!isset($_SESSION['admin_id'])) {
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+    <script>
+        let searchTimeout;
+
+        document.getElementById('globalSearch').addEventListener('input', function() {
+            const query = this.value.trim();
+            const resultsContainer = document.getElementById('searchResults');
+
+            clearTimeout(searchTimeout);
+
+            if(query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                fetch(`functions/forensics/search.php?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let html = '';
+                        if(data.length > 0){
+                            data.forEach(item => {
+                                html += `<div class="card mb-1 p-2">
+                                            <strong>${item.type}:</strong> ${item.title} <br>
+                                            <small>${item.details}</small>
+                                        </div>`;
+                            });
+                        } else {
+                            html = '<p>No results found.</p>';
+                        }
+                        resultsContainer.innerHTML = html;
+                    });
+            }, 300); // debounce 300ms
+        });
+        </script>
 
 </body>
 
