@@ -38,7 +38,7 @@ function deleteFisherman($fisherman_id) {
         mysqli_stmt_close($stmt_user);
 
         mysqli_commit($conn);
-        $_SESSION['message'] = "Fisherman account deleted successfully.";
+        $_SESSION['success'] = "Fisherman account deleted successfully.";
     } catch (Exception $e) {
         mysqli_rollback($conn);
         $_SESSION['error'] = "Failed to delete fisherman account: " . $e->getMessage();

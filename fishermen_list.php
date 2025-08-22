@@ -10,6 +10,7 @@ if (!isset($_SESSION['admin_id'])) {
 <html lang="en">
 
 <head>
+    <?php include 'notifications/messages.php' ?>
     <?php include 'header.php'; ?>
         <style>
                                 /* Custom backdrop with blur and translucency for visible background */
@@ -52,78 +53,78 @@ if (!isset($_SESSION['admin_id'])) {
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fisherModalLabel">Add Fishemen</h5>
+                                        <h5 class="modal-title" id="fisherModalLabel">Add Fishermen</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                <div class="modal-body">
+                                    <div class="modal-body">
+                                        <!-- Image Upload + Preview -->
+                                        <div class="form-group">
+                                            <label for="image">Profile Image</label>
+                                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" onchange="previewImage(event)" />
+                                            <small class="form-text text-muted">Upload an image.</small>
+                                            <div class="mt-2">
+                                                <img id="preview" src="#" alt="Image Preview" style="display:none; max-width: 150px; max-height: 150px; border-radius: 8px;" />
+                                            </div>
+                                        </div>
+                                        <!-- Name Fields -->
+                                        <div class="form-group">
+                                            <label for="firstName">First Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required oninput="capitalizeInput(this)" />
+                                            <div class="invalid-feedback">First name is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middleName">Middle Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" required oninput="capitalizeInput(this)" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)" />
+                                            <div class="invalid-feedback">Last name is required.</div>
+                                        </div>
 
-                                <!-- Name Fields -->
-                                <div class="form-group">
-                                    <label for="firstName">First Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="firstName" name="first_name" required oninput="capitalizeInput(this)"/>
-                                    <div class="invalid-feedback">First name is required.</div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="middleName">Middle Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="middleName" name="middle_name" required oninput="capitalizeInput(this)"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastName">Last Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control upper-input capitalize" id="lastName" name="last_name" required oninput="capitalizeInput(this)"/>
-                                    <div class="invalid-feedback">Last name is required.</div>
-                                </div>
+                                        <!-- Birthday -->
+                                        <div class="form-group">
+                                            <label for="birthday">Birthday<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="birthday" name="birthday" required />
+                                            <div class="invalid-feedback">Birthday is required.</div>
+                                        </div>
 
-                                <!-- Birthday -->
-                                <div class="form-group">
-                                    <label for="birthday">Birthday<span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="birthday" name="birthday" required />
-                                    <div class="invalid-feedback">Birthday is required.</div>
-                                </div>
+                                        <!-- Contact -->
+                                        <div class="form-group">
+                                            <label for="contact">Contact Number<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
+                                            <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
+                                            <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
+                                        </div>
 
-                                <!-- Contact -->
-                                <div class="form-group">
-                                    <label for="contact">Contact Number<span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" required />
-                                    <small class="form-text text-muted">Format: 09XXXXXXXXX</small>
-                                    <div class="invalid-feedback">Please enter a valid 11-digit contact number.</div>
-                                </div>
+                                        <!-- Email -->
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email">
+                                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                                        </div>
 
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label for="email">Email<span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email" required/>
-                                    <div class="invalid-feedback">Please enter a valid email address.</div>
-                                </div>
-
-                                <!-- Address -->
-                                <div class="form-group">
-                                    <label for="address">Address<span class="text-danger">*</span></label>
-                                    <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
-                                    <option value="" disabled selected>Select an address</option>
-                                    <option value="Binagbag">Binagbag</option>
-                                    <option value="Kanlurang Calutan">Kanlurang Calutan</option>
-                                    <option value="Silangang Calutan">Silangang Calutan</option>
-                                    <option value="Salvacion">Salvacion</option>
-                                    <option value="Sildora">Sildora</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select an address.</div>
-                                </div>
-
-                                <!-- Image Upload -->
-                                <div class="form-group">
-                                    <label for="image">Profile Image</label>
-                                    <input type="file" class="form-control-file" id="image" name="image" accept="image/*" />
-                                    <small class="form-text text-muted">Upload an image.</small>
-                                </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary">Clear</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+                                        <!-- Address -->
+                                        <div class="form-group">
+                                            <label for="address">Address<span class="text-danger">*</span></label>
+                                            <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
+                                                <option value="" disabled selected>Select an address</option>
+                                                <option value="Binagbag">Binagbag</option>
+                                                <option value="Kanlurang Calutan">Kanlurang Calutan</option>
+                                                <option value="Silangang Calutan">Silangang Calutan</option>
+                                                <option value="Salvacion">Salvacion</option>
+                                                <option value="Sildora">Sildora</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select an address.</div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-secondary" onclick="resetPreview()">Clear</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                             
@@ -176,6 +177,7 @@ if (!isset($_SESSION['admin_id'])) {
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th>
+                                            <th>Image</th>
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
@@ -216,6 +218,27 @@ if (!isset($_SESSION['admin_id'])) {
             .join(' ');
     }
         
+    function previewImage(event) {
+    const preview = document.getElementById('preview');
+    const file = event.target.files[0];
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+    }
+
+    }
+
+    function resetPreview() {
+        const preview = document.getElementById('preview');
+        const imageInput = document.getElementById('image');
+        preview.src = '#';
+        preview.style.display = 'none';
+        imageInput.value = ''; // Reset file input
+    }
 </script>
  
     

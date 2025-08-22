@@ -10,6 +10,7 @@ if (!isset($_SESSION['admin_id'])) {
 <html lang="en">
 
 <head>
+    <?php include 'notifications/messages.php' ?>
     <?php include 'header.php'; ?>
         <style>
                                 /* Custom backdrop with blur and translucency for visible background */

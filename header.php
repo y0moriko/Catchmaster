@@ -39,102 +39,96 @@
             z-index: 0;
         }
 
-    body:before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: #b6b6b6;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        filter: blur(5px); 
-        z-index: -1; 
-    }
-    .header-desktop3 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 999; 
+        body:before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #b6b6b6;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(5px); 
+            z-index: -1; 
         }
-        .content-wrapper {
-        margin-top: 100px; 
-        }
-        .account-dropdown {
-            z-index: 1000;
-            position: absolute;
-        }
-        .settings-dropdown__item {
-            padding: 8px 12px;
-        }
-        .settings-dropdown__item a {
-            color: #333;
-            text-decoration: none;
-            display: block;
-        }
-        .settings-dropdown__item a:hover {
-            background-color: #f1f1f1;
-            border-radius: 4px;
-        }
-        .header-button-item.has-noti {
-            margin-right: 10px;
-        }
-        /* Move notification icon only */
-.header-button-item.has-noti i.zmdi-notifications {
-    margin-right: 8px;      /* Optional: add spacing between icon and dropdown */
-    transform: translateX(-10px);
-}
-
-/* Move settings icon only */
-.header-button-item.js-settings-menu i.zmdi-settings {
-    margin-right: 8px;      /* Optional */
-    transform: translateX(-10px);
-}
-
-       
-        .notifi-dropdown {
-            width: 300px;
-            max-width: 90vw;
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-height: 400px;
-            overflow-y: auto;
-            box-sizing: border-box;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .js-item-menu:hover .notifi-dropdown,
-        .js-item-menu.active .notifi-dropdown {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Fix overflow on small screens */
-        @media (max-width: 768px) {
-            .notifi-dropdown {
-                width: 85vw;
-                left: 50%;
-                transform: translateX(-50%);
-                right: auto;
+        .header-desktop3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999; 
             }
-        }
+            .content-wrapper {
+            margin-top: 100px; 
+            }
+            .account-dropdown {
+                z-index: 1000;
+                position: absolute;
+            }
+            .settings-dropdown__item {
+                padding: 8px 12px;
+            }
+            .settings-dropdown__item a {
+                color: #333;
+                text-decoration: none;
+                display: block;
+            }
+            .settings-dropdown__item a:hover {
+                background-color: #f1f1f1;
+                border-radius: 4px;
+            }
+            .header-button-item.has-noti {
+                margin-right: 10px;
+            }
+            /* Move notification icon only */
+            .header-button-item.has-noti i.zmdi-notifications {
+                margin-right: 8px;      /* Optional: add spacing between icon and dropdown */
+                transform: translateX(-10px);
+            }
 
+            /* Move settings icon only */
+            .header-button-item.js-settings-menu i.zmdi-settings {
+                margin-right: 8px;      /* Optional */
+                transform: translateX(-10px);
+            }
+            .notifi-dropdown {
+                width: 300px;
+                max-width: 90vw;
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                max-height: 400px;
+                overflow-y: auto;
+                box-sizing: border-box;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
 
-</style>
+            .js-item-menu:hover .notifi-dropdown,
+            .js-item-menu.active .notifi-dropdown {
+                opacity: 1;
+                visibility: visible;
+            }
 
+            /* Fix overflow on small screens */
+            @media (max-width: 768px) {
+                .notifi-dropdown {
+                    width: 85vw;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    right: auto;
+                }
+            }
+            </style>
+    </head>
 
-
-</head>
         <script>
         function sendEmail(name) {
             alert('Sending email to ' + name);
@@ -196,7 +190,7 @@
                                 <a href="fishermen_list.php">
                                     <i class="fas fa-users"></i>
                                     <span class="bot-line"></span>User Management</a>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                     <div class="header__tool">

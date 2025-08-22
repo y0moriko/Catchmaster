@@ -1,15 +1,8 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // adjust path if needed
-
-// Check for admin login and get admin_id from session
-// if (!isset($_SESSION['user_id'])) {
-//     die('Unauthorized. Please login as admin.');
-// }
-// $admin_id = $_SESSION['user_id']; // Assumes this stores the admin's user_id
+include 'D:/xamp/htdocs/Capstone/functions/conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize inputs
     function cleanInput($conn, $input) {
         return mysqli_real_escape_string($conn, trim($input));
     }
@@ -20,22 +13,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = cleanInput($conn, $_POST['contact'] ?? '');
     $email = cleanInput($conn, $_POST['email'] ?? '');
     $barangay = cleanInput($conn, $_POST['address'] ?? '');
-    
-    // Set default values for municipality and province
-    $municipality = cleanInput($conn, $_POST['municipality'] ?? 'Agdangan'); // Default to Agdangan
-    $province = cleanInput($conn, $_POST['province'] ?? 'Quezon Province'); // Default to Quezon Province
-    
+    $municipality = cleanInput($conn, $_POST['municipality'] ?? 'Agdangan');
+    $province = cleanInput($conn, $_POST['province'] ?? 'Quezon Province');
     $birthday = cleanInput($conn, $_POST['birthday'] ?? '');
+    $image_path = null;
 
-    // Basic validation
+    // Get admin_id from session
+    $admin_id = $_SESSION['admin_id'] ?? null;
+
     if (!$fname || !$lname || !$phone || !$barangay || !$birthday) {
         $_SESSION['error'] = "Please fill in all required fields.";
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
     }
 
-    // Optional: Handle image upload
-    $image_path = null;
+    // ✅ Check duplicate in User table (phone/email)
+    $checkUser = "SELECT user_id FROM User WHERE phone_number = ? OR gmail = ?";
+    $stmtCheck = mysqli_prepare($conn, $checkUser);
+    mysqli_stmt_bind_param($stmtCheck, "ss", $phone, $email);
+    mysqli_stmt_execute($stmtCheck);
+    mysqli_stmt_store_result($stmtCheck);
+
+    if (mysqli_stmt_num_rows($stmtCheck) > 0) {
+        $_SESSION['error'] = "A fisherman with this phone or email already exists.";
+        mysqli_stmt_close($stmtCheck);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
+    }
+    mysqli_stmt_close($stmtCheck);
+
+    // ✅ Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $img_tmp = $_FILES['image']['tmp_name'];
         $img_name = basename($_FILES['image']['name']);
@@ -52,71 +59,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insert fisherman into User table
+    // ✅ Insert fisherman into User
     $sql = "INSERT INTO User (fname, mname, lname, phone_number, gmail, barangay, municipality, province, birthday, admin_id, image_path)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    if (!$stmt) {
-        $_SESSION['error'] = "Prepare failed: " . mysqli_error($conn);
-        header("Location: {$_SERVER['HTTP_REFERER']}");
-        exit();
-    }
     mysqli_stmt_bind_param($stmt, "sssssssssis", $fname, $mname, $lname, $phone, $email, $barangay, $municipality, $province, $birthday, $admin_id, $image_path);
-    
+
     if (mysqli_stmt_execute($stmt)) {
-        // Fisherman added successfully, now insert into Account table
-        $username = $phone; // Use phone number as username
-        $hashed_password = password_hash($phone, PASSWORD_DEFAULT); // Hash the phone number for password
-        
-        // Get role_id from Role table
-        $role_name = 'user'; // Assuming the role you want to assign is 'user'
+        $new_user_id = mysqli_insert_id($conn); // ✅ Get the new fisherman's user_id
+
+        // ✅ Create Account linked to this user_id
+        $username = $phone; // username = phone
+        $hashed_password = password_hash($phone, PASSWORD_DEFAULT);
+
+        // Prevent duplicate in Account
+        $checkAcc = "SELECT account_id FROM Account WHERE username = ?";
+        $stmtCheckAcc = mysqli_prepare($conn, $checkAcc);
+        mysqli_stmt_bind_param($stmtCheckAcc, "s", $username);
+        mysqli_stmt_execute($stmtCheckAcc);
+        mysqli_stmt_store_result($stmtCheckAcc);
+
+        if (mysqli_stmt_num_rows($stmtCheckAcc) > 0) {
+            $_SESSION['error'] = "Account with this username already exists.";
+            mysqli_stmt_close($stmtCheckAcc);
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
+        }
+        mysqli_stmt_close($stmtCheckAcc);
+
+        // Get role_id
+        $role_name = 'user';
         $sql_role = "SELECT role_id FROM Role WHERE role_name = ?";
         $stmt_role = mysqli_prepare($conn, $sql_role);
-        if (!$stmt_role) {
-            $_SESSION['error'] = "Prepare Role failed: " . mysqli_error($conn);
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit();
-        }
         mysqli_stmt_bind_param($stmt_role, "s", $role_name);
-        if (!mysqli_stmt_execute($stmt_role)) {
-            $_SESSION['error'] = "Execute Role failed: " . mysqli_error($conn);
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit();
-        }
+        mysqli_stmt_execute($stmt_role);
         mysqli_stmt_bind_result($stmt_role, $role_id);
-        if (!mysqli_stmt_fetch($stmt_role)) {
-            $_SESSION['error'] = "Role 'user' not found in Role table.";
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit();
-        }
+        mysqli_stmt_fetch($stmt_role);
         mysqli_stmt_close($stmt_role);
 
-        // Insert into Account table
-        $sql_account = "INSERT INTO Account (username, password, account_type, role_id, admin_id) VALUES (?, ?, ?, ?, ?)";
+        // Insert into Account with link to User (user_id)
+        $sql_account = "INSERT INTO Account (user_id, username, password, account_type, role_id, admin_id)
+                        VALUES (?, ?, ?, ?, ?, ?)";
         $stmt_account = mysqli_prepare($conn, $sql_account);
-        if (!$stmt_account) {
-            $_SESSION['error'] = "Prepare Account failed: " . mysqli_error($conn);
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit();
-        }
-        $account_type = 'user'; // Set account type to user
-        mysqli_stmt_bind_param($stmt_account, "sssii", $username, $hashed_password, $account_type, $role_id, $admin_id);
-        if (!mysqli_stmt_execute($stmt_account)) {
-            $_SESSION['error'] = "Execute Account failed: " . mysqli_error($conn);
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit();
-        }
+        $account_type = 'user';
+        mysqli_stmt_bind_param($stmt_account, "isssii", $new_user_id, $username, $hashed_password, $account_type, $role_id, $admin_id);
+        mysqli_stmt_execute($stmt_account);
         mysqli_stmt_close($stmt_account);
 
-        $_SESSION['message'] = "Fisherman and account added successfully.";
-        header("Location: ../../index.php");
+        $_SESSION['success'] = "Fisherman and account added successfully.";
+        header("Location: ../../fishermen_list.php");
         exit();
     } else {
         $_SESSION['error'] = "Failed to add fisherman: " . mysqli_error($conn);
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
     }
-    
+
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }

@@ -20,6 +20,7 @@ session_unset();
 session_destroy();
 
 // Redirect to login page
+$_SESSION['success'] = "Logged out successfully!";
 header("Location: ../../login.php");
 exit();
 ?>

@@ -23,15 +23,15 @@ $topBarangays = getTopBarangays(5);
                         <div class="col-md-12">
                             <div class="au-breadcrumb-content">
                                 <div class="au-breadcrumb-left">
-                                    <span class="au-breadcrumb-span">You are here:</span>
+                                    <span class="au-breadcrumb-span" style="color: blue;">You are here:</span>
                                     <ul class="list-unstyled list-inline au-breadcrumb__list">
                                         <li class="list-inline-item active">
-                                            <a href="#">Home</a>
+                                            <a href="index.php" style="color: blue;">Home</a>
                                         </li>
-                                        <li class="list-inline-item seprate">
+                                        <li class="list-inline-item seprate" style="color: blue;">
                                             <span>/</span>
                                         </li>
-                                        <li class="list-inline-item">Dashboard</li>
+                                        <li class="list-inline-item" style="color: blue;">Dashboard</li>
                                     </ul>
                                 </div>
                                 <div class="content-wrapper">
@@ -71,7 +71,7 @@ $topBarangays = getTopBarangays(5);
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--green">
                                 <h2 class="number">
-                                    <?php include 'functions/forensics/count-fishermen.php'; echo htmlspecialchars($count); ?>
+                                    <?php include 'functions/dashboard/count-fishermen.php'; echo htmlspecialchars($count); ?>
                                 </h2>
                                 <span class="desc">head fishermen</span>
                                 <div class="icon">
@@ -82,7 +82,7 @@ $topBarangays = getTopBarangays(5);
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--orange">
                                 <h2 class="number">
-                                    <?php include 'functions/forensics/count-catch.php'; ?>
+                                    <?php include 'functions/dashboard/count-catch.php'; ?>
                                 </h2>
                                 <span class="desc">fish catch</span>
                                 <div class="icon">
@@ -93,7 +93,7 @@ $topBarangays = getTopBarangays(5);
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--blue">
                                 <h2 class="number">
-                                    <?php include 'functions/forensics/weekly-fish-count.php'; ?>
+                                    <?php include 'functions/dashboard/weekly-fish-count.php'; ?>
                                 </h2>
                                 <span class="desc">this week</span>
                                 <div class="icon">
@@ -103,10 +103,12 @@ $topBarangays = getTopBarangays(5);
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--red">
-                                <h2 class="number">0</h2>
-                                <span class="desc">total earnings</span>
+                                <h2 class="number">
+                                    <?php include 'functions/dashboard/top-fish.php'?>
+                                </h2>
+                                <span class="desc">top fish</span>
                                 <div class="icon">
-                                    <i class="zmdi zmdi-money"></i>
+                                    <i class="zmdi zmdi-view-subtitles"></i>
                                 </div>
                             </div>
                         </div>
@@ -258,83 +260,6 @@ $topBarangays = getTopBarangays(5);
                                 .capitalize {
                                 text-transform: capitalize;
                                 }
-/* ===== Background with Floating Shapes ===== */
-body {
-  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-body::before, body::after {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 50%;
-  filter: blur(80px);
-  animation: float 12s infinite ease-in-out alternate;
-}
-
-body::before {
-  top: 10%;
-  left: -100px;
-}
-body::after {
-  bottom: 15%;
-  right: -120px;
-}
-
-@keyframes float {
-  from { transform: translateY(0px) scale(1); }
-  to { transform: translateY(30px) scale(1.05); }
-}
-
-/* ===== Glassmorphism Cards ===== */
-.statistic__item {
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.statistic__item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.3);
-}
-
-/* Statistic Numbers Animated */
-.number {
-  font-size: 2rem;
-  font-weight: bold;
-  animation: countup 2s ease-in-out;
-}
-
-@keyframes countup {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0px); }
-}
-
-/* Table Styling (Top Barangays) */
-.table-top-campaign {
-  background: rgba(255,255,255,0.8);
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.table-top-campaign tr td {
-  padding: 12px 15px;
-  font-weight: 500;
-}
-
-/* Breadcrumb */
-.au-breadcrumb2 {
-  background: rgba(255,255,255,0.6);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  padding: 15px;
-  margin-bottom: 20px;
-}
                             </style>
                             
                             </head>

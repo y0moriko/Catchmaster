@@ -37,6 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image_path = $target_file;
     }
 
+    // ✅ Duplicate check (by fish_name OR scientific_name)
+    $check_sql = "SELECT COUNT(*) FROM fish WHERE fish_name = ? OR scientific_name = ?";
+    $check_stmt = mysqli_prepare($conn, $check_sql);
+    mysqli_stmt_bind_param($check_stmt, "ss", $fname, $sname);
+    mysqli_stmt_execute($check_stmt);
+    mysqli_stmt_bind_result($check_stmt, $count);
+    mysqli_stmt_fetch($check_stmt);
+    mysqli_stmt_close($check_stmt);
+
+    if ($count > 0) {
+        $_SESSION['error'] = "This fish already exists.";
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
+    }
+
     // Insert fish into fish table
     $sql = "INSERT INTO fish (fish_name, scientific_name, fish_description, image_path) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);

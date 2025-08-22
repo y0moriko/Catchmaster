@@ -8,7 +8,7 @@ $result = mysqli_query($conn, $sql);
 if ($result && mysqli_num_rows($result) > 0) {
     while ($fish = mysqli_fetch_assoc($result)) {
         // Set image path, use default if not set
-        $imagePath = !empty($fish['image_path']) ? 'uploads/fish_images/' . htmlspecialchars($fish['image_path']) : 'assets/images/default-fish.png';
+        $imagePath = !empty($fish['image_path']) ? htmlspecialchars($fish['image_path']) : 'assets/images/default-fish.png';
 
         echo '<tr class="tr-shadow">
             <td>
