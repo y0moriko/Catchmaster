@@ -9,6 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php include 'notifications/messages.php';?>
 <?php include 'header.php'; ?>
 <?php
 include 'functions/fetch-func/fetch-top-barangay.php';
@@ -352,9 +353,7 @@ $topBarangays = getTopBarangays(5);
                              
             <!-- END DATA TABLE-->
         </div>
-
     </div>
-
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->

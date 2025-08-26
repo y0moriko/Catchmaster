@@ -22,15 +22,16 @@ if (isset($_POST['update_fish'])) {
                 WHERE fish_id=$id";
     } else {
         // No image uploaded
-        $sql = "UPDATE Fish SET 
-                    fish_name='$name', 
-                    scientific_name='$sci', 
+        $sql = "UPDATE Fish SET
+                    fish_name='$name',
+                    scientific_name='$sci',
                     fish_description='$desc'
                 WHERE fish_id=$id";
     }
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: ../../fish-list.php?updated=1");
+        $_SESSION['success']="Fish data updated successfully.";
+        header("Location: ../../fish_direct.php");
         exit;
     } else {
         echo "Error updating fish: " . mysqli_error($conn);

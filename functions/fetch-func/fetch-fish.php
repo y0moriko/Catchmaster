@@ -27,18 +27,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>' . htmlspecialchars($fish['fish_description']) . '</td>
             <td>
                 <div class="table-data-feature">
-                    <button class="item" data-toggle="tooltip" title="Send">
-                        <i class="zmdi zmdi-mail-send"></i>
-                    </button>
-                    <a href="forms/edit-fish-form.php?id=' . $fish['fish_id'] . '" class="item" data-toggle="tooltip" title="Edit">
+                    <a href="#" class="item edit-btn" data-id=' . $fish['fish_id']. ' data-toggle="tooltip" title="Edit">
                         <i class="zmdi zmdi-edit"></i>
                     </a>
-                    <a href="functions/delete-func/delete-fish.php?id=' . $fish['fish_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this fish?\');">
+                    <a href="#" class="item delete-btn" data-id=' . $fish['fish_id'] . ' data-toggle="tooltip" title="Delete">
                         <i class="zmdi zmdi-delete"></i>
                     </a>
-                    <button class="item" data-toggle="tooltip" title="More">
-                        <i class="zmdi zmdi-more"></i>
-                    </button>
                 </div>
             </td>
         </tr>';

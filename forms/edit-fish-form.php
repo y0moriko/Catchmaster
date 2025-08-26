@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 <body>
     <h2>Edit Fish Info</h2>
 
-    <form action="functions/update-fish.php" method="post" enctype="multipart/form-data">
+    <form action="functions/update-func/update-fish.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="fish_id" value="<?php echo $fish['fish_id']; ?>">
 
         <label>Fish Name:</label>

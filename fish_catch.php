@@ -144,7 +144,7 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
+                            <h3 class="title-5 m-b-35">Fish Catch Data</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     <div class="rs-select2--light rs-select2--md">
@@ -293,9 +293,6 @@ function fillDateTime() {
   const form = document.querySelector('form');
   form.addEventListener('input', setDateTimeOnce);
 </script>
-
-
 </body>
-
 </html>
 <!-- end document-->

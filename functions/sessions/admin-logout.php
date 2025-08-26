@@ -15,12 +15,10 @@ if (isset($_SESSION['login_id'])) {
     }
 }
 
-// Clear session and logout
-session_unset();
-session_destroy();
-
-// Redirect to login page
+// Set the success message before redirecting
 $_SESSION['success'] = "Logged out successfully!";
+
+// Redirect to login.php
 header("Location: ../../login.php");
 exit();
 ?>

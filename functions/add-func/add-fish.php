@@ -9,16 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $fname = cleanInput($conn, $_POST['fish_name'] ?? '');
+    $lname = cleanInput($conn, $_POST['local_name'] ?? '');   // ✅ NEW
     $sname = cleanInput($conn, $_POST['scientific_name'] ?? '');
+    $family = cleanInput($conn, $_POST['family'] ?? '');      // ✅ NEW
+    $habitat = cleanInput($conn, $_POST['habitat'] ?? '');    // ✅ NEW
     $description = cleanInput($conn, $_POST['fish_description'] ?? '');
 
-    // Basic validation
-    if (empty($fname) || empty($sname) || empty($description)) {
+    // Basic validation (required fields)
+    if (empty($fname) || empty($sname) || empty($family) || empty($habitat) || empty($description)) {
         $_SESSION['error'] = 'Please fill in all required fields.';
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
     }
     
+    // ✅ Image upload
     $image_path = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $img_tmp = $_FILES['image']['tmp_name'];
@@ -52,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Insert fish into fish table
-    $sql = "INSERT INTO fish (fish_name, scientific_name, fish_description, image_path) VALUES (?, ?, ?, ?)";
+    // ✅ Insert fish into table
+    $sql = "INSERT INTO fish 
+            (fish_name, local_name, scientific_name, family, habitat, fish_description, image_path) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     
     if (!$stmt) {
@@ -62,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
-    mysqli_stmt_bind_param($stmt, "ssss", $fname, $sname, $description, $image_path);
+    mysqli_stmt_bind_param($stmt, "sssssss", $fname, $lname, $sname, $family, $habitat, $description, $image_path);
 
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['success'] = "Fish added successfully!";

@@ -1,4 +1,5 @@
-<?php include 'notifications/messages.php'?>
+<?php
+session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,9 +55,9 @@
       margin-bottom: 20px;
     }
   </style>
+    <?php include 'notifications/messages.php'?>
 </head>
 <body>
-  
   <!-- Background Carousel -->
   <div id="carouselBackground" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
