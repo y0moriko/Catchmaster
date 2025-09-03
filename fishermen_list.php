@@ -10,45 +10,17 @@ if (!isset($_SESSION['admin_id'])) {
 <html lang="en">
 
 <head>
-    <?php include 'notifications/messages.php' ?>
-    <?php include 'header.php'; ?>
-        <style>
-                                /* Custom backdrop with blur and translucency for visible background */
-                                .modal-backdrop.show {
-                                background-color: rgba(0, 0, 0, 0.3) !important; /* lighter black */
-                                backdrop-filter: blur(8px);
-                                -webkit-backdrop-filter: blur(8px);
-                                }
-
-                                /* Modal content with glass morphism style */
-                                .modal-content {
-                                background: rgba(255, 255, 255, 0.85);
-                                backdrop-filter: saturate(180%) blur(15px);
-                                -webkit-backdrop-filter: saturate(180%) blur(15px);
-                                border-radius: 12px;
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-                                }
-
-                                /* Ensure labels and inputs have good contrast on this background */
-                                label {
-                                font-weight: 600;
-                                color: #222;
-                                }
-
-                                .modal-header .close {
-                                color: #444;
-                                opacity: 1;
-                                font-size: 1.5rem;
-                                }
-
-                                /* Capitalize the first letter of each word in name fields */
-                                .capitalize {
-                                text-transform: capitalize;
-                                }
-                            </style>
-                            </head>
-                            <body style="background-color: lightgray; min-height: 100vh;"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Catches - CatchMaster</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/fishermen.css" rel="stylesheet">
+</head>
+                            <body style="background-color: lightgray; min-height: 100vh;">
+                                <?php include 'header.php'?>
+                                <?php include 'notifications/messages.php'?>
                             <div class="modal fade" id="fisherModal" tabindex="-1" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" aria-labelledby="fisherModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <form class="modal-content" action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
@@ -203,6 +175,23 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
 
     </div>
+<!--modals should be here -->
+<!-- edit modal -->
+<div class="modal fade" id="editFishermanModal" tabindex="-1" role="dialog" aria-labelledby="editFishermanLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="editFishermanLabel">Edit Fisherman</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editFishermanContent">
+      </div>
+    </div>
+  </div>
+</div>
+
   <script>
     function showModal() {
         $('#fisherModal').modal({
@@ -240,7 +229,29 @@ if (!isset($_SESSION['admin_id'])) {
         imageInput.value = ''; // Reset file input
     }
 </script>
- 
+
+<script>
+$(document).ready(function() {
+  $('.edit-fisherman-btn').on('click', function(e) {
+    e.preventDefault();
+    const userId = $(this).data('id');
+
+    $.ajax({
+      url: 'forms/edit-fishermen.php',
+      type: 'GET',
+      data: { id: userId },
+      success: function(response) {
+        $('#editFishermanContent').html(response);
+        $('#editFishermanModal').modal('show');
+      },
+      error: function() {
+        $('#editFishermanContent').html('<p class="text-danger">Failed to load form.</p>');
+        $('#editFishermanModal').modal('show');
+      }
+    });
+  });
+});
+</script>
     
   <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>

@@ -15,68 +15,10 @@ if (!isset($_SESSION['admin_id'])) {
   <title>Profile & Fisheries Section</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/header.css" rel="stylesheet">
+  <link href="css/profile.css" rel="stylesheet">
 
-  <style>
-    body {
-      background-color: #f4f6f9;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .container-custom {
-      padding: 100px 20px 50px;
-    }
-
-    .card {
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    .card-header {
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-    }
-
-    .profile-img {
-      width: 130px;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #007bff;
-    }
-
-    .personnel-card {
-      display: flex;
-      align-items: flex-start;
-      background-color: #f8f9fa;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .personnel-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-
-    .personnel-card h5 {
-      margin: 0 0 6px;
-      font-size: 17px;
-      color: #333;
-    }
-
-    .personnel-card p {
-      margin: 2px 0;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .capitalize-first-letter {
-      text-transform: capitalize;
-    }
-  </style>
 </head>
 <body>
 
@@ -84,27 +26,50 @@ if (!isset($_SESSION['admin_id'])) {
   <div class="row">
 
     <!-- Admin Profile -->
-    <div class="col-md-5 mb-4">
-      <div class="card">
-        <div class="card-header bg-primary text-white text-center">
-          <h5 class="mb-0">Admin Profile</h5>
+    <div class="col-lg-5 mb-4">
+      <div class="modern-card">
+        <div class="card-header-modern">
+          <h5 style="color: white;"><i class="fas fa-user-shield me-2" style="color: white;"></i> Admin Profile</h5>
         </div>
-        <div class="card-body text-center">
-          <?php if (!empty($admin['image_path'])): ?>
-            <img src="<?php echo $admin['image_path']; ?>" alt="Admin Image" class="profile-img mb-3">
-          <?php else: ?>
-            <img src="assets/default-profile.png" alt="Default Image" class="profile-img mb-3">
-          <?php endif; ?>
+        <div class="profile-section">
+          <div class="profile-img-container">
+            <?php if (!empty($admin['image_path'])): ?>
+              <img src="<?php echo $admin['image_path']; ?>" alt="Admin Image" class="profile-img">
+            <?php else: ?>
+              <img src="assets/default-profile.png" alt="Default Image" class="profile-img">
+            <?php endif; ?>
+            <div class="profile-status"></div>
+          </div>
 
-          <h5 class="card-title">
+          <h4 class="profile-name">
             <?php echo $admin['fname'] . ' ' . $admin['mname'] . ' ' . $admin['lname']; ?>
-          </h5>
-          <p class="mb-1" style="color: black;"><strong>Department: </strong>Agriculture Fisheries<p>
-          <p class="mb-1" style="color: black;"><strong>Role:</strong> <?php echo $admin['department_role']; ?></p>
-          <p class="mb-1" style="color: black;"><strong>Email:</strong> <?php echo $admin['gmail']; ?></p>
-          <p class="mb-1" style="color: black;"><strong>Phone:</strong> <?php echo $admin['phone_number']; ?></p>
+          </h4>
 
-          <button class="btn btn-outline-primary mt-3" data-toggle="modal" data-target="#editProfileModal">
+          <div class="profile-info">
+            <div class="info-item">
+              <i class="fas fa-building"></i>
+              <span class="info-label">Department:</span>
+              <span class="info-value">Agriculture Fisheries</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-user-tag"></i>
+              <span class="info-label">Role:</span>
+              <span class="info-value"><?php echo $admin['department_role']; ?></span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <span class="info-label">Email:</span>
+              <span class="info-value"><?php echo $admin['gmail']; ?></span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <span class="info-label">Phone:</span>
+              <span class="info-value"><?php echo $admin['phone_number']; ?></span>
+            </div>
+          </div>
+
+          <button class="btn btn-modern btn-primary-modern mt-4" data-toggle="modal" data-target="#editProfileModal">
+            <i class="fas fa-edit"></i>
             Edit Profile
           </button>
         </div>
@@ -112,178 +77,262 @@ if (!isset($_SESSION['admin_id'])) {
     </div>
 
     <!-- Fisheries Personnel -->
-    <div class="col-md-7 mb-4">
-    <div class="card">
-      <div class="card-header bg-primary text-white text-center">
-        <h5 class="mb-0">Fisheries Personnel</h5>
-      </div>
-      <div class="card-body">
-        <?php foreach ($personnel as $person): ?>
-          <div class="personnel-card">
-            <img src="<?php echo !empty($person['image_path']) ? $person['image_path'] : 'assets/default-profile.png'; ?>" alt="Profile">
-            <div>
-              <h5><?php echo $person['fname'] . ' ' . $person['mname'] . ' ' . $person['lname']; ?></h5>
-              <p><strong>Email:</strong> <?php echo $person['gmail']; ?></p>
-              <p><strong>Department:</strong> Fisheries</p>
-              <p><strong>Role:</strong> <?php echo $person['department_role']; ?></p>
-            </div>
+    <div class="col-lg-7 mb-4">
+      <div class="modern-card">
+        <div class="card-header-modern">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0" style="color: white;"><i class="fas fa-users me-2" style="color: white;"></i> Fisheries Personnel</h5>
+            <button class="btn btn-modern btn-primary-modern" data-toggle="modal" data-target="#addMemberModal" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);">
+              <i class="fas fa-user-plus"></i>
+              Add Personnel
+            </button>
           </div>
-        <?php endforeach; ?>
+        </div>
+        <div class="personnel-grid">
+          <?php foreach ($personnel as $person): ?>
+            <div class="personnel-card">
+              <div class="personnel-content">
+                <img src="<?php echo !empty($person['image_path']) ? $person['image_path'] : 'assets/default-profile.png'; ?>" alt="Profile" class="personnel-avatar">
+                
+                <div class="personnel-info flex-grow-1">
+                  <h5><?php echo $person['fname'] . ' ' . $person['mname'] . ' ' . $person['lname']; ?></h5>
+                  <div class="personnel-detail">
+                    <i class="fas fa-envelope"></i>
+                    <?php echo $person['gmail']; ?>
+                  </div>
+                  <div class="personnel-detail">
+                    <i class="fas fa-building"></i>
+                    Fisheries Department
+                  </div>
+                  <div class="personnel-detail">
+                    <i class="fas fa-user-tag"></i>
+                    <?php echo $person['department_role']; ?>
+                  </div>
+                </div>
 
-        <div class="text-center mt-3">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addMemberModal">
-            Add Personnel
-          </button>
+                <div class="action-buttons">
+                  <a href="#" class="btn btn-modern btn-edit edit-personnel-btn" data-id="<?php echo $person['admin_id']; ?>" data-toggle="tooltip" title="Edit Personnel">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a href="functions/delete-func/delete-personnel.php?admin_id=<?php echo $person['admin_id']; ?>" class="btn btn-modern btn-delete" onclick="return confirm('Are you sure you want to delete this personnel?');" data-toggle="tooltip" title="Delete Personnel">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
   </div>
-
+</div>
 
 <!-- Edit Profile Modal -->
 <div class="modal fade" id="editProfileModal" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
-    <!-- FORM dapat nasa labas ng .modal-content -->
     <form id="editProfileForm" method="POST" action="functions/update-func/edit-admin.php" enctype="multipart/form-data">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Profile</h5>
+      <div class="modal-content modal-content-modern">
+        <div class="modal-header modal-header-modern">
+          <h5 class="modal-title"><i class="fas fa-user-edit me-2"></i>Edit Profile</h5>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body" style="padding: 32px;">
           <!-- Profile Photo -->
-          <div class="form-row mb-3 text-center">
-            <div class="col-md-12">
+          <div class="form-group-modern text-center">
+            <div class="photo-preview">
               <img id="previewImage"
-                   src= <?php echo $admin['image_path'] ?? 'default.png'; ?>
-                   alt="Profile Picture"
-                   class="rounded-circle"
-                   style="width: 120px; height: 120px; object-fit: cover; border:2px solid #ccc;">
-              <div class="mt-2">
-                <input type="file" name="photo" id="photoInput" accept="image/*" class="form-control-file">
+                   src="<?php echo $admin['image_path'] ?? 'default.png'; ?>"
+                   alt="Profile Picture">
+              <div class="photo-upload-overlay">
+                <i class="fas fa-camera" style="color: white; font-size: 1.5rem;"></i>
               </div>
+            </div>
+            <div class="mt-3">
+              <input type="file" name="photo" id="photoInput" accept="image/*" class="form-control-modern">
             </div>
           </div>
 
           <!-- Name Row -->
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>First Name</label>
-              <input type="text" class="form-control" name="fname" value="<?php echo $admin['fname']; ?>">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group-modern">
+                <label>First Name</label>
+                <input type="text" class="form-control form-control-modern" name="fname" value="<?php echo $admin['fname']; ?>">
+              </div>
             </div>
-            <div class="form-group col-md-4">
-              <label>Middle Name</label>
-              <input type="text" class="form-control" name="mname" value="<?php echo $admin['mname']; ?>">
+            <div class="col-md-4">
+              <div class="form-group-modern">
+                <label>Middle Name</label>
+                <input type="text" class="form-control form-control-modern" name="mname" value="<?php echo $admin['mname']; ?>">
+              </div>
             </div>
-            <div class="form-group col-md-4">
-              <label>Last Name</label>
-              <input type="text" class="form-control" name="lname" value="<?php echo $admin['lname']; ?>">
+            <div class="col-md-4">
+              <div class="form-group-modern">
+                <label>Last Name</label>
+                <input type="text" class="form-control form-control-modern" name="lname" value="<?php echo $admin['lname']; ?>">
+              </div>
             </div>
           </div>
 
           <!-- Gmail + Role Row -->
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Gmail</label>
-              <input type="email" class="form-control" name="gmail" value="<?php echo $admin['gmail']; ?>">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group-modern">
+                <label>Email Address</label>
+                <input type="email" class="form-control form-control-modern" name="gmail" value="<?php echo $admin['gmail']; ?>">
+              </div>
             </div>
-            <div class="form-group col-md-6">
-              <label>Role</label>
-              <input type="text" class="form-control" name="role" value="<?php echo $admin['department_role']; ?>">
+            <div class="col-md-6">
+              <div class="form-group-modern">
+                <label>Department Role</label>
+                <input type="text" class="form-control form-control-modern" name="role" value="<?php echo $admin['department_role']; ?>">
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer" style="padding: 24px; border-top: 1px solid #e2e8f0;">
           <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" class="btn btn-modern btn-primary-modern">
+            <i class="fas fa-save me-1"></i>
+            Save Changes
+          </button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
-
-
-
 
 <!-- Add Personnel Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-md" role="document">
-    <form class="modal-content" action="functions/add-func/add-admin.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="modal-content modal-content-modern" action="functions/add-func/add-admin.php" method="POST" enctype="multipart/form-data" autocomplete="off">
       <input type="email" name="fake_email" style="display:none">
       <input type="password" name="fake_password" style="display:none">
 
-      <div class="modal-header">
-        <h5 class="modal-title">Add Personnel</h5>
+      <div class="modal-header modal-header-modern">
+        <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Add New Personnel</h5>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" style="padding: 32px;">
         <!-- Profile Photo Preview -->
-        <div class="form-group text-center">
-          <img id="addPreviewImage" src="uploads/default.png" alt="Profile Preview" class="rounded-circle" style="width:120px; height:120px; object-fit:cover; border:2px solid #ccc;">
-          <div class="mt-2">
-            <input type="file" name="image" class="form-control-file" accept="image/*" id="addPhotoInput">
+        <div class="form-group-modern text-center">
+          <div class="photo-preview">
+            <img id="addPreviewImage" src="uploads/default.png" alt="Profile Preview">
+            <div class="photo-upload-overlay">
+              <i class="fas fa-camera" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+          </div>
+          <div class="mt-3">
+            <input type="file" name="image" class="form-control form-control-modern" accept="image/*" id="addPhotoInput">
           </div>
         </div>
 
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" name="first_name" class="form-control capitalize-first-letter" required>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group-modern">
+              <label>First Name</label>
+              <input type="text" name="first_name" class="form-control form-control-modern capitalize-first-letter" required>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group-modern">
+              <label>Middle Name</label>
+              <input type="text" name="middle_name" class="form-control form-control-modern capitalize-first-letter">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group-modern">
+              <label>Last Name</label>
+              <input type="text" name="last_name" class="form-control form-control-modern capitalize-first-letter" required>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Middle Name</label>
-          <input type="text" name="middle_name" class="form-control capitalize-first-letter">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group-modern">
+              <label>Phone Number</label>
+              <input type="text" name="phone_number" class="form-control form-control-modern" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group-modern">
+              <label>Email Address</label>
+              <input type="email" name="email" class="form-control form-control-modern" autocomplete="new-email" required>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" name="last_name" class="form-control capitalize-first-letter" required>
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="text" name="phone_number" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" name="email" class="form-control" autocomplete="new-email" value="">
-        </div>
-        <div class="form-group">
-          <label>Department Role</label>
-          <input type="text" name="department_role" class="form-control capitalize-first-letter" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control" autocomplete="new-password" required>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group-modern">
+              <label>Department Role</label>
+              <input type="text" name="department_role" class="form-control form-control-modern capitalize-first-letter" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group-modern">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control form-control-modern" autocomplete="new-password" required>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer" style="padding: 24px; border-top: 1px solid #e2e8f0;">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Add Member</button>
+        <button type="submit" class="btn btn-modern btn-primary-modern">
+          <i class="fas fa-user-plus me-1"></i>
+          Add Personnel
+        </button>
       </div>
     </form>
   </div>
 </div>
 
+<!-- Edit Personnel Modal -->
+<div class="modal fade" id="editPersonnelModal" tabindex="-1" role="dialog" aria-labelledby="editPersonnelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-content-modern">
+      <div class="modal-header modal-header-modern">
+        <h5 class="modal-title" id="editPersonnelLabel"><i class="fas fa-user-edit me-2"></i>Edit Personnel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editPersonnelContent">
+        <!-- Form will be loaded here -->
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="vendor/bootstrap-4.1/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 
 <script>
-  $('#addMemberModal').on('show.bs.modal', function () {
-    $(this).find('input[type="text"], input[type="email"], input[type="password"]').val('');
-    $(this).find('input[type="file"]').val('');
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$('#addMemberModal').on('show.bs.modal', function () {
+  $(this).find('input[type="text"], input[type="email"], input[type="password"]').val('');
+  $(this).find('input[type="file"]').val('');
+  $('#addPreviewImage').attr('src', 'uploads/default.png');
+});
+
+document.querySelectorAll('.capitalize-first-letter').forEach(input => {
+  input.addEventListener('input', function () {
+    this.value = this.value.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
   });
-  document.querySelectorAll('.capitalize-first-letter').forEach(input => {
-    input.addEventListener('input', function () {
-      this.value = this.value.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-    });
-  });
-  document.getElementById("photoInput").addEventListener("change", function(e) {
+});
+
+document.getElementById("photoInput").addEventListener("change", function(e) {
   const file = e.target.files[0];
   if (file) {
     const reader = new FileReader();
@@ -292,17 +341,39 @@ if (!isset($_SESSION['admin_id'])) {
     };
     reader.readAsDataURL(file);
   }
+});
+
+document.getElementById('addPhotoInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      document.getElementById('addPreviewImage').src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+$(document).ready(function() {
+  $('.edit-personnel-btn').on('click', function(e) {
+    e.preventDefault();
+    const adminId = $(this).data('id');
+
+    $.ajax({
+      url: 'forms/edit-personnel.php',
+      type: 'GET',
+      data: { id: adminId },
+      success: function(response) {
+        $('#editPersonnelContent').html(response);
+        $('#editPersonnelModal').modal('show');
+      },
+      error: function() {
+        $('#editPersonnelContent').html('<p class="text-danger">Failed to load form.</p>');
+        $('#editPersonnelModal').modal('show');
+      }
+    });
   });
-  document.getElementById('addPhotoInput').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        document.getElementById('addPreviewImage').src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+});
 </script>
 
 </body>

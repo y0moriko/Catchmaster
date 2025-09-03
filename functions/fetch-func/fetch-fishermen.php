@@ -27,18 +27,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>' . htmlspecialchars($user['birthday']) . '</td>
             <td>
             <div class="table-data-feature">
-                <button class="item" data-toggle="tooltip" title="Send">
-                    <i class="zmdi zmdi-mail-send"></i>
-                </button>
-                <button class="item" data-toggle="tooltip" title="Edit">
-                    <i class="zmdi zmdi-edit"></i>
-                </button>
                 <a href="functions/delete-func/delete-fishermen.php?fisherman_id=' . $user['user_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this fisherman?\');">
                     <i class="zmdi zmdi-delete"></i>
                 </a>
-                <button class="item" data-toggle="tooltip" title="More">
-                    <i class="zmdi zmdi-more"></i>
-                </button>
+                <a href="#" class="item edit-fisherman-btn" data-id=' . $user['user_id'] . ' " data-toggle="tooltip" title="Edit">
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
             </div>
             </td>
         </tr>

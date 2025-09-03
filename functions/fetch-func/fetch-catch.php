@@ -17,8 +17,8 @@ $sql = "
     FROM
         fishcatch fc
     JOIN
-        fish f ON fc.fish_id = f.fish_id 
-    ORDER BY 
+        fish f ON fc.fish_id = f.fish_id
+    ORDER BY
         fc.catch_date DESC";
 
 
@@ -39,9 +39,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>' . htmlspecialchars($catch['catch_date']) . '</td>
             <td>
                 <div class="table-data-feature">
-                    <button class="item" data-toggle="tooltip" title="Edit">
-                        <i class="zmdi zmdi-edit"></i>
-                    </button>
                     <a href="functions/delete-func/delete-catch.php?id=' . $catch['catch_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this catch?\');">
                         <i class="zmdi zmdi-delete"></i>
                     </a>
