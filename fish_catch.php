@@ -5,6 +5,7 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
 }
+include 'functions/get-func/get-fish.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,15 +15,151 @@ if (!isset($_SESSION['admin_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish Catches - CatchMaster</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
     <link href="css/catch.css" rel="stylesheet">
+    <style>
+
+    .custom-modal {
+        display: none; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        overflow-y: auto;
+        padding: 50px 20px;
+    }
+    .custom-modal.show {
+        display: block;
+    }
+
+    .custom-modal-content {
+        background: #fff;
+        max-width: 600px;
+        margin: auto;
+        border-radius: 10px;
+        padding: 25px 30px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        animation: addFishFadeIn 0.3s ease-out;
+    }
+
+    @keyframes addFishFadeIn {
+        from {opacity: 0; transform: translateY(-20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    .custom-modal-content h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .custom-modal-content label {
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 15px;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    .custom-modal-content input[type="text"],
+    .custom-modal-content select,
+    .custom-modal-content textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 1rem;
+        color: #111827;
+    }
+
+    .custom-modal-content textarea {
+        resize: vertical;
+    }
+
+    .custom-modal-content input[type="file"] {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    #imagePreview {
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+    }
+
+    .custom-close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 1.5rem;
+        color: #6b7280;
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+
+    .custom-close-btn:hover {
+        color: #111827;
+    }
+
+    .custom-actions {
+        margin-top: 25px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .custom-btn-primary {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s ease;
+    }
+
+    .custom-btn-primary:hover {
+        background-color: #2563eb;
+    }
+
+    .custom-btn-secondary {
+        background-color: #e5e7eb;
+        color: #374151;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s ease;
+    }
+
+    .custom-btn-secondary:hover {
+        background-color: #d1d5db;
+    }
+
+    .custom-btn-danger {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+        </style>
 </head>
 <body>
     <?php include 'header.php'; ?>
     
     <div class="modern-container">
-        <!-- Modern Breadcrumb -->
+        <!-- Breadcrumb -->
         <div class="modern-breadcrumb">
             <div class="breadcrumb-content">
                 <nav class="breadcrumb-nav">
@@ -48,13 +185,9 @@ if (!isset($_SESSION['admin_id'])) {
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Fish Catch Records</h1>
-            <button class="add-catch-btn" onclick=showModal()>
-                <i class="fas fa-plus"></i>
-                Add Fish Catch
-            </button>
         </div>
 
-        <!-- Modern Table Card -->
+        <!-- Table Data -->
         <div class="table-card">
             <div class="table-header">
                 <h3 class="table-title">Recent Fish Catches</h3>
@@ -77,15 +210,16 @@ if (!isset($_SESSION['admin_id'])) {
                         <i class="fas fa-filter"></i>
                         Apply Filters
                     </button>
+                    <button class="add-catch-btn" onclick="showAddFishModal()">
+                        <i class="fas fa-plus"></i> Add Fish Catch
+                    </button>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="modern-table">
                     <thead>
                         <tr>
-                            <th>
-                                <input type="checkbox" style="transform: scale(1.2);">
-                            </th>
+                            <th><input type="checkbox" style="transform: scale(1.2);"></th>
                             <th>Fish Species</th>
                             <th>Quantity (kg)</th>
                             <th>Location</th>
@@ -95,181 +229,166 @@ if (!isset($_SESSION['admin_id'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php include 'functions/fetch-func/fetch-catch.php'?>
-                        <!-- Sample data rows - replace with your PHP fetch -->
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><strong>Bangus</strong></td>
-                            <td>25.5</td>
-                            <td>Salvacion</td>
-                            <td>Dec 15, 2024 - 6:30 AM</td>
-                            <td><span class="status-badge status-fresh">Fresh</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn btn-edit" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn btn-delete" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><strong>Tilapia</strong></td>
-                            <td>18.2</td>
-                            <td>Binagbag</td>
-                            <td>Dec 15, 2024 - 5:45 AM</td>
-                            <td><span class="status-badge status-processed">Processed</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn btn-edit" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn btn-delete" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php include 'functions/fetch-func/fetch-catch.php' ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Add Fish Catch Modal -->
-    <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form class="modal-content" action="functions/add-func/add-catch.php" method="post" enctype="multipart/form-data" novalidate>
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fisherModalLabel">
-                        <i class="fas fa-fish me-2"></i>Add Fish Catch
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <!--Delete Confirmation-->
+    <div id="confirmDeleteModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('confirmDeleteModal')">&times;</span>
+        <h3><i class="fas fa-exclamation-triangle" style="color:red;"></i> Confirm Deletion</h3>
 
-                <div class="modal-body">
-                    <?php include 'functions/get-func/get-fish.php'?>
-                    <!-- Select Fish -->
-                    <div class="form-group">
-                        <label for="speciesName">Select Fish <span class="text-danger">*</span></label>
-                        <select class="form-control" id="speciesName" name="species_name" required>
-                            <option value="" disabled selected>Select species</option>
-                            <?php foreach ($fishSpecies as $species): ?>
-                                <option value="<?php echo htmlspecialchars($species); ?>"><?php echo htmlspecialchars($species); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback">Species name is required.</div>
-                    </div>
+        <p>Are you sure you want to delete <strong id="deleteFishName"></strong>? This action cannot be undone.</p>
 
-                    <!-- Quantity -->
-                    <div class="form-group">
-                        <label for="number">Quantity in Kilogram <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="number" name="number" step="0.1" required placeholder="Enter weight in kg">
-                        <div class="invalid-feedback">Please enter a valid quantity.</div>
-                    </div>
-
-                    <!-- Location -->
-                    <div class="form-group">
-                        <label for="address">Location <span class="text-danger">*</span></label>
-                        <select class="form-control" id="address" name="address" required>
-                            <option value="" disabled selected>Select location</option>
-                            <option value="Salvacion">Salvacion</option>
-                            <option value="Binagbag">Binagbag</option>
-                            <option value="Silangang Calutan">Silangang Calutan</option>
-                            <option value="Kanlurang Calutan">Kanlurang Calutan</option>
-                            <option value="Sildora">Sildora</option>
-                        </select>
-                        <div class="invalid-feedback">Please select a location.</div>
-                    </div>
-
-                    <!-- Date and Time -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="auto_date">Date</label>
-                                <input type="text" id="auto_date" name="date" class="form-control" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="auto_time">Time</label>
-                                <input type="text" id="auto_time" name="time" class="form-control" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary">
-                        <i class="fas fa-times me-1"></i>Clear
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-1"></i>Save Catch
-                    </button>
-                </div>
-            </form>
+        <div class="custom-actions">
+        <button type="button" class="custom-btn-secondary" onclick="closeModal('confirmDeleteModal')">Cancel</button>
+        <button type="button" class="custom-btn-danger" id="confirmDeleteBtn">
+            <i class="fas fa-trash"></i> Yes, Delete
+        </button>
         </div>
     </div>
+    </div>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <!--Add Modal-->
+    <div id="addFishModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('addFishModal')">&times;</span>
+        <h3><i class="fas fa-fish"></i> Add Fish Species</h3>
+
+        <form action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
+        <label>Fish Name *</label>
+        <input type="text" name="fish_name" required>
+
+        <label>Scientific Name</label>
+        <input type="text" name="scientific_name">
+
+        <label>Local Name</label>
+        <input type="text" name="local_name">
+
+        <label>Family *</label>
+        <input type="text" name="family" required>
+
+        <label>Habitat *</label>
+        <select name="habitat" required>
+            <option value="">Select Habitat</option>
+            <option value="Pelagic">Pelagic</option>
+            <option value="Demersal">Demersal</option>
+            <option value="Reef-associated">Reef-associated</option>
+            <option value="Invertebrate">Invertebrate</option>
+        </select>
+
+        <label>Image</label>
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+        <img id="imagePreview" style="display:none; max-width:100px; margin-top:10px;">
+
+        <label>Description *</label>
+        <textarea name="fish_description" required rows="3"></textarea>
+
+        <div class="custom-actions">
+            <button type="button" class="custom-btn-secondary" onclick="closeModal('addFishModal')">Cancel</button>
+            <button type="submit" class="custom-btn-primary">Save Species</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <!--Edit Modal-->
+    <div id="editFishModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('editFishModal')">&times;</span>
+        <h3><i class="fas fa-edit"></i> Edit Fish Species</h3>
+
+        <div id="editFishContent">
+
+        <p>Loading...</p>
+        </div>
+    </div>
+    </div>
+
 
     <script>
-        function showModal() {
-            $('#fisherModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+        function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
         }
 
-        // Auto-fill date and time when form is interacted with
-        let timestampFilled = false;
-
-        function setDateTimeOnce() {
-            if (timestampFilled) return;
-            const now = new Date();
-
-            const date = now.toISOString().split('T')[0];
-            const time = now.toTimeString().split(' ')[0];
-
-            document.getElementById('auto_date').value = date;
-            document.getElementById('auto_time').value = time;
-
-            timestampFilled = true;
+        function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
         }
 
-        // Listen for any input in the form
-        const form = document.querySelector('form');
-        form.addEventListener('input', setDateTimeOnce);
+        // Add Fish modal
+        function showAddFishModal() {
+        openModal('addFishModal');
+        }
 
-        // Form validation
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                var forms = document.getElementsByClassName('modal-content');
-                Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        // Delete modal
+        let deleteCatchUrl = '';
+        function showDeleteModal(url, fishName) {
+        deleteCatchUrl = url;
+        document.getElementById('deleteFishName').textContent = fishName || '';
+        openModal('confirmDeleteModal');
+        }
 
-        // Search functionality (placeholder)
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        if (deleteCatchUrl) window.location.href = deleteCatchUrl;
+        });
+
+        // Edit Fish modal
+        function editFish(fishId) {
+        fetch(`functions/fetch-func/fetch-single-fish.php?id=${fishId}`)
+            .then(res => res.json())
+            .then(fishData => {
+            document.getElementById('editFishContent').innerHTML = `
+                <form action="functions/update-func/update-fish.php" method="post" enctype="multipart/form-data" novalidate>
+                <input type="hidden" name="fish_id" value="${fishData.fish_id}">
+
+                <label>Fish Name *</label>
+                <input type="text" name="fish_name" value="${fishData.fish_name}" required>
+
+                <label>Scientific Name</label>
+                <input type="text" name="scientific_name" value="${fishData.scientific_name || ''}">
+
+                <label>Local Name</label>
+                <input type="text" name="local_name" value="${fishData.local_name || ''}">
+
+                <label>Family *</label>
+                <input type="text" name="family" value="${fishData.family}" required>
+
+                <label>Habitat *</label>
+                <select name="habitat" required>
+                    <option value="Pelagic" ${fishData.habitat === 'Pelagic' ? 'selected' : ''}>Pelagic</option>
+                    <option value="Demersal" ${fishData.habitat === 'Demersal' ? 'selected' : ''}>Demersal</option>
+                    <option value="Reef-associated" ${fishData.habitat === 'Reef-associated' ? 'selected' : ''}>Reef-associated</option>
+                    <option value="Invertebrate" ${fishData.habitat === 'Invertebrate' ? 'selected' : ''}>Invertebrate</option>
+                </select>
+
+                <label>Description *</label>
+                <textarea name="fish_description" rows="3" required>${fishData.fish_description || ''}</textarea>
+
+                <div class="custom-actions">
+                    <button type="button" class="custom-btn-secondary" onclick="closeModal('editFishModal')">Cancel</button>
+                    <button type="submit" class="custom-btn-primary">Update</button>
+                </div>
+                </form>
+            `;
+            openModal('editFishModal');
+            })
+            .catch(err => console.error('Error fetching fish:', err));
+        }
+
         document.getElementById('globalSearch').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            // Add your search logic here
+            
         });
+
+        function markProcessed(catchId) {
+            if (confirm('Mark this catch as Processed?')) {
+                window.location.href = 'functions/update-func/update-status.php?id=' + catchId;
+            }
+        }
     </script>
 </body>
 </html>

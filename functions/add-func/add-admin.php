@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../conn.php';
+include __DIR__ . '/../conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fname = $_POST['first_name'];

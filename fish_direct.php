@@ -13,9 +13,9 @@ if (!isset($_SESSION['admin_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish Directory - CatchMaster</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/header.css" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/direct.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'header.php'?>
@@ -61,7 +61,7 @@ if (!isset($_SESSION['admin_id'])) {
                         </button>
                     </div>
                     <div class="table-actions">
-                        <button class="action-button btn-add" onclick="showModal()">
+                        <button class="action-button btn-add" onclick="openModal('addFishModal')">
                             <i class="fas fa-plus"></i>
                             Add Fish Species
                         </button>
@@ -91,208 +91,89 @@ if (!isset($_SESSION['admin_id'])) {
                     </thead>
                     <tbody>
                         <?php include 'functions/fetch-func/fetch-fish.php'?>
-                        <!-- Sample data rows -->
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>
-                                <img src="https://via.placeholder.com/60x60?text=Fish" alt="Fish" class="fish-image">
-                            </td>
-                            <td>
-                                <div class="fish-name">Bangus</div>
-                                <div class="scientific-name">Chanos chanos</div>
-                            </td>
-                            <td><em>Chanos chanos</em></td>
-                            <td class="fish-description">A popular silvery fish commonly found in Philippine waters, known for its mild taste and versatility in cooking.</td>
-                            <td>Chanidae</td>
-                            <td><span class="badge badge-info">Pelagic</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn btn-edit" title="Edit" onclick="editFish(1)">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn btn-delete" title="Delete" onclick="confirmDelete(1)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>
-                                <img src="https://via.placeholder.com/60x60?text=Fish" alt="Fish" class="fish-image">
-                            </td>
-                            <td>
-                                <div class="fish-name">Tilapia</div>
-                                <div class="scientific-name">Oreochromis niloticus</div>
-                            </td>
-                            <td><em>Oreochromis niloticus</em></td>
-                            <td class="fish-description">A freshwater fish species widely cultivated in aquaculture, known for its adaptability and nutritional value.</td>
-                            <td>Cichlidae</td>
-                            <td><span class="badge badge-success">Freshwater</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn btn-edit" title="Edit" onclick="editFish(2)">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn btn-delete" title="Delete" onclick="confirmDelete(2)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>
-                                <img src="https://via.placeholder.com/60x60?text=Fish" alt="Fish" class="fish-image">
-                            </td>
-                            <td>
-                                <div class="fish-name">Maya-maya</div>
-                                <div class="scientific-name">Lutjanus campechanus</div>
-                            </td>
-                            <td><em>Lutjanus campechanus</em></td>
-                            <td class="fish-description">A prized red snapper species found in deep waters, highly valued for its firm texture and excellent taste.</td>
-                            <td>Lutjanidae</td>
-                            <td><span class="badge badge-warning">Reef-associated</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn btn-edit" title="Edit" onclick="editFish(3)">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn btn-delete" title="Delete" onclick="confirmDelete(3)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Add Fish Species Modal -->
-    <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form class="modal-content" action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fisherModalLabel">
-                        <i class="fas fa-fish"></i>
-                        Add Fish Species
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Name Fields -->
-                            <div class="form-group">
-                                <label for="fish_name">Fish Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="fishName" name="fish_name" required placeholder="Enter fish name">
-                                <div class="invalid-feedback">Fish name is required.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="scientific_name">Scientific Name</label>
-                                <input type="text" class="form-control" id="scientificName" name="scientific_name" placeholder="Enter scientific name">
-                            </div>
-                            <div class="form-group">
-                                <label for="local_name">Local Name</label>
-                                <input type="text" class="form-control" id="localName" name="local_name" placeholder="Enter local name">
-                            </div>
-                            <div class="form-group">
-                                <label for="family">Family <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="Family" name="family" required placeholder="Enter fish family">
-                                <div class="invalid-feedback">Family is required.</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="habitat">Habitat <span class="text-danger">*</span></label>
-                                <select name="habitat" id="habitat" class="form-control" required>
-                                    <option value="">Select Habitat</option>
-                                    <option value="Pelagic">Pelagic</option>
-                                    <option value="Demersal">Demersal</option>
-                                    <option value="Reef-associated">Reef-associated</option>
-                                    <option value="Invertebrate">Invertebrate</option>
-                                </select>
-                                <div class="invalid-feedback">Habitat is required.</div>
-                            </div>
-                            <!-- Image Upload -->
-                            <div class="form-group">
-                                <label for="image">Profile Image</label>
-                                <input type="file" class="form-control-file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-                                <small class="form-text text-muted">Upload an image of the fish species.</small>
-                            </div>
-                            <!-- Image Preview -->
-                            <div class="form-group">
-                                <label>Image Preview</label>
-                                <div>
-                                    <img id="imagePreview" src="" alt="Image Preview" class="image-preview" style="display:none;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="fish_description">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="Description" name="fish_description" required rows="3" placeholder="Enter fish description"></textarea>
-                        <div class="invalid-feedback">Description is required.</div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary">
-                        <i class="fas fa-times"></i> Clear
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save Species
-                    </button>
-                </div>
-            </form>
+    <!-- Add Fish Modal -->
+    <div id="addFishModal" class="add-fish-modal">
+    <div class="add-fish-modal-content">
+        <span class="add-fish-close-btn" onclick="closeModal('addFishModal')">&times;</span>
+        <h3><i class="fas fa-fish"></i> Add Fish Species</h3>
+        
+        <form action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
+        <label>Fish Name *</label>
+        <input type="text" name="fish_name" required>
+
+        <label>Scientific Name</label>
+        <input type="text" name="scientific_name">
+
+        <label>Local Name</label>
+        <input type="text" name="local_name">
+
+        <label>Family *</label>
+        <input type="text" name="family" required>
+
+        <label>Habitat *</label>
+        <select name="habitat" required>
+            <option value="">Select Habitat</option>
+            <option value="Pelagic">Pelagic</option>
+            <option value="Demersal">Demersal</option>
+            <option value="Reef-associated">Reef-associated</option>
+            <option value="Invertebrate">Invertebrate</option>
+        </select>
+
+        <label>Image</label>
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+        <img id="imagePreview" style="display:none; max-width:100px; margin-top:10px;">
+
+        <label>Description *</label>
+        <textarea name="fish_description" required rows="3"></textarea>
+
+        <div class="add-fish-actions">
+            <button type="button" class="add-fish-btn-secondary" onclick="closeModal('addFishModal')">Cancel</button>
+            <button type="submit" class="add-fish-btn-primary">Save Species</button>
         </div>
+        </form>
+    </div>
     </div>
 
-    <!-- Confirmation Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="confirmDeleteLabel">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Confirm Deletion
-                    </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this fish species? This action cannot be undone.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                        <i class="fas fa-trash"></i> Yes, Delete
-                    </button>
-                </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmDeleteModal" class="add-fish-modal">
+        <div class="add-fish-modal-content">
+            <span class="add-fish-close-btn" onclick="closeModal('confirmDeleteModal')">&times;</span>
+            <h3 class="text-danger">
+                <i class="fas fa-exclamation-triangle"></i> Confirm Deletion
+            </h3>
+
+            <p style="margin: 15px 0; font-size: 14px; color: #444;">
+                Are you sure you want to delete this fish species? This action cannot be undone.
+            </p>
+
+            <div class="add-fish-actions">
+                <button type="button" class="add-fish-btn-secondary" onclick="closeModal('confirmDeleteModal')">
+                    Cancel
+                </button>
+                <button type="button" class="add-fish-btn-primary" id="confirmDeleteBtn" style="background-color: #dc3545; border-color: #dc3545;">
+                    <i class="fas fa-trash"></i> Yes, Delete
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Edit Fish Modal -->
-    <div class="modal fade" id="editFishModal" tabindex="-1" role="dialog" aria-labelledby="editFishModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editFishModalLabel">
-                        <i class="fas fa-edit"></i>
-                        Edit Fish Species
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="editFishContent">
-                    <!-- Edit form content will be loaded here -->
-                </div>
+    <div id="editFishModal" class="add-fish-modal">
+        <div class="add-fish-modal-content">
+            <span class="add-fish-close-btn" onclick="closeModal('editFishModal')">&times;</span>
+            <h3><i class="fas fa-edit"></i> Edit Fish Species</h3>
+            
+            <!-- The edit form will be loaded here dynamically -->
+            <div id="editFishContent">
+                <!-- Example placeholder, actual form loaded via JS/AJAX -->
+                <p>Loading...</p>
             </div>
         </div>
     </div>
@@ -302,152 +183,147 @@ if (!isset($_SESSION['admin_id'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 
     <script>
-        function showModal() {
-            $('#fisherModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        }
+    // Capitalize input fields
+    function capitalizeInput(input) {
+        const words = input.value.split(' ');
+        input.value = words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    }
 
-        function capitalizeInput(input) {
-            const words = input.value.split(' ');
-            input.value = words
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                .join(' ');
-        }
+    // Open/Close Custom Modal
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
 
-        function previewImage(event) {
-            const imagePreview = document.getElementById('imagePreview');
-            const file = event.target.files[0];
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+    }
+
+    // Image preview
+    function previewImage(event) {
+        const img = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+        if (file) {
             const reader = new FileReader();
-
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.src = '';
-                imagePreview.style.display = 'none';
-            }
+            reader.onload = e => {
+                img.src = e.target.result;
+                img.style.display = "block";
+            };
+            reader.readAsDataURL(file);
         }
+    }
 
-        function confirmDelete(fishId) {
-            $('#confirmDeleteBtn').data('fish-id', fishId);
-            $('#confirmDeleteModal').modal('show');
-        }
+    // Confirm Delete Modal
+    function confirmDelete(fishId) {
+        // Store fishId for deletion in the button's data attribute
+        const deleteBtn = document.getElementById('confirmDeleteBtn');
+        deleteBtn.setAttribute('data-fish-id', fishId);
 
-        function editFish(fishId) {
-            // Simulate loading edit form content
-            $('#editFishContent').html(`
-                <form action="functions/edit-func/edit-fish.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="fish_id" value="${fishId}">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="edit_fish_name">Fish Name</label>
-                                <input type="text" class="form-control" name="fish_name" value="Sample Fish Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_scientific_name">Scientific Name</label>
-                                <input type="text" class="form-control" name="scientific_name" value="Scientific Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_local_name">Local Name</label>
-                                <input type="text" class="form-control" name="local_name" value="Local Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_family">Family</label>
-                                <input type="text" class="form-control" name="family" value="Fish Family" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="edit_habitat">Habitat</label>
-                                <select name="habitat" class="form-control" required>
-                                    <option value="Pelagic" selected>Pelagic</option>
-                                    <option value="Demersal">Demersal</option>
-                                    <option value="Reef-associated">Reef-associated</option>
-                                    <option value="Invertebrate">Invertebrate</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_image">Profile Image</label>
-                                <input type="file" class="form-control-file" name="image" accept="image/*">
-                                <small class="form-text text-muted">Leave empty to keep current image.</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_description">Description</label>
-                        <textarea class="form-control" name="fish_description" rows="3" required>Sample fish description that can be edited.</textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Update Species
-                        </button>
+        // Show your custom modal
+        openModal('confirmDeleteModal');
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        confirmDeleteBtn.addEventListener('click', function() {
+            const fishId = this.getAttribute('data-fish-id');
+            if(fishId) {
+                // Redirect to your delete script with the fish ID
+                window.location.href = `functions/delete-func/delete-fish.php?id=${fishId}`;
+            }
+        });
+    });
+
+        //Edit Fish
+    function editFish(fishId) {
+        fetch(`functions/fetch-func/fetch-single-fish.php?id=${fishId}`)
+        .then(response => response.json())
+        .then(fish => {
+            document.getElementById('editFishContent').innerHTML = `
+                <form action="functions/update-func/update-fish.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="fish_id" value="${fish.fish_id}">
+
+                    <label>Fish Name *</label>
+                    <input type="text" name="fish_name" value="${fish.fish_name}" required>
+
+                    <label>Scientific Name</label>
+                    <input type="text" name="scientific_name" value="${fish.scientific_name}">
+
+                    <label>Local Name</label>
+                    <input type="text" name="local_name" value="${fish.local_name}">
+
+                    <label>Family *</label>
+                    <input type="text" name="family" value="${fish.family}" required>
+
+                    <label>Habitat *</label>
+                    <select name="habitat" required>
+                        <option value="Pelagic" ${fish.habitat === 'Pelagic' ? 'selected' : ''}>Pelagic</option>
+                        <option value="Demersal" ${fish.habitat === 'Demersal' ? 'selected' : ''}>Demersal</option>
+                        <option value="Reef-associated" ${fish.habitat === 'Reef-associated' ? 'selected' : ''}>Reef-associated</option>
+                        <option value="Invertebrate" ${fish.habitat === 'Invertebrate' ? 'selected' : ''}>Invertebrate</option>
+                    </select>
+
+                    <label>Image</label>
+                    <input type="file" name="new_image" accept="image/*" onchange="previewEditImage(event)">
+                    <img id="editImagePreview" src="uploads/fish/${fish.image_path}" style="max-width:100px; margin-top:10px;">
+
+                    <label>Description *</label>
+                    <textarea name="fish_description" rows="3" required>${fish.fish_description}</textarea>
+
+                    <div class="add-fish-actions">
+                        <button type="button" class="add-fish-btn-secondary" onclick="closeModal('editFishModal')">Cancel</button>
+                        <button type="submit" class="add-fish-btn-primary" name="update_fish">Update Species</button>
                     </div>
                 </form>
-            `);
-            $('#editFishModal').modal('show');
+            `;
+            openModal('editFishModal');
+        })
+        .catch(err => console.error('Error fetching fish data:', err));
+    }
+
+    // Image preview for edit modal
+    function previewEditImage(event) {
+        const img = document.getElementById('editImagePreview');
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
+    }
 
-        // Delete confirmation handler
-        $('#confirmDeleteBtn').on('click', function() {
-            const fishId = $(this).data('fish-id');
-            // Here you would typically make an AJAX request to delete the fish
-            console.log('Deleting fish with ID:', fishId);
-            $('#confirmDeleteModal').modal('hide');
-            // You can add actual deletion logic here
-        });
 
-        // Form validation
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                var forms = document.getElementsByClassName('modal-content');
-                Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-
-        // Auto-capitalize input fields
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input[type="text"]:not([readonly])');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    capitalizeInput(this);
-                });
+    // Auto-capitalize input fields
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input[type="text"]:not([readonly])');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                capitalizeInput(this);
             });
         });
+    });
 
-        // Handle Excel file upload
-        document.getElementById('excel_file').addEventListener('change', function() {
-            if (this.files.length > 0) {
-                // Here you would typically submit the form or make an AJAX request
-                console.log('Excel file selected:', this.files[0].name);
-                // You can add actual upload logic here
-            }
-        });
+    // Handle Excel file upload
+    document.getElementById('excel_file').addEventListener('change', function() {
+        if (this.files.length > 0) {
+            console.log('Excel file selected:', this.files[0].name);
+            // TODO: Add upload logic
+        }
+    });
 
-        // Filter functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterBtn = document.querySelector('.filter-btn');
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterBtn = document.querySelector('.filter-btn');
+        if (filterBtn) {
             filterBtn.addEventListener('click', function() {
-                // Add your filter logic here
                 console.log('Applying filters...');
             });
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 </html>

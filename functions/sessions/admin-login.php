@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:/xamp/htdocs/Capstone/functions/conn.php';
+include __DIR__ . '/../conn.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email'] ?? '');

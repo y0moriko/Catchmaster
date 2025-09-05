@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+include __DIR__ . '/../conn.php';
 
 if (isset($_GET['id'])) {
     $fish_id = intval($_GET['id']); // Ensure the ID is an integer

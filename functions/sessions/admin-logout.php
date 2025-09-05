@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:/xamp/htdocs/Capstone/functions/conn.php'; // Adjust path as needed
+include __DIR__ . '/../conn.php';
 
 if (isset($_SESSION['login_id'])) {
     $logout_time = date('Y-m-d H:i:s');

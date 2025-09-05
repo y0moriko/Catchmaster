@@ -9,18 +9,22 @@ if (!isset($_SESSION['admin_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include 'notifications/messages.php';?>
-<?php
-include 'functions/fetch-func/fetch-top-barangay.php';
-$topBarangays = getTopBarangays(5);
-?>
+    <?php include 'notifications/messages.php';?>
+    <?php
+    include 'functions/fetch-func/fetch-top-barangay.php';
+    $topBarangays = getTopBarangays(5);
+    ?>
+    <?php include 'functions/dashboard/monthly-catch.php'?>
+    <?php include 'functions/dashboard/count-species-distribution.php'?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fisheries Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css\index.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
+
+    
 </head>
 <body>
 <?php include 'header.php'; ?>
@@ -126,8 +130,6 @@ $topBarangays = getTopBarangays(5);
                         <canvas id="widgetChart5"></canvas>
                     </div>
                     <div class="chart-note">
-                        <span class="big">10,368</span>
-                        <span>/ 16,220 fish catched</span>
                     </div>
                 </div>
             </div>
@@ -168,18 +170,8 @@ $topBarangays = getTopBarangays(5);
                     <div class="chart-wrap">
                         <canvas id="percent-chart2"></canvas>
                         <div id="chartjs-tooltip">
-                            <table></table>
                         </div>
                     </div>
-                    <div class="chart-legend">
-                        <div class="legend-item">
-                            <div class="legend-dot blue"></div>
-                            <span class="legend-label">Products</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-dot red"></div>
-                            <span class="legend-label">Services</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -188,11 +180,12 @@ $topBarangays = getTopBarangays(5);
 </div>
 
 
-<!-- Scripts -->
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+
 
 <script>
 function capitalizeInput(input) {
@@ -252,18 +245,20 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Initialize charts when page loads
+const fishCatchData = <?php echo json_encode(array_values($monthlyCatch)); ?>;
+const monthlyTotal = <?php echo $monthlyTotal; ?>;
+const yearlyTotal = <?php echo $yearlyTotal; ?>;
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Sample chart for fish catch overview
     const ctx1 = document.getElementById('widgetChart5');
     if (ctx1) {
         new Chart(ctx1, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
                 datasets: [{
                     label: 'Fish Catch (kg)',
-                    data: [1200, 1900, 1500, 2200, 2800, 2100],
+                    data: fishCatchData,
                     borderColor: '#4f46e5',
                     backgroundColor: 'rgba(79, 70, 229, 0.1)',
                     borderWidth: 3,
@@ -274,38 +269,40 @@ document.addEventListener('DOMContentLoaded', function() {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: '#e2e8f0'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: '#e2e8f0'
-                        }
-                    }
+                    y: { beginAtZero: true, grid: { color: '#e2e8f0' } },
+                    x: { grid: { color: '#e2e8f0' } }
                 }
             }
         });
     }
 
-    // Sample percentage chart
+    // Update chart note dynamically
+    const chartNote = ctx1.closest('.chart-content').querySelector('.chart-note');
+    if(chartNote){
+        chartNote.innerHTML = `<span class="big">${monthlyTotal.toLocaleString()}</span>
+                               <span>/ ${yearlyTotal.toLocaleString()} fish catched</span>`;
+    }
+    });
+
+    //Pie Chart
+    const speciesLabels = <?php echo json_encode(array_column($speciesData, 'species')); ?>;
+    const speciesValues = <?php echo json_encode(array_column($speciesData, 'total')); ?>;
+
+    document.addEventListener('DOMContentLoaded', function() {
     const ctx2 = document.getElementById('percent-chart2');
     if (ctx2) {
         new Chart(ctx2, {
             type: 'doughnut',
             data: {
-                labels: ['Products', 'Services'],
+                labels: speciesLabels,
                 datasets: [{
-                    data: [65, 35],
-                    backgroundColor: ['#3b82f6', '#ef4444'],
+                    data: speciesValues,
+                    backgroundColor: [
+                        '#3b82f6', '#ef4444', '#22c55e', '#facc15',
+                        '#a855f7', '#06b6d4', '#f97316', '#94a3b8'
+                    ], // add more colors if you expect many species
                     borderWidth: 0
                 }]
             },
@@ -314,14 +311,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        position: 'bottom',
+                        labels: {
+                            color: '#374151',
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let value = context.raw;
+                                let percentage = ((value / total) * 100).toFixed(1);
+                                return `${context.label}: ${value} kg (${percentage}%)`;
+                            }
+                        }
                     }
                 },
-                cutout: '70%'
+                cutout: '65%'
             }
         });
     }
 });
+
 </script>
 
 

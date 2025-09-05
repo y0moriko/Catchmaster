@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+include __DIR__ . '/../conn.php';
 
 function getTopBarangays($limit = 5) {
     global $conn; // Use the existing DB connection

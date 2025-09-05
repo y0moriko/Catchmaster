@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+include __DIR__ . '/../conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $img_tmp = $_FILES['image']['tmp_name'];
         $img_name = basename($_FILES['image']['name']);
         $img_name = preg_replace("/[^a-zA-Z0-9.\-_]/", "", $img_name);
-        $upload_dir = "uploads/fish_images/";
+        $upload_dir = "../../uploads/fish_images/";
         
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
         
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_bind_param($stmt, "sssssss", $fname, $lname, $sname, $family, $habitat, $description, $image_path);
 
     if (mysqli_stmt_execute($stmt)) {
-        $_SESSION['success'] = "Fish added successfully!";
+            
         header("Location: ../../fish_direct.php");
         exit();
     } else {

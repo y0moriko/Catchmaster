@@ -294,44 +294,6 @@
             color: white;
         }
 
-        /* Modal Improvements */
-        .modal-backdrop.show {
-            background-color: rgba(0, 0, 0, 0.3) !important;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: saturate(180%) blur(15px);
-            -webkit-backdrop-filter: saturate(180%) blur(15px);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .modal-header {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 24px;
-        }
-
-        .modal-title {
-            font-weight: 700;
-            color: var(--dark-color);
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-body {
-            padding: 24px;
-        }
-
-        .modal-footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 24px;
-        }
 
         .form-group label {
             font-weight: 600;
@@ -434,3 +396,129 @@
                 max-width: 200px;
             }
         }
+/* Add Fish Species Modal */
+.add-fish-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    overflow-y: auto;
+    padding: 50px 20px;
+}
+.add-fish-modal.show {
+    display: block; /* show modal when "show" class is added */
+}
+
+.add-fish-modal-content {
+    background: #fff;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+    padding: 25px 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: addFishFadeIn 0.3s ease-out;
+}
+
+@keyframes addFishFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.add-fish-modal h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-fish-modal label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.add-fish-modal input[type="text"],
+.add-fish-modal select,
+.add-fish-modal textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #111827;
+}
+
+.add-fish-modal textarea {
+    resize: vertical;
+}
+
+.add-fish-modal input[type="file"] {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+#imagePreview {
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+}
+
+.add-fish-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.add-fish-close-btn:hover {
+    color: #111827;
+}
+
+.add-fish-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.add-fish-btn-primary {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.add-fish-btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.add-fish-btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.add-fish-btn-secondary:hover {
+    background-color: #d1d5db;
+}

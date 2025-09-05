@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+include __DIR__ . '/../conn.php';
 
 function deleteFisherman($fisherman_id) {
     global $conn;

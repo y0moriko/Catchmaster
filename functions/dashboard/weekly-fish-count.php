@@ -1,5 +1,5 @@
 <?php
-include 'D:/xamp/htdocs/Capstone/functions/conn.php'; // Adjust the path if needed
+include __DIR__ . '/../conn.php';
 
 // SQL to get total quantity caught for the current week
 $sql = "

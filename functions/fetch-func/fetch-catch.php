@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -13,7 +13,8 @@ $sql = "
         f.fish_name,
         fc.quantity_kg,
         fc.location,
-        fc.catch_date
+        fc.catch_date,
+        fc.status
     FROM
         fishcatch fc
     JOIN
@@ -21,33 +22,42 @@ $sql = "
     ORDER BY
         fc.catch_date DESC";
 
-
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
     while ($catch = mysqli_fetch_assoc($result)) {
-        echo '<tr class="tr-shadow">
-            <td>
-                <label class="au-checkbox">
-                    <input type="checkbox">
-                    <span class="au-checkmark"></span>
-                </label>
-            </td>
-            <td>' . htmlspecialchars($catch['fish_name']) . '</td>
-            <td>' . htmlspecialchars($catch['quantity_kg']) . ' kg</td>
+        $status = htmlspecialchars($catch['status']);
+        $statusClass = strtolower($catch['status']); // e.g., 'fresh' or 'processed'
+        echo '<tr>
+            <td><input type="checkbox"></td>
+            <td><strong>' . htmlspecialchars($catch['fish_name']) . '</strong></td>
+            <td>' . htmlspecialchars($catch['quantity_kg']) . '</td>
             <td>' . htmlspecialchars($catch['location']) . '</td>
-            <td>' . htmlspecialchars($catch['catch_date']) . '</td>
+            <td>' . date("M d, Y - h:i A", strtotime($catch['catch_date'])) . '</td>
             <td>
-                <div class="table-data-feature">
-                    <a href="functions/delete-func/delete-catch.php?id=' . $catch['catch_id'] . '" class="item" data-toggle="tooltip" title="Delete" onclick="return confirm(\'Are you sure you want to delete this catch?\');">
-                        <i class="zmdi zmdi-delete"></i>
-                    </a>
+                <span class="status-badge status-' . $statusClass . '">' . $status . '</span>';
+        
+        // Show process button only if status is Fresh
+        if ($catch['status'] === 'Fresh') {
+            echo ' <button class="action-btn btn-process" title="Mark as Processed" onclick="markProcessed(' . $catch['catch_id'] . ')">
+                    <i class="fas fa-check"></i>
+                </button>';
+        }
+        echo '</td>
+            <td>
+                <div class="action-btns">
+                    <button class="action-btn btn-edit" title="Edit" onclick="editCatch(' . $catch['catch_id'] . ')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn btn-delete" title="Delete" onclick="showDeleteModal(\'functions/delete-func/delete-catch.php?id=' . $catch['catch_id'] . '\')">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             </td>
         </tr>';
     }
 } else {
-    echo '<tr><td colspan="5">No fish catch records found.</td></tr>'; // Adjusted colspan to 5
+    echo '<tr><td colspan="7">No fish catch records found.</td></tr>';
 }
 
 mysqli_close($conn);

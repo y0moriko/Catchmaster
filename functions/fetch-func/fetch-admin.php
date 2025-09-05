@@ -1,5 +1,5 @@
 <?php
-include 'D:/xamp/htdocs/Capstone/functions/conn.php';
+include __DIR__ . '/../conn.php';
 
 // Make sure the admin is logged in
 if (!isset($_SESSION['admin_id'])) {

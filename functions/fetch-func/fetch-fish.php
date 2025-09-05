@@ -1,8 +1,8 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 // Fetch fish data with image column
-$sql = "SELECT fish_id, fish_name, scientific_name, fish_description, image_path FROM Fish ORDER BY fish_name ASC";
+$sql = "SELECT fish_id, fish_name, scientific_name, family, habitat, fish_description, image_path FROM Fish ORDER BY fish_name ASC";
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -25,14 +25,16 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>' . htmlspecialchars($fish['fish_name']) . '</td>
             <td>' . htmlspecialchars($fish['scientific_name']) . '</td>
             <td>' . htmlspecialchars($fish['fish_description']) . '</td>
+            <td>' . htmlspecialchars($fish['family']) . '</td>
+            <td>' . htmlspecialchars($fish['habitat']) . '</td>
             <td>
-                <div class="table-data-feature">
-                    <a href="#" class="item edit-btn" data-id=' . $fish['fish_id']. ' data-toggle="tooltip" title="Edit">
-                        <i class="zmdi zmdi-edit"></i>
-                    </a>
-                    <a href="#" class="item delete-btn" data-id=' . $fish['fish_id'] . ' data-toggle="tooltip" title="Delete">
-                        <i class="zmdi zmdi-delete"></i>
-                    </a>
+                <div class="action-btns">
+                    <button class="action-btn btn-edit" title="Edit" onclick="editFish(' . $fish['fish_id'] . ')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn btn-delete" title="Delete" onclick="confirmDelete(' . $fish['fish_id'] . ')">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             </td>
         </tr>';

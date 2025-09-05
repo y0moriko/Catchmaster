@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 if (isset($_GET['id'])) {
     $catch_id = intval($_GET['id']); // Ensure the ID is an integer

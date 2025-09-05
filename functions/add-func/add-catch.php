@@ -1,6 +1,6 @@
 <?php
-// session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+session_start();
+include __DIR__ . '/../conn.php';
 
 // Debug: Check connection
 if (!$conn) {

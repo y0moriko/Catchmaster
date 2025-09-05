@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 // Query to get the fish with the highest total catch
 $sql = "

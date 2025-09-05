@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 // Query to count head fishermen
 $sql = "SELECT COUNT(*) as count FROM account WHERE account_type = 'user'"; // Adjust the condition based on your database schema

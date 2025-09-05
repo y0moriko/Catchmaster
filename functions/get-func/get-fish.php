@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 // Function to fetch fish species
 function fetchFishSpecies($conn) {
     $species = [];

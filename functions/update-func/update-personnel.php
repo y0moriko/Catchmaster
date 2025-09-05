@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../functions/conn.php';
+include __DIR__ . '/../conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin_id = $_POST['admin_id'];

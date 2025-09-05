@@ -123,11 +123,11 @@
                         <i class="fas fa-heart"></i>
                         <span>Preferences</span>
                     </a>
-                    <a href="#" class="simple-dropdown-item">
+                    <a href="settings.php" class="simple-dropdown-item">
                         <i class="fas fa-question-circle"></i>
                         <span>Help & Support</span>
                     </a>
-                    <a href="#" data-toggle="modal" data-target="#logoutModal" class="simple-dropdown-item">
+                    <a href="#" class="simple-dropdown-item" id="logoutTrigger">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
@@ -137,30 +137,32 @@
     </div>
 </header>
 
+<!-- Modal -->
+    <div class="logout-modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="logout-modal-dialog logout-modal-dialog-centered" role="document">
+        <div class="logout-modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="logoutModalLabel">
+            <i class="fas fa-sign-out-alt mr-2"></i>Confirm Logout
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to logout? You will need to login again to access your account.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a href="functions/sessions/admin-logout.php" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt mr-1"></i>Yes, Logout
+            </a>
+        </div>
+        </div>
+    </div>
+    </div>
+
 <script>
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('modal-content');
-        Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
-function showModal() {
-    $('#logoutModal').modal({
-        backdrop: 'static',
-        keyboard: false
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     // Dropdown functionality
     const dropdownTriggers = document.querySelectorAll('[data-dropdown]');
@@ -215,28 +217,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+    // Logout modal custom toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutTrigger = document.getElementById('logoutTrigger');
+    const logoutModal = document.getElementById('logoutModal');
+
+    if (logoutTrigger && logoutModal) {
+        const closeBtns = logoutModal.querySelectorAll('[data-dismiss="modal"], .close');
+
+        logoutTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+            logoutModal.style.display = 'block';
+            document.body.classList.add('modal-open');
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                logoutModal.classList.remove('show');
+                logoutModal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            });
+        });
+    }
+});
+
 </script>
-<!-- Logout Modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="logoutModalLabel">
-                    <i class="fas fa-sign-out-alt me-2"></i>Confirm Logout
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to logout? You will need to login again to access your account.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a href="functions/sessions/admin-logout.php" class="btn btn-danger">
-                    <i class="fas fa-sign-out-alt me-1"></i>Yes, Logout
-                </a>
-            </div>
-        </div>
-    </div>
-</div>

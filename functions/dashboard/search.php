@@ -1,5 +1,5 @@
 <?php
-include 'conn.php';
+include __DIR__ . '/../conn.php';
 
 $q = $_GET['q'] ?? '';
 $q = "%$q%";

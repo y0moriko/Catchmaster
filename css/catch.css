@@ -129,17 +129,18 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, var(--success-color), #059669);
-            color: white;
+            padding: 10px 16px;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            margin-left:auto !important;
         }
 
         .add-catch-btn:hover {
@@ -407,4 +408,18 @@
             .modern-table td {
                 padding: 12px 16px;
             }
+        }
+
+        .btn-process {
+            background-color: #17a2b8; /* blue-ish */
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 0.9em;
+        }
+        .btn-process:hover {
+            background-color: #138496;
         }

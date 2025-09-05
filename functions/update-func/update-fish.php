@@ -1,5 +1,5 @@
 <?php
-include '../conn.php';
+include __DIR__ . '/../conn.php';
 
 if (isset($_POST['update_fish'])) {
     $id = $_POST['fish_id'];
@@ -10,7 +10,7 @@ if (isset($_POST['update_fish'])) {
     // Check if new image is uploaded
     if ($_FILES['new_image']['name']) {
         $imgName = basename($_FILES['new_image']['name']);
-        $targetDir = "../../uploads/fish/";
+        $targetDir = "../../uploads/fish_images/";
         $targetPath = $targetDir . $imgName;
         move_uploaded_file($_FILES['new_image']['tmp_name'], $targetPath);
 

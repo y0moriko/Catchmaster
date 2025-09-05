@@ -1,5 +1,5 @@
 <?php
-include 'D:\xamp\htdocs\Capstone\functions\conn.php'; // Adjust path if needed
+include __DIR__ . '/../conn.php';
 
 // Query to sum total quantity from fishcatch
 $sql = "SELECT SUM(quantity_kg) as total_quantity FROM fishcatch"; // Adjust the condition based on your requirements

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'D:\xamp\htdocs\Capstone\functions\conn.php';
+include __DIR__ . '/../conn.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -22,7 +22,7 @@ if (isset($_GET['admin_id'])) {
     if (mysqli_num_rows($result) == 0) {
         $_SESSION['error'] = "Admin ID does not exist.";
         error_log("Admin ID does not exist: " . $admin_id);
-        header("Location: ../../admin_list.php");
+        header("Location: ../../profile-test.php");
         exit();
     }
     mysqli_stmt_close($check_stmt);
