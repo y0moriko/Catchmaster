@@ -1,20 +1,25 @@
 <?php
-session_start();
 include __DIR__ . '/../conn.php';
 
-if(isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+$id = intval($_GET['id']);
 
-    $sql = "SELECT fc.catch_id, fc.fish_id, f.fish_name, fc.quantity_kg, fc.location, fc.catch_date
-            FROM fishcatch fc
-            JOIN fish f ON fc.fish_id = f.fish_id
-            WHERE fc.catch_id = $id";
-    $result = mysqli_query($conn, $sql);
+// Get the catch
+$sql = "SELECT * FROM fishcatch WHERE catch_id=$id LIMIT 1";
+$result = mysqli_query($conn, $sql);
+$catch = mysqli_fetch_assoc($result);
 
-    if($result && mysqli_num_rows($result) > 0) {
-        echo json_encode(mysqli_fetch_assoc($result));
-    } else {
-        echo json_encode([]);
-    }
+// Get all fish options
+$fishResult = mysqli_query($conn, "SELECT fish_id, fish_name FROM fish ORDER BY fish_name ASC");
+$fishOptions = [];
+while ($f = mysqli_fetch_assoc($fishResult)) {
+    $fishOptions[] = $f;
 }
+
+// Format catch_date for datetime-local input
+$catch['catch_date_local'] = date('Y-m-d\TH:i', strtotime($catch['catch_date']));
+
+// Return JSON
+echo json_encode(['catch_id'=>$catch['catch_id'], 'fish_id'=>$catch['fish_id'], 'quantity_kg'=>$catch['quantity_kg'], 'location'=>$catch['location'], 'catch_date_local'=>$catch['catch_date_local'], 'status'=>$catch['status'], 'fishOptions'=>$fishOptions]);
+
+mysqli_close($conn);
 ?>

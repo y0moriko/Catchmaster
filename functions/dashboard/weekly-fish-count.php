@@ -24,3 +24,4 @@ mysqli_close($conn);
 // Output the result (for use in dashboard)
 echo $totalCaught;
 ?>
+    

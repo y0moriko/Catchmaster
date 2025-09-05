@@ -31,8 +31,3 @@ $monthlyTotal = $monthlyCatch[$currentMonth];
 // Total fish caught this year
 $yearlyTotal = array_sum($monthlyCatch);
 ?>
-
-$sqlYear = "SELECT SUM(quantity_kg) AS yearly_total FROM fishcatch WHERE YEAR(catch_date) = YEAR(CURDATE())";
-$resultYear = mysqli_query($conn, $sqlYear);
-$yearlyTotal = mysqli_fetch_assoc($resultYear)['yearly_total'] ?? 0;
-?>

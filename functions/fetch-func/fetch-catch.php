@@ -5,7 +5,6 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Fetch fish catch data
 $sql = "
     SELECT
         fc.catch_id,
@@ -37,7 +36,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td>
                 <span class="status-badge status-' . $statusClass . '">' . $status . '</span>';
         
-        // Show process button only if status is Fresh
         if ($catch['status'] === 'Fresh') {
             echo ' <button class="action-btn btn-process" title="Mark as Processed" onclick="markProcessed(' . $catch['catch_id'] . ')">
                     <i class="fas fa-check"></i>

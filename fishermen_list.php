@@ -100,187 +100,223 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
     </div>
 
-<!-- Add Fisherman Modal -->
-<div id="add-fisherman-modal" class="custom-modal">
-    <div class="custom-modal-content">
-        <span class="close" onclick="closeModal('add-fisherman-modal')">&times;</span>
-        <h3 class="modal-title"><i class="fas fa-user-plus"></i> Add Fisherman</h3>
-        <form action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Profile Image -->
-                    <div class="col-md-4 text-center">
-                        <label for="image" class="form-label">Profile Image</label>
-                        <input type="file" class="form-control mb-2" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-                        <small class="text-muted d-block mb-2">Optional</small>
-                        <img id="preview" src="#" alt="Image Preview" class="image-preview" style="display:none;">
-                    </div>
-
-                    <!-- Fisherman Details -->
-                    <div class="col-md-8">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="First Name">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="middleName" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="middleName" name="middle_name" placeholder="Middle Name">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Last Name">
-                            </div>
+    <!-- Add Fisherman Modal -->
+    <div id="add-fisherman-modal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close" onclick="closeModal('add-fisherman-modal')">&times;</span>
+            <h3 class="modal-title"><i class="fas fa-user-plus"></i> Add Fisherman</h3>
+            <form action="functions/add-func/add-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Profile Image -->
+                        <div class="col-md-4 text-center">
+                            <label for="image" class="form-label">Profile Image</label>
+                            <input type="file" class="form-control mb-2" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                            <small class="text-muted d-block mb-2">Optional</small>
+                            <img id="preview" src="#" alt="Image Preview" class="image-preview" style="display:none;">
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="contact" class="form-label">Contact Number <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" required placeholder="09XXXXXXXXX">
+                        <!-- Fisherman Details -->
+                        <div class="col-md-8">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="First Name">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="middleName" class="form-label">Middle Name</label>
+                                    <input type="text" class="form-control" id="middleName" name="middle_name" placeholder="Middle Name">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Last Name">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com">
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="birthday" class="form-label">Birthday <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="birthday" name="birthday" required>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="contact" class="form-label">Contact Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="contact" name="contact" pattern="[0-9]{11}" required placeholder="09XXXXXXXXX">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="address" class="form-label">Barangay <span class="text-danger">*</span></label>
-                                <select class="form-control" id="address" name="address" required>
-                                    <option value="" disabled selected>Select location</option>
-                                    <option value="Binagbag">Binagbag</option>
-                                    <option value="Kanlurang Calutan">Kanlurang Calutan</option>
-                                    <option value="Silangang Calutan">Silangang Calutan</option>
-                                    <option value="Salvacion">Salvacion</option>
-                                    <option value="Sildora">Sildora</option>
-                                </select>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="birthday" class="form-label">Birthday <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address" class="form-label">Barangay <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="address" name="address" required>
+                                        <option value="" disabled selected>Select location</option>
+                                        <option value="Binagbag">Binagbag</option>
+                                        <option value="Kanlurang Calutan">Kanlurang Calutan</option>
+                                        <option value="Silangang Calutan">Silangang Calutan</option>
+                                        <option value="Salvacion">Salvacion</option>
+                                        <option value="Sildora">Sildora</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" onclick="resetPreview()">Clear</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Fisherman</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Fisherman Modal -->
+    <div id="edit-fisherman-modal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close" onclick="closeModal('edit-fisherman-modal')">&times;</span>
+            <h3 class="modal-title"><i class="fas fa-user-edit"></i> Edit Fisherman</h3>
+            <div id="edit-fisherman-content">
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="delete-confirm-modal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close" onclick="closeModal('delete-confirm-modal')">&times;</span>
+            <h3><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3>
+            <p>Are you sure you want to delete this fisherman's record? This action cannot be undone.</p>
             <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary" onclick="resetPreview()">Clear</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Fisherman</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('delete-confirm-modal')">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
             </div>
-        </form>
-    </div>
-</div>
-
-<!-- Edit Fisherman Modal -->
-<div id="edit-fisherman-modal" class="custom-modal">
-    <div class="custom-modal-content">
-        <span class="close" onclick="closeModal('edit-fisherman-modal')">&times;</span>
-        <div id="edit-fisherman-content">
-            <!-- Loaded dynamically via JS -->
         </div>
     </div>
-</div>
 
-<!-- Confirm Delete Modal -->
-<div id="delete-confirm-modal" class="custom-modal">
-    <div class="custom-modal-content">
-        <span class="close" onclick="closeModal('delete-confirm-modal')">&times;</span>
-        <h3><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3>
-        <p>Are you sure you want to delete this fisherman's record? This action cannot be undone.</p>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="closeModal('delete-confirm-modal')">Cancel</button>
-            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
-        </div>
-    </div>
-</div>
-
-<!-- ---------------- SCRIPT ---------------- -->
 <script>
-// Show Add Modal
-function showModal() {
-    document.getElementById('add-fisherman-modal').style.display = 'flex';
-}
+    function showModal() {
+        document.getElementById('add-fisherman-modal').style.display = 'flex';
+    }
 
-// Show modal by ID
-function showModalById(id) {
-    document.getElementById(id).style.display = 'flex';
-}
 
-// Close modal
-function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-}
+    function showModalById(id) {
+        document.getElementById(id).style.display = 'flex';
+    }
 
-// Image preview
-function previewImage(event) {
-    const preview = document.getElementById('preview');
-    const file = event.target.files[0];
-    if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = 'block';
-    } else {
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+
+    function resetPreview() {
+        const preview = document.getElementById('preview');
+        const imageInput = document.getElementById('image');
         preview.src = '#';
         preview.style.display = 'none';
+        imageInput.value = '';
     }
-}
 
-// Reset image preview
-function resetPreview() {
-    const preview = document.getElementById('preview');
-    const imageInput = document.getElementById('image');
-    preview.src = '#';
-    preview.style.display = 'none';
-    imageInput.value = '';
-}
+    function editFisherman(fishermanId) {
+        fetch(`functions/fetch-func/fetch-single-fishermen.php?id=${fishermanId}`)
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('edit-fisherman-content');
+                container.innerHTML = `
+                    <form action="functions/edit-func/edit-fishermen.php" method="post" enctype="multipart/form-data" novalidate>
+                        <input type="hidden" name="fisherman_id" value="${data.user_id}">
 
-// Edit Fisherman modal load
-function editFisherman(fishermanId) {
-    fetch(`functions/fetch-func/fetch-single-fisherman.php?id=${fishermanId}`)
-        .then(res => res.json())
-        .then(data => {
-            const container = document.getElementById('edit-fisherman-content');
-            container.innerHTML = `
-                <h3 class="modal-title"><i class="fas fa-user-edit"></i> Edit Fisherman</h3>
-                <form action="functions/edit-func/edit-fishermen.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="fisherman_id" value="${data.user_id}">
-                    <label>First Name</label>
-                    <input type="text" name="first_name" value="${data.fname}" class="form-control" required>
-                    <label>Middle Name</label>
-                    <input type="text" name="middle_name" value="${data.mname}" class="form-control">
-                    <label>Last Name</label>
-                    <input type="text" name="last_name" value="${data.lname}" class="form-control" required>
-                    <label>Phone Number</label>
-                    <input type="text" name="contact" value="${data.phone_number}" class="form-control" required>
-                    <label>Barangay</label>
-                    <select name="address" class="form-control" required>
-                        <option value="Binagbag" ${data.barangay=='Binagbag'?'selected':''}>Binagbag</option>
-                        <option value="Kanlurang Calutan" ${data.barangay=='Kanlurang Calutan'?'selected':''}>Kanlurang Calutan</option>
-                        <option value="Silangang Calutan" ${data.barangay=='Silangang Calutan'?'selected':''}>Silangang Calutan</option>
-                        <option value="Salvacion" ${data.barangay=='Salvacion'?'selected':''}>Salvacion</option>
-                        <option value="Sildora" ${data.barangay=='Sildora'?'selected':''}>Sildora</option>
-                    </select>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('edit-fisherman-modal')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Fisherman</button>
-                    </div>
-                </form>
-            `;
-            showModalById('edit-fisherman-modal');
-        })
-        .catch(err => console.error(err));
-}
+                        <div class="modal-body">
+                            <div class="row">
+                                <!-- Profile Image -->
+                                <div class="col-md-4 text-center">
+                                    <label for="editImage" class="form-label">Profile Image</label>
+                                    <input type="file" class="form-control mb-2" id="editImage" name="image" accept="image/*" onchange="previewEditImage(event)">
+                                    <small class="text-muted d-block mb-2">Optional</small>
+                                    <img id="editPreview" src="${data.image_path || 'https://via.placeholder.com/100'}" 
+                                        alt="Image Preview" class="image-preview" style="display:block; max-width:100px; margin-top:10px; border-radius:6px; border:1px solid #d1d5db;">
+                                </div>
 
-// Confirm Delete
-function confirmDelete(fishermanId) {
-    const btn = document.getElementById('confirmDeleteBtn');
-    btn.setAttribute('data-id', fishermanId);
-    showModalById('delete-confirm-modal');
-}
+                                <!-- Fisherman Details -->
+                                <div class="col-md-8">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label>First Name *</label>
+                                            <input type="text" class="form-control" name="first_name" value="${data.fname}" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Middle Name</label>
+                                            <input type="text" class="form-control" name="middle_name" value="${data.mname || ''}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Last Name *</label>
+                                            <input type="text" class="form-control" name="last_name" value="${data.lname}" required>
+                                        </div>
+                                    </div>
 
-document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-    const id = this.getAttribute('data-id');
-    window.location.href = `functions/delete-func/delete-fishermen.php?id=${id}`;
-});
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>Phone Number *</label>
+                                            <input type="text" class="form-control" name="contact" value="${data.phone_number || ''}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Barangay *</label>
+                                            <select class="form-control" name="address" required>
+                                                <option value="Binagbag" ${data.barangay=='Binagbag'?'selected':''}>Binagbag</option>
+                                                <option value="Kanlurang Calutan" ${data.barangay=='Kanlurang Calutan'?'selected':''}>Kanlurang Calutan</option>
+                                                <option value="Silangang Calutan" ${data.barangay=='Silangang Calutan'?'selected':''}>Silangang Calutan</option>
+                                                <option value="Salvacion" ${data.barangay=='Salvacion'?'selected':''}>Salvacion</option>
+                                                <option value="Sildora" ${data.barangay=='Sildora'?'selected':''}>Sildora</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal('edit-fisherman-modal')">Cancel</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Fisherman</button>
+                        </div>
+                    </form>
+                `;
+                showModalById('edit-fisherman-modal');
+            })
+            .catch(err => console.error(err));
+    }
+
+    function previewEditImage(event) {
+        const preview = document.getElementById('editPreview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+        }
+    }
+
+    // Confirm Delete
+    function confirmDelete(fishermanId) {
+        const btn = document.getElementById('confirmDeleteBtn');
+        btn.setAttribute('data-id', fishermanId);
+        showModalById('delete-confirm-modal');
+    }
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        window.location.href = `functions/delete-func/delete-fishermen.php?id=${id}`;
+    });
 </script>

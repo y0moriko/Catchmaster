@@ -296,19 +296,16 @@ include 'functions/get-func/get-fish.php'
     </div>
     </div>
 
-    <!--Edit Modal-->
-    <div id="editFishModal" class="custom-modal">
+    <!-- Edit Catch Modal -->
+    <div id="editCatchModal" class="custom-modal">
     <div class="custom-modal-content">
-        <span class="custom-close-btn" onclick="closeModal('editFishModal')">&times;</span>
-        <h3><i class="fas fa-edit"></i> Edit Fish Species</h3>
-
-        <div id="editFishContent">
-
+        <span class="custom-close-btn" onclick="closeModal('editCatchModal')">&times;</span>
+        <h3><i class="fas fa-edit"></i> Edit Fish Catch</h3>
+        <div id="editCatchContent">
         <p>Loading...</p>
         </div>
     </div>
     </div>
-
 
     <script>
         function openModal(id) {
@@ -336,47 +333,52 @@ include 'functions/get-func/get-fish.php'
         if (deleteCatchUrl) window.location.href = deleteCatchUrl;
         });
 
-        // Edit Fish modal
-        function editFish(fishId) {
-        fetch(`functions/fetch-func/fetch-single-fish.php?id=${fishId}`)
+        // Edit modal
+        function editCatch(catchId) {
+            fetch(`functions/fetch-func/fetch-single-catch.php?id=${catchId}`)
             .then(res => res.json())
-            .then(fishData => {
-            document.getElementById('editFishContent').innerHTML = `
-                <form action="functions/update-func/update-fish.php" method="post" enctype="multipart/form-data" novalidate>
-                <input type="hidden" name="fish_id" value="${fishData.fish_id}">
+            .then(catchData => {
+                document.getElementById('editCatchContent').innerHTML = `
+                    <form action="functions/update-func/update-catch.php" method="post" novalidate>
+                        <input type="hidden" name="catch_id" value="${catchData.catch_id}">
 
-                <label>Fish Name *</label>
-                <input type="text" name="fish_name" value="${fishData.fish_name}" required>
+                        <label>Fish Species *</label>
+                        <select name="fish_id" required>
+                            ${catchData.fishOptions.map(f => `
+                                <option value="${f.fish_id}" ${f.fish_id == catchData.fish_id ? 'selected' : ''}>${f.fish_name}</option>
+                            `).join('')}
+                        </select>
 
-                <label>Scientific Name</label>
-                <input type="text" name="scientific_name" value="${fishData.scientific_name || ''}">
+                        <label>Quantity (kg) *</label>
+                        <input type="number" name="quantity_kg" step="0.1" value="${catchData.quantity_kg}" required>
 
-                <label>Local Name</label>
-                <input type="text" name="local_name" value="${fishData.local_name || ''}">
+                        <label>Location *</label>
+                        <select name="location" required>
+                            <option value="Salvacion" ${catchData.location == 'Salvacion' ? 'selected' : ''}>Salvacion</option>
+                            <option value="Binagbag" ${catchData.location == 'Binagbag' ? 'selected' : ''}>Binagbag</option>
+                            <option value="Silangang Calutan" ${catchData.location == 'Silangang Calutan' ? 'selected' : ''}>Silangang Calutan</option>
+                            <option value="Kanlurang Calutan" ${catchData.location == 'Kanlurang Calutan' ? 'selected' : ''}>Kanlurang Calutan</option>
+                            <option value="Sildora" ${catchData.location == 'Sildora' ? 'selected' : ''}>Sildora</option>
+                        </select>
 
-                <label>Family *</label>
-                <input type="text" name="family" value="${fishData.family}" required>
+                        <label>Date & Time *</label>
+                        <input type="datetime-local" name="catch_date" value="${catchData.catch_date_local}" required>
 
-                <label>Habitat *</label>
-                <select name="habitat" required>
-                    <option value="Pelagic" ${fishData.habitat === 'Pelagic' ? 'selected' : ''}>Pelagic</option>
-                    <option value="Demersal" ${fishData.habitat === 'Demersal' ? 'selected' : ''}>Demersal</option>
-                    <option value="Reef-associated" ${fishData.habitat === 'Reef-associated' ? 'selected' : ''}>Reef-associated</option>
-                    <option value="Invertebrate" ${fishData.habitat === 'Invertebrate' ? 'selected' : ''}>Invertebrate</option>
-                </select>
+                        <label>Status *</label>
+                        <select name="status" required>
+                            <option value="Fresh" ${catchData.status=='Fresh'?'selected':''}>Fresh</option>
+                            <option value="Processed" ${catchData.status=='Processed'?'selected':''}>Processed</option>
+                        </select>
 
-                <label>Description *</label>
-                <textarea name="fish_description" rows="3" required>${fishData.fish_description || ''}</textarea>
-
-                <div class="custom-actions">
-                    <button type="button" class="custom-btn-secondary" onclick="closeModal('editFishModal')">Cancel</button>
-                    <button type="submit" class="custom-btn-primary">Update</button>
-                </div>
-                </form>
-            `;
-            openModal('editFishModal');
+                        <div class="custom-actions">
+                            <button type="button" class="custom-btn-secondary" onclick="closeModal('editCatchModal')">Cancel</button>
+                            <button type="submit" class="custom-btn-primary">Update Catch</button>
+                        </div>
+                    </form>
+                `;
+                openModal('editCatchModal');
             })
-            .catch(err => console.error('Error fetching fish:', err));
+            .catch(err => console.error('Error fetching catch:', err));
         }
 
         document.getElementById('globalSearch').addEventListener('input', function() {

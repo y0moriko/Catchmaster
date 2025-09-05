@@ -6,7 +6,7 @@ $statusExists = mysqli_query($conn, "SHOW COLUMNS FROM User LIKE 'status'");
 $hasStatus = mysqli_num_rows($statusExists) > 0;
 
 // Fetch fishermen data
-$sql = "SELECT user_id, fname, mname, lname, phone_number, barangay, birthday, " . ($hasStatus ? "status" : "'Active' AS status") . " FROM User ORDER BY lname ASC";
+$sql = "SELECT user_id, fname, mname, lname, phone_number, barangay, birthday, image_path, " . ($hasStatus ? "status" : "'Active' AS status") . " FROM User ORDER BY lname ASC";
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -34,10 +34,10 @@ if ($result && mysqli_num_rows($result) > 0) {
             <td><span class='status-badge {$statusClass}'>{$status}</span></td>
             <td>
                 <div class='action-btns'>
-                    <button class='action-btn btn-edit' onclick='editFisherman({$user["user_id"]})'>
+                    <button class='action-btn btn-edit' onclick='editFisherman(" . $user['user_id'] . ")'>
                         <i class='fas fa-edit'></i>
                     </button>
-                    <button class='action-btn btn-delete' onclick='confirmDelete({$user["user_id"]})'>
+                    <button class='action-btn btn-delete' onclick='confirmDelete(" . $user['user_id'] . ")'>
                         <i class='fas fa-trash'></i>
                     </button>
                 </div>

@@ -2,67 +2,55 @@
 session_start();
 include __DIR__ . '/../conn.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $admin_id = $_POST['admin_id'];
-    $fname    = $_POST['fname'];
-    $mname    = $_POST['mname'];
-    $lname    = $_POST['lname'];
-    $gmail    = $_POST['gmail'];  
-    $role     = $_POST['role'];
+if (!isset($_POST['personnel_id'])) {
+    $_SESSION['error'] = "Invalid request.";
+    header("Location: ../profile.php");
+    exit();
+}
 
-    // Handle photo upload
-    $image_path = null;
-    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-        $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-        $photoName = uniqid("admin_", true) . "." . $ext;
+$personnel_id = $_POST['personnel_id'];
+$fname = $_POST['fname'];
+$mname = $_POST['mname'];
+$lname = $_POST['lname'];
+$gmail = $_POST['gmail'];
+$phone_number = $_POST['phone_number'];
+$department_role = $_POST['department_role'];
 
-        // Path for DB
-        $image_path = "uploads/" . $photoName;
-
-        // Move uploaded file
-        move_uploaded_file($_FILES['photo']['tmp_name'], "../../" . $image_path);
-    }
-
-    // Start transaction
-    $conn->begin_transaction();
-
-    try {
-        // Update admin table
-        if ($image_path) {
-            $sql = "UPDATE admin
-                    SET fname=?, mname=?, lname=?, gmail=?, department_role=?, image_path=? 
-                    WHERE admin_id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssssi", $fname, $mname, $lname, $gmail, $role, $image_path, $admin_id);
-        } else {
-            $sql = "UPDATE admin 
-                    SET fname=?, mname=?, lname=?, gmail=?, department_role=? 
-                    WHERE admin_id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssi", $fname, $mname, $lname, $gmail, $role, $admin_id);
-        }
-        $stmt->execute();
-
-        // Update account table (username = new gmail)
-        $sqlAcc = "UPDATE account 
-                   SET username=? 
-                   WHERE username=(SELECT gmail FROM admin WHERE admin_id=?)";
-        $stmtAcc = $conn->prepare($sqlAcc);
-        $stmtAcc->bind_param("si", $gmail, $admin_id);
-        $stmtAcc->execute();
-
-        // Commit
-        $conn->commit();
-
-        $_SESSION['success'] = "Admin profile updated successfully!";
-        header("Location: ../../profile-test.php");
-        exit();
-    } catch (Exception $e) {
-        $conn->rollback();
-        $_SESSION['error'] = "Error updating profile: " . $e->getMessage();
-        header("Location: ../../profile-test.php");
-        exit();
+// Handle image upload if provided
+$image_path = null;
+if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = __DIR__ . '/../../assets/personnel/';
+    if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+    
+    $filename = time() . '_' . basename($_FILES['photo']['name']);
+    $targetFile = $uploadDir . $filename;
+    if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
+        $image_path = 'assets/personnel/' . $filename;
     }
 }
-?>
-    
+
+// Update personnel record
+$sql = "UPDATE admin SET fname=?, mname=?, lname=?, gmail=?, phone_number=?, department_role=?";
+$params = [$fname, $mname, $lname, $gmail, $phone_number, $department_role];
+$types = "ssssss";
+
+if ($image_path) {
+    $sql .= ", image_path=?";
+    $types .= "s";
+    $params[] = $image_path;
+}
+
+$sql .= " WHERE admin_id=?";
+$types .= "i";
+$params[] = $personnel_id;
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param($types, ...$params);
+if ($stmt->execute()) {
+    $_SESSION['success'] = "Personnel updated successfully.";
+} else {
+    $_SESSION['error'] = "Failed to update personnel.";
+}
+
+header("Location: ../../profile-test.php");
+exit();
