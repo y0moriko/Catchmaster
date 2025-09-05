@@ -189,14 +189,14 @@ strong {
 .title-4 {
     font-weight: 500;
     font-size: 30px;
-    color: #0067A5;
+    color: #FFFFFF;
 }
 
 .title-5 {
     text-transform: capitalize;
     font-size: 22px;
     font-weight: 500;
-    color: #000;
+    color: #FFFFFF;
 }
 
 .title-6 {
@@ -4866,7 +4866,7 @@ section {
 
 .au-breadcrumb__list li {
     font-size: 14px;
-    color: #999;
+    color: #000;
 }
 
 .au-breadcrumb__list .list-inline-item:not(:last-child) {
@@ -4874,7 +4874,7 @@ section {
 }
 
 .au-breadcrumb__list .active a {
-    color: #999;
+    color: #000;
 }
 
 .au-breadcrumb__list .active a:hover {
@@ -4891,15 +4891,15 @@ section {
 }
 
 .au-breadcrumb2 .au-breadcrumb__list .active a {
-    color: #808080;
+    color: #FFFFFF;
 }
 
 .au-breadcrumb2 .au-breadcrumb__list .active a:hover {
-    color: #666;
+    color: #FFFFFF;
 }
 
 .au-breadcrumb2 .au-breadcrumb__list li {
-    color: #808080;
+    color: #FFFFFF;
 }
 
 @media (max-width: 991px) {
@@ -4982,7 +4982,7 @@ section {
 
 .welcome2-greeting p {
     font-size: 14px;
-    color: #808080;
+    color: #FFFFFF;
 }
 
 /* ----- Statistic ----- */

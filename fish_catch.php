@@ -1,292 +1,396 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    $_SESSION['error'] = "Please log in first.";
+    header("Location: login.php");
+    exit();
+}
+include 'functions/get-func/get-fish.php'
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <?php include 'notifications/messages.php' ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Catches - CatchMaster</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/catch.css" rel="stylesheet">
+    <style>
+
+    .custom-modal {
+        display: none; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        overflow-y: auto;
+        padding: 50px 20px;
+    }
+    .custom-modal.show {
+        display: block;
+    }
+
+    .custom-modal-content {
+        background: #fff;
+        max-width: 600px;
+        margin: auto;
+        border-radius: 10px;
+        padding: 25px 30px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        animation: addFishFadeIn 0.3s ease-out;
+    }
+
+    @keyframes addFishFadeIn {
+        from {opacity: 0; transform: translateY(-20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    .custom-modal-content h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .custom-modal-content label {
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 15px;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    .custom-modal-content input[type="text"],
+    .custom-modal-content select,
+    .custom-modal-content textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 1rem;
+        color: #111827;
+    }
+
+    .custom-modal-content textarea {
+        resize: vertical;
+    }
+
+    .custom-modal-content input[type="file"] {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    #imagePreview {
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+    }
+
+    .custom-close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 1.5rem;
+        color: #6b7280;
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+
+    .custom-close-btn:hover {
+        color: #111827;
+    }
+
+    .custom-actions {
+        margin-top: 25px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .custom-btn-primary {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s ease;
+    }
+
+    .custom-btn-primary:hover {
+        background-color: #2563eb;
+    }
+
+    .custom-btn-secondary {
+        background-color: #e5e7eb;
+        color: #374151;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s ease;
+    }
+
+    .custom-btn-secondary:hover {
+        background-color: #d1d5db;
+    }
+
+    .custom-btn-danger {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+        </style>
+</head>
+<body>
     <?php include 'header.php'; ?>
-        <style>
-                                /* Custom backdrop with blur and translucency for visible background */
-                                .modal-backdrop.show {
-                                background-color: rgba(0, 0, 0, 0.3) !important; /* lighter black */
-                                backdrop-filter: blur(8px);
-                                -webkit-backdrop-filter: blur(8px);
-                                }
-
-                                /* Modal content with glass morphism style */
-                                .modal-content {
-                                background: rgba(255, 255, 255, 0.85);
-                                backdrop-filter: saturate(180%) blur(15px);
-                                -webkit-backdrop-filter: saturate(180%) blur(15px);
-                                border-radius: 12px;
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-                                }
-
-                                /* Ensure labels and inputs have good contrast on this background */
-                                label {
-                                font-weight: 600;
-                                color: #222;
-                                }
-
-                                .modal-header .close {
-                                color: #444;
-                                opacity: 1;
-                                font-size: 1.5rem;
-                                }
-
-                                /* Capitalize the first letter of each word in name fields */
-                                .capitalize {
-                                text-transform: capitalize;
-                                }
-                            </style>
-                            </head>
-                            <body style="background-color: lightgray; min-height: 100vh;"></body>
-                        <div class="modal fade" id="fisherModal" tabindex="-1" role="dialog" aria-labelledby="fisherModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <form class="modal-content" action="functions/add-func/add-catch.php" method="post" enctype="multipart/form-data" novalidate>
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="fisherModalLabel">Add Fish Catch</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <?php include 'functions/get-func/get-fish.php'?>
-                                    <!-- Select Fish -->
-                                    <div class="form-group">
-                                    <label for="speciesName">Select Fish <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="speciesName" name="species_name" required>
-                                        <option value="" disabled selected>Select species</option>
-                                        <?php foreach ($fishSpecies as $species): ?>
-                                            <option value="<?php echo htmlspecialchars($species); ?>"><?php echo htmlspecialchars($species); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <div class="invalid-feedback">Species name is required.</div>
-                                    </div>
-
-                                    <!-- Quantity -->
-                                    <div class="form-group">
-                                    <label for="number">Quantity in Kilogram <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="number" name="number" step="any" required>
-                                    </div>
-
-                                    <!-- Location -->
-                                    <div class="form-group">
-                                    <label for="address">Location<span class="text-danger">*</span></label>
-                                    <select class="form-control" id="address" name="address" required oninput="capitalizeInput(this)">
-                                    <option value="" disabled selected>Select an address</option>
-                                    <option value="Barangay 1">Salvacion</option>
-                                    <option value="Barangay 2">Binagbag</option>
-                                    <option value="Barangay 3">Silangang Calutan</option>
-                                    <option value="Barangay 4">Kanlurang Calutan</option>
-                                    <option value="Barangay 5">Sildora</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select an address.</div>
-                                </div>
-
-                                    <!-- Date and Time -->
-                                    <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="auto_date">Date</label>
-                                        <input type="text" id="auto_date" name="date" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="auto_time">Time</label>
-                                        <input type="text" id="auto_time" name="time" class="form-control" readonly>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="reset" class="btn btn-secondary">Clear</button>
-                                    <button type="submit" class="btn btn-primary" id="previewBtn">Save</button>
-                                </div>
-                                </form>
-                            </div>
-                            </div>
-
-                        <!-- Preview Modal -->
-                        <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirm Fish Species</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close preview">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p><strong>Select Fish:</strong> <span id="previewSpeciesName"></span></p>
-                                <p><strong>Quantity in Kilogram:</strong> <span id="previewScientificName"></span></p>
-                                <p><strong>Location:</strong> <span id="previewHabitat"></span></p>
-                                <p><strong>Date and Time:</strong> <span id="previewDescription"></span></p>
-                                <p><strong>Image:</strong><br><img id="previewImage" src="#" alt="No image uploaded" class="img-fluid" style="max-height: 200px; display: none;"></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                                <button type="submit" class="btn btn-success" form="fishForm">Confirm & Submit</button>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                                           
-            <!-- DATA TABLE-->
-              <section class="p-t-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
-                            <div class="table-data__tool">
-                                <div class="table-data__tool-left">
-                                    <div class="rs-select2--light rs-select2--md">
-                                        <select class="js-select2" name="property">
-                                            <option selected="selected">All Properties</option>
-                                            <option value="">Option 1</option>
-                                            <option value="">Option 2</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                    <div class="rs-select2--light rs-select2--sm">
-                                        <select class="js-select2" name="time">
-                                            <option selected="selected">Today</option>
-                                            <option value="">3 Days</option>
-                                            <option value="">1 Week</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                    <button class="au-btn-filter">
-                                        <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                </div>
-                                <div class="table-data__tool-right">
-                                    <button class="au-btn au-btn-icon au-btn--green au-btn--small" onclick="showModal()">
-                                        <i class="zmdi zmdi-plus"></i>Add FIsh Catch
-                                    </button>
-                                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                        <select class="js-select2" name="type">
-                                            <option selected="selected">Export</option>
-                                            <option value="">Option 1</option>
-                                            <option value="">Option 2</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table-responsive-data2">
-                                <table class="table table-data2">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </th>
-                                            <th>Select Fish</th>
-                                            <th>Quantity in Kilogram</th>
-                                            <th>Location</th>
-                                            <th>Date and Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include 'functions/fetch-func/fetch-catch.php'?>
-                                </tbody>
-                     
-                                <!-- END DATA TABLE -->
-
-                        
-                    </div>
+    
+    <div class="modern-container">
+        <!-- Breadcrumb -->
+        <div class="modern-breadcrumb">
+            <div class="breadcrumb-content">
+                <nav class="breadcrumb-nav">
+                    <span>You are here:</span>
+                    <a href="index.php">Home</a>
+                    <span>/</span>
+                    <span>Fish Catches</span>
+                </nav>
+                <div class="search-container">
+                    <input
+                        id="globalSearch"
+                        class="modern-search"
+                        type="text"
+                        placeholder="Search fish catches..."
+                    >
+                    <button class="search-btn" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Fish Catch Records</h1>
+        </div>
+
+        <!-- Table Data -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3 class="table-title">Recent Fish Catches</h3>
+                <div class="table-filters">
+                    <select class="filter-select">
+                        <option>All Locations</option>
+                        <option>Salvacion</option>
+                        <option>Binagbag</option>
+                        <option>Silangang Calutan</option>
+                        <option>Kanlurang Calutan</option>
+                        <option>Sildora</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Time</option>
+                        <option>Today</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                    </select>
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        Apply Filters
+                    </button>
+                    <button class="add-catch-btn" onclick="showAddFishModal()">
+                        <i class="fas fa-plus"></i> Add Fish Catch
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" style="transform: scale(1.2);"></th>
+                            <th>Fish Species</th>
+                            <th>Quantity (kg)</th>
+                            <th>Location</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php include 'functions/fetch-func/fetch-catch.php' ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+    <!--Delete Confirmation-->
+    <div id="confirmDeleteModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('confirmDeleteModal')">&times;</span>
+        <h3><i class="fas fa-exclamation-triangle" style="color:red;"></i> Confirm Deletion</h3>
+
+        <p>Are you sure you want to delete <strong id="deleteFishName"></strong>? This action cannot be undone.</p>
+
+        <div class="custom-actions">
+        <button type="button" class="custom-btn-secondary" onclick="closeModal('confirmDeleteModal')">Cancel</button>
+        <button type="button" class="custom-btn-danger" id="confirmDeleteBtn">
+            <i class="fas fa-trash"></i> Yes, Delete
+        </button>
+        </div>
+    </div>
+    </div>
+
+    <!--Add Modal-->
+    <div id="addFishModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('addFishModal')">&times;</span>
+        <h3><i class="fas fa-fish"></i> Add Fish Species</h3>
+
+        <form action="functions/add-func/add-fish.php" method="post" enctype="multipart/form-data" novalidate>
+        <label>Fish Name *</label>
+        <input type="text" name="fish_name" required>
+
+        <label>Scientific Name</label>
+        <input type="text" name="scientific_name">
+
+        <label>Local Name</label>
+        <input type="text" name="local_name">
+
+        <label>Family *</label>
+        <input type="text" name="family" required>
+
+        <label>Habitat *</label>
+        <select name="habitat" required>
+            <option value="">Select Habitat</option>
+            <option value="Pelagic">Pelagic</option>
+            <option value="Demersal">Demersal</option>
+            <option value="Reef-associated">Reef-associated</option>
+            <option value="Invertebrate">Invertebrate</option>
+        </select>
+
+        <label>Image</label>
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+        <img id="imagePreview" style="display:none; max-width:100px; margin-top:10px;">
+
+        <label>Description *</label>
+        <textarea name="fish_description" required rows="3"></textarea>
+
+        <div class="custom-actions">
+            <button type="button" class="custom-btn-secondary" onclick="closeModal('addFishModal')">Cancel</button>
+            <button type="submit" class="custom-btn-primary">Save Species</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <!-- Edit Catch Modal -->
+    <div id="editCatchModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-close-btn" onclick="closeModal('editCatchModal')">&times;</span>
+        <h3><i class="fas fa-edit"></i> Edit Fish Catch</h3>
+        <div id="editCatchContent">
+        <p>Loading...</p>
+        </div>
+    </div>
+    </div>
+
     <script>
-    function showModal() {
-        $('#fisherModal').modal({
-            backdrop: 'static', // Disable click outside
-            keyboard: false     // Disable Esc key
+        function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        }
+
+        // Add Fish modal
+        function showAddFishModal() {
+        openModal('addFishModal');
+        }
+
+        // Delete modal
+        let deleteCatchUrl = '';
+        function showDeleteModal(url, fishName) {
+        deleteCatchUrl = url;
+        document.getElementById('deleteFishName').textContent = fishName || '';
+        openModal('confirmDeleteModal');
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        if (deleteCatchUrl) window.location.href = deleteCatchUrl;
         });
-    }
 
-    function capitalizeInput(input) {
-        const words = input.value.split(' ');
-        input.value = words
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    }
-</script>
+        // Edit modal
+        function editCatch(catchId) {
+            fetch(`functions/fetch-func/fetch-single-catch.php?id=${catchId}`)
+            .then(res => res.json())
+            .then(catchData => {
+                document.getElementById('editCatchContent').innerHTML = `
+                    <form action="functions/update-func/update-catch.php" method="post" novalidate>
+                        <input type="hidden" name="catch_id" value="${catchData.catch_id}">
 
-<script>
-function fillDateTime() {
-    const now = new Date();
+                        <label>Fish Species *</label>
+                        <select name="fish_id" required>
+                            ${catchData.fishOptions.map(f => `
+                                <option value="${f.fish_id}" ${f.fish_id == catchData.fish_id ? 'selected' : ''}>${f.fish_name}</option>
+                            `).join('')}
+                        </select>
 
-    // Format date: YYYY-MM-DD
-    const date = now.toISOString().split('T')[0];
+                        <label>Quantity (kg) *</label>
+                        <input type="number" name="quantity_kg" step="0.1" value="${catchData.quantity_kg}" required>
 
-    // Format time: HH:MM AM/PM
-    const time = now.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
+                        <label>Location *</label>
+                        <select name="location" required>
+                            <option value="Salvacion" ${catchData.location == 'Salvacion' ? 'selected' : ''}>Salvacion</option>
+                            <option value="Binagbag" ${catchData.location == 'Binagbag' ? 'selected' : ''}>Binagbag</option>
+                            <option value="Silangang Calutan" ${catchData.location == 'Silangang Calutan' ? 'selected' : ''}>Silangang Calutan</option>
+                            <option value="Kanlurang Calutan" ${catchData.location == 'Kanlurang Calutan' ? 'selected' : ''}>Kanlurang Calutan</option>
+                            <option value="Sildora" ${catchData.location == 'Sildora' ? 'selected' : ''}>Sildora</option>
+                        </select>
 
-    document.getElementById('currentDate').value = date;
-    document.getElementById('currentTime').value = time;
-}
-</script>
+                        <label>Date & Time *</label>
+                        <input type="datetime-local" name="catch_date" value="${catchData.catch_date_local}" required>
 
+                        <label>Status *</label>
+                        <select name="status" required>
+                            <option value="Fresh" ${catchData.status=='Fresh'?'selected':''}>Fresh</option>
+                            <option value="Processed" ${catchData.status=='Processed'?'selected':''}>Processed</option>
+                        </select>
 
+                        <div class="custom-actions">
+                            <button type="button" class="custom-btn-secondary" onclick="closeModal('editCatchModal')">Cancel</button>
+                            <button type="submit" class="custom-btn-primary">Update Catch</button>
+                        </div>
+                    </form>
+                `;
+                openModal('editCatchModal');
+            })
+            .catch(err => console.error('Error fetching catch:', err));
+        }
 
-    
-    
-  <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
+        document.getElementById('globalSearch').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+        });
+
+        function markProcessed(catchId) {
+            if (confirm('Mark this catch as Processed?')) {
+                window.location.href = 'functions/update-func/update-status.php?id=' + catchId;
+            }
+        }
     </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
-
-    <!-- Main JS-->
-    <script src="js/main.js"></script>
-    <script>
-  let timestampFilled = false;
-
-  function setDateTimeOnce() {
-    if (timestampFilled) return;
-    const now = new Date();
-
-    // Format date as YYYY-MM-DD
-    const date = now.toISOString().split('T')[0];
-    // Format time as HH:MM:SS
-    const time = now.toTimeString().split(' ')[0];
-
-    document.getElementById('auto_date').value = date;
-    document.getElementById('auto_time').value = time;
-
-    timestampFilled = true;
-  }
-
-  // Listen for any input in the form
-  const form = document.querySelector('form');
-  form.addEventListener('input', setDateTimeOnce);
-</script>
-
-
 </body>
-
 </html>
-<!-- end document-->
